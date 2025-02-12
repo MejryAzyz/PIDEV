@@ -111,4 +111,5 @@ public class Clinique {
                 ", prix=" + prix +
                 '}';
     }
+    //
 }
