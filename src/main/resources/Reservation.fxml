@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="106.0" prefWidth="432.0" style="-fx-background-color: rgb(229,232,234); -fx-border-color: rgb(129,139,140); -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ReservationC">
+   <children>
+      <Pane fx:id="pn_paie" layoutX="-4.0" layoutY="-2.0" prefHeight="142.0" prefWidth="444.0" style="-fx-background-color: white;">
+         <children>
+            <Hyperlink layoutX="398.0" layoutY="11.0" onAction="#tores" prefHeight="18.0" prefWidth="33.0" text="back" />
+            <Label layoutX="25.0" layoutY="14.0" prefHeight="17.0" prefWidth="166.0" text="Proceed to payment">
+               <font>
+                  <Font name="Segoe UI Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="amount" layoutX="27.0" layoutY="42.0" prefHeight="17.0" prefWidth="181.0" text="Label">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="paypal" layoutX="25.0" layoutY="98.0" mnemonicParsing="false" onAction="#onRadioPayplaySelected" prefHeight="18.0" prefWidth="79.0" text="paypal" />
+            <RadioButton fx:id="virement" layoutX="134.0" layoutY="98.0" mnemonicParsing="false" onAction="#onRadioVirementSelected" prefHeight="18.0" prefWidth="88.0" text="virement" />
+            <RadioButton fx:id="espece" layoutX="244.0" layoutY="98.0" mnemonicParsing="false" onAction="#onRadioEspeceSelected" prefHeight="18.0" prefWidth="73.0" text="espèce" />
+            <Label layoutX="27.0" layoutY="69.0" prefHeight="17.0" prefWidth="181.0" text="Select payment method :" />
+            <Hyperlink layoutX="384.0" layoutY="95.0" onAction="#submitP" text="Submit" />
+         </children>
+      </Pane>
+      <Pane fx:id="pn_res" layoutX="1.0" layoutY="2.0" prefHeight="134.0" prefWidth="438.0" style="-fx-background-color: white;">
+         <children>
+            <Label fx:id="ltype" layoutX="13.0" layoutY="13.0" prefHeight="18.0" prefWidth="336.0" text="Label">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="linfo1" layoutX="15.0" layoutY="95.0" prefHeight="18.0" prefWidth="181.0" text="Label">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="linfo2" layoutX="15.0" layoutY="55.0" prefHeight="18.0" prefWidth="181.0" text="Label">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="btncancel" layoutX="378.0" layoutY="98.0" onAction="#delete" text="Cancel" />
+            <Hyperlink fx:id="btnupdate" layoutX="377.0" layoutY="67.0" onAction="#submit" text="Update" />
+            <TextField fx:id="tfinfo2" layoutX="12.0" layoutY="92.0" prefHeight="26.0" prefWidth="219.0" />
+            <DatePicker fx:id="dateinfo1" layoutX="12.0" layoutY="51.0" prefHeight="26.0" prefWidth="219.0" />
+            <DatePicker fx:id="dateinfo2" layoutX="12.0" layoutY="92.0" prefHeight="26.0" prefWidth="219.0" />
+            <Hyperlink fx:id="btnpayment" layoutX="371.0" layoutY="19.0" onAction="#topayment" text="Payment" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="106.0" prefWidth="432.0" style="-fx-background-color: rgb(229,232,234); -fx-border-color: rgb(129,139,140); -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.ReservationPaimentC">
+   <children>
+      <Pane fx:id="pn_paie" layoutX="-2.0" layoutY="-2.0" prefHeight="142.0" prefWidth="444.0" style="-fx-background-color: white;">
+         <children>
+            <Hyperlink layoutX="398.0" layoutY="11.0" onAction="#tores" prefHeight="18.0" prefWidth="33.0" text="back" />
+            <Label fx:id="reqam" layoutX="20.0" layoutY="26.0" prefHeight="23.0" prefWidth="222.0" text="Label" />
+            <Label fx:id="payments" layoutX="20.0" layoutY="79.0" prefHeight="23.0" prefWidth="222.0" text="Label" />
+         </children>
+      </Pane>
+      <Pane fx:id="pn_paie1" layoutX="-2.0" layoutY="-2.0" prefHeight="142.0" prefWidth="444.0" style="-fx-background-color: white;">
+         <children>
+            <Label layoutX="22.0" layoutY="23.0" prefHeight="17.0" prefWidth="147.0" text="Enter required amount :" />
+            <TextField fx:id="tf_amount" layoutX="21.0" layoutY="59.0" prefHeight="25.0" prefWidth="360.0" />
+            <Button layoutX="381.0" layoutY="103.0" mnemonicParsing="false" onAction="#save" text="Save" />
+         </children>
+      </Pane>
+      <Pane fx:id="pn_res" layoutX="1.0" layoutY="2.0" prefHeight="134.0" prefWidth="438.0" style="-fx-background-color: white;">
+         <children>
+            <Label fx:id="ltype" layoutX="13.0" layoutY="13.0" prefHeight="18.0" prefWidth="336.0" text="Label">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="linfo1" layoutX="15.0" layoutY="95.0" prefHeight="18.0" prefWidth="181.0" text="Label">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="linfo2" layoutX="15.0" layoutY="55.0" prefHeight="18.0" prefWidth="181.0" text="Label">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font>
+            </Label>
+            <Hyperlink fx:id="btnreject" layoutX="379.0" layoutY="100.0" onAction="#reject" text="Reject" />
+            <Hyperlink fx:id="btnpayment" layoutX="371.0" layoutY="19.0" onAction="#topayment" text="Payment" />
+            <Hyperlink fx:id="btnaccept" layoutX="377.0" layoutY="77.0" onAction="#accept" text="Accept" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
