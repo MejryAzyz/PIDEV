@@ -105,4 +105,16 @@ public class ServiceClinique implements IService<Clinique>{
         }
         throw new SQLException("Clinique non trouvée");
     }
+
+    public String getNameById(int id_clinique) throws SQLException {
+        String sql = "SELECT nom FROM specialite WHERE id_clinique = ?";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setInt(1, id_clinique);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getString("nom");
+        }
+        return "pas dipsonible";
+    }
 }

@@ -105,12 +105,10 @@ public class AfficherCliniqueController {
 
     @FXML
     private void deleteAction() {
-        // Vérifier si un élément est sélectionné
         Clinique selectedItem = table_clinique.getSelectionModel().getSelectedItem();
         ServiceClinique sc = new ServiceClinique();
 
         if (selectedItem != null) {
-            // Afficher une alerte de confirmation
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation de suppression");
             alert.setHeaderText("Suppression de la clinique");
@@ -130,7 +128,6 @@ public class AfficherCliniqueController {
                 System.out.println("Suppression annulée !");
             }
         } else {
-            // Afficher une alerte si aucun élément n'est sélectionné
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Aucune sélection");
             alert.setHeaderText("Aucune clinique sélectionnée");

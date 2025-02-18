@@ -34,17 +34,14 @@ public class AjouterSpecialiteController {
 
         try {
             service.ajouter(specialite);
-
-            // Afficher une alerte de succès
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setHeaderText(null);
             alert.setContentText("Spécialité ajoutée avec succès !");
             alert.showAndWait();
 
-            // Fermer la fenêtre après l'ajout
             Stage stage = (Stage) nomSp.getScene().getWindow();
-            stage.close(); // Fermer la fenêtre d'ajout
+            stage.close();
         } catch (Exception e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);

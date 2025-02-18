@@ -33,11 +33,8 @@ public class AfficherSpecialiteController {
     @FXML
     private TableView<Specialite> table_specialite;
     public void initialize() {
-        // Initialiser les colonnes de la TableView avec les attributs des objets Specialite
         idSpecCol.setCellValueFactory(new PropertyValueFactory<>("id_specialite"));
         nomSpecCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
-
-        // Charger et afficher les spécialités dans la TableView
         try {
             afficherSpecialites();
         } catch (SQLException e) {
@@ -45,10 +42,9 @@ public class AfficherSpecialiteController {
         }
     }
 
-    // Méthode pour récupérer et afficher les spécialités dans la TableView
     private void afficherSpecialites() throws SQLException {
         ServiceSpecialite service = new ServiceSpecialite();
-        List<Specialite> specialites = service.recuperer(); // Récupérer la liste des spécialités depuis la base de données
+        List<Specialite> specialites = service.recuperer();
         table_specialite.getItems().clear();
         table_specialite.getItems().addAll(specialites);
     }
@@ -79,7 +75,6 @@ public class AfficherSpecialiteController {
 
     @FXML
     private void supprimerSpecialite() {
-        // Vérifier si un élément est sélectionné
         Specialite selectedItem = table_specialite.getSelectionModel().getSelectedItem();
         ServiceSpecialite serviceSpecialite = new ServiceSpecialite();
 
@@ -93,10 +88,7 @@ public class AfficherSpecialiteController {
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 try {
                     serviceSpecialite.supprimer(selectedItem.getId_specialite());
-
-
                     table_specialite.getItems().remove(selectedItem);
-
 
                     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
                     successAlert.setTitle("Succès");
@@ -125,24 +117,21 @@ public class AfficherSpecialiteController {
 
         if (selectedItem != null) {
             try {
-                // Charger la fenêtre de modification
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierSpecialite.fxml"));
                 Stage stage = new Stage();
                 stage.setScene(new Scene(loader.load()));
 
-                // Passer les données de la spécialité sélectionnée au contrôleur de modification
                 ModifierSpecialiteController controller = loader.getController();
                 controller.setSpecialite(selectedItem, this);
 
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.setTitle("Modifier Spécialité");
-                stage.showAndWait();  // Attendre la fermeture de la fenêtre avant de continuer
+                stage.showAndWait();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            // Afficher une alerte si aucune spécialité n'est sélectionnée
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Aucune sélection");
             alert.setHeaderText("Aucune spécialité sélectionnée");

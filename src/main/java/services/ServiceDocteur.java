@@ -44,13 +44,16 @@ public class ServiceDocteur implements IService<Docteur> {
 
     @Override
     public void modifier(Docteur docteur) throws SQLException {
-        String sql = "UPDATE docteur SET nom = ? ,prenom=? , email = ? , telephone = ?  WHERE id_docteur = ?";
+        String sql = "UPDATE docteur SET nom = ? ,prenom=? , email = ? , telephone = ? ,id_specialite = ? , id_clinique = ? WHERE id_docteur = ?";
         PreparedStatement ste = cnx.prepareStatement(sql);
         ste.setString(1, docteur.getNom());
         ste.setString(2,docteur.getPrenom());
         ste.setString(3, docteur.getEmail());
         ste.setString( 4, docteur.getTelephone());
-        ste.setInt(5, docteur.getId_docteur());
+        ste.setInt(5, docteur.getId_specialite());
+        ste.setInt(6, docteur.getId_clinique());
+        ste.setInt(7, docteur.getId_docteur());
+
         ste.executeUpdate();
         System.out.println("Docteur modifié");
 

@@ -6,22 +6,28 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterCliniqueController">
+<AnchorPane prefHeight="450.0" prefWidth="686.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterCliniqueController">
    <children>
-      <Text layoutX="50.0" layoutY="90.0" text="Nom:" />
-      <Text layoutX="40.0" layoutY="140.0" text="Description:" />
-      <Text layoutX="40.0" layoutY="190.0" text="Adresse:" />
-      <Text layoutX="320.0" layoutY="140.0" text="Email:" />
-      <Text layoutX="320.0" layoutY="90.0" text="Téléphone:" />
-      <Text layoutX="320.0" layoutY="190.0" text="Prix:" />
+      <Text layoutX="50.0" layoutY="174.0" text="Nom:" />
+      <Text layoutX="33.0" layoutY="256.0" text="Description:" />
+      <Text layoutX="42.0" layoutY="333.0" text="Adresse:" />
+      <Text layoutX="373.0" layoutY="256.0" text="Email:" />
+      <Text layoutX="349.0" layoutY="174.0" text="Téléphone:" />
+      <Text layoutX="378.0" layoutY="333.0" text="Prix:" />
 
-      <TextField fx:id="nomTF" layoutX="120.0" layoutY="70.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
-      <TextField fx:id="descriptionTF" layoutX="120.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
-      <TextField fx:id="adresseTF" layoutX="120.0" layoutY="170.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
-      <TextField fx:id="telephoneTF" layoutX="400.0" layoutY="70.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
-      <TextField fx:id="emailTF" layoutX="400.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
-      <TextField fx:id="prixTF" layoutX="400.0" layoutY="170.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
+      <TextField fx:id="nomTF" layoutX="120.0" layoutY="157.0" prefWidth="150.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="descriptionTF" layoutX="120.0" layoutY="239.0" prefWidth="150.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="adresseTF" layoutX="120.0" layoutY="316.0" prefWidth="150.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="telephoneTF" layoutX="429.0" layoutY="157.0" prefWidth="150.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="emailTF" layoutX="429.0" layoutY="239.0" prefWidth="150.0" style="-fx-background-radius: 10;" />
+      <TextField fx:id="prixTF" layoutX="429.0" layoutY="316.0" prefWidth="150.0" style="-fx-background-radius: 10;" />
 
-      <Button layoutX="240.0" layoutY="250.0" mnemonicParsing="false" onAction="#ajouterClinique" text="Ajouter" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 5px 10px;"/>
+      <Button layoutX="580.0" layoutY="383.0" mnemonicParsing="false" onAction="#ajouterClinique" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 5px 10px;" text="➕ Ajouter" />
+      <AnchorPane layoutX="-13.0" prefHeight="53.0" prefWidth="702.0" style="-fx-background-color: #0dae6f;" />
+      <Text layoutX="266.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter clinique">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

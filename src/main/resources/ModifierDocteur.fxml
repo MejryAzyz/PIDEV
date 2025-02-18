@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="493.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierDocteurController">
+   <children>
+      <AnchorPane layoutX="-10.0" layoutY="-7.0" prefHeight="79.0" prefWidth="766.0" style="-fx-background-color: #0dae6f;" />
+      <Text layoutX="290.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Docteur ">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Text>
+      <Text layoutX="61.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="59.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom:">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="61.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="61.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Telephone:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="nomDocM" layoutX="156.0" layoutY="179.0" />
+      <TextField fx:id="prenomDocM" layoutX="156.0" layoutY="242.0" />
+      <TextField fx:id="emailDocM" layoutX="156.0" layoutY="308.0" />
+      <TextField fx:id="telDocM" layoutX="156.0" layoutY="377.0" />
+      <ComboBox fx:id="specDocM" layoutX="549.0" layoutY="179.0" prefWidth="150.0" />
+      <ComboBox fx:id="cliniqueDocM" layoutX="549.0" layoutY="251.0" prefWidth="150.0" />
+      <Text layoutX="446.0" layoutY="197.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spécialité:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="450.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clinique:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button layoutX="613.0" layoutY="430.0" mnemonicParsing="false" onAction="#modifierDocteur" prefHeight="28.0" prefWidth="94.0" style="-fx-background-color: #2980b9;" text="✏ Modifier" />
+   </children>
+</AnchorPane>

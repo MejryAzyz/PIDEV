@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Clinique;
 import services.ServiceClinique;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
@@ -51,12 +50,8 @@ public class AjouterCliniqueController {
         return phone.matches("\\d{8,15}"); // 8 à 15 chiffres
     }
 
-
-
-
     @FXML
     void ajouterClinique(ActionEvent event) {
-        // Récupération des valeurs des champs
         String nom = nomTF.getText().trim();
         String adresse = adresseTF.getText().trim();
         String telephone = telephoneTF.getText().trim();
@@ -65,26 +60,22 @@ public class AjouterCliniqueController {
         String prixStr = prixTF.getText().trim();
 
 
-        // Vérification des champs vides
         if (nom.isEmpty() || adresse.isEmpty() || telephone.isEmpty() || email.isEmpty() || description.isEmpty() || prixStr.isEmpty()) {
             showAlert(Alert.AlertType.WARNING, "Champs manquants", "Veuillez remplir tous les champs !");
             return;
         }
 
-        // Vérification du format de l'email
         if (!isValidEmail(email)) {
             showAlert(Alert.AlertType.ERROR, "Format d'email invalide", "Veuillez entrer une adresse email valide.");
             return;
         }
 
-        // Vérification du numéro de téléphone
         if (!isValidPhoneNumber(telephone)) {
             showAlert(Alert.AlertType.ERROR, "Numéro de téléphone invalide", "Le numéro de téléphone doit contenir entre 8 et 15 chiffres.");
             return;
         }
 
         try {
-            // Conversion du prix en double
             double prix = Double.parseDouble(prixStr);
             if (prix < 0) {
                 showAlert(Alert.AlertType.ERROR, "Valeur incorrecte", "Le prix doit être un nombre positif.");
@@ -95,16 +86,12 @@ public class AjouterCliniqueController {
 
             sc.ajouter(clinique);
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Clinique ajoutée avec succès !");
-
-            // Fermer la fenêtre d'ajout
             Stage stage = (Stage) nomTF.getScene().getWindow();
             stage.close();
 
             /*Parent root = loader.load();
             AfficherCliniqueController ac = loader.getController();
-            ac.rechargerTableView();  // Actualiser la TableView pour y ajouter la nouvelle clinique
-
-            // Charger l'écran d'affichage dans la scène principale
+            ac.rechargerTableView();
             nomTF.getScene().setRoot(root);*/
 
            /* try {

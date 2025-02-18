@@ -30,7 +30,7 @@
         </columns>
       </TableView>
       <Button layoutX="134.0" layoutY="418.0" mnemonicParsing="false" onAction="#ajouterDocteur" style="-fx-background-color: #27ae60;" text="➕ Ajouter" textFill="WHITE" />
-      <Button layoutX="331.0" layoutY="418.0" mnemonicParsing="false" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
-      <Button layoutX="529.0" layoutY="418.0" mnemonicParsing="false" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />
+      <Button layoutX="331.0" layoutY="418.0" mnemonicParsing="false" onAction="#modifierDocteur" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
+      <Button layoutX="529.0" layoutY="418.0" mnemonicParsing="false" onAction="#supprimerDocteur" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />
    </children>
 </AnchorPane>

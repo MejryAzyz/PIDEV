@@ -89,7 +89,7 @@ public class ServiceSpecialite implements IService<Specialite> {
         if (rs.next()) {
             return rs.getString("nom");
         }
-        return "N/A"; // Si aucune spécialité n'est trouvée
+        return "N/A";
     }
 
 }
