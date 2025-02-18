@@ -1,5 +1,7 @@
 package services;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import models.Docteur;
 import tools.MyDataBase;
 
@@ -41,11 +43,14 @@ public class ServiceDocteur implements IService<Docteur> {
     }
 
     @Override
-    public void modifier(int id_docteur, String nom) throws SQLException {
-        String sql = "UPDATE docteur SET nom = ? WHERE id_docteur = ?";
+    public void modifier(Docteur docteur) throws SQLException {
+        String sql = "UPDATE docteur SET nom = ? ,prenom=? , email = ? , telephone = ?  WHERE id_docteur = ?";
         PreparedStatement ste = cnx.prepareStatement(sql);
-        ste.setString(1, nom);
-        ste.setInt(2, id_docteur);
+        ste.setString(1, docteur.getNom());
+        ste.setString(2,docteur.getPrenom());
+        ste.setString(3, docteur.getEmail());
+        ste.setString( 4, docteur.getTelephone());
+        ste.setInt(5, docteur.getId_docteur());
         ste.executeUpdate();
         System.out.println("Docteur modifié");
 
@@ -61,6 +66,7 @@ public class ServiceDocteur implements IService<Docteur> {
             Docteur d = new Docteur();
             d.setId_docteur(rs.getInt("id_docteur"));
             d.setId_clinique(rs.getInt("id_clinique"));
+            d.setId_specialite(rs.getInt("id_specialite"));
             d.setNom(rs.getString("nom"));
             d.setPrenom(rs.getString("prenom"));
             d.setEmail(rs.getString("email"));
@@ -68,5 +74,27 @@ public class ServiceDocteur implements IService<Docteur> {
             docteurs.add(d);
         }
         return docteurs;
+    }
+
+
+    public List<Docteur> recupererParClinique(int id_clinique) throws SQLException {
+        String sql = "SELECT * FROM docteur WHERE id_clinique = ?";
+        try (PreparedStatement st = cnx.prepareStatement(sql)) {
+            st.setInt(1, id_clinique);
+            ResultSet rs = st.executeQuery();
+            List<Docteur> docteurs = new ArrayList<>();
+            while (rs.next()) {
+                Docteur d = new Docteur();
+                d.setId_docteur(rs.getInt("id_docteur"));
+                d.setId_clinique(rs.getInt("id_clinique"));
+                d.setId_specialite(rs.getInt("id_specialite"));
+                d.setNom(rs.getString("nom"));
+                d.setPrenom(rs.getString("prenom"));
+                d.setEmail(rs.getString("email"));
+                d.setTelephone(rs.getString("telephone"));
+                docteurs.add(d);
+            }
+            return docteurs;
+        }
     }
 }

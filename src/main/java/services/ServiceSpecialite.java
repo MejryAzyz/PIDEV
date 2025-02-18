@@ -33,11 +33,11 @@ public class ServiceSpecialite implements IService<Specialite> {
     }
 
     @Override
-    public void modifier(int id_specialite, String nom) throws SQLException {
+    public void modifier(Specialite specialite) throws SQLException {
         String sql = "UPDATE specialite SET nom = ? WHERE id_specialite = ?";
         PreparedStatement ps = cnx.prepareStatement(sql);
-        ps.setString(1, nom);
-        ps.setInt(2, id_specialite);
+        ps.setString(1, specialite.getNom());
+        ps.setInt(2, specialite.getId_specialite());
         ps.executeUpdate();
         System.out.println("Spécialité modifiée");
 
@@ -57,4 +57,39 @@ public class ServiceSpecialite implements IService<Specialite> {
         }
         return specialites;
     }
+
+    public List<String> getAllSpecialiteNames() throws SQLException {
+        List<String> specialites = new ArrayList<>();
+        String sql = "SELECT nom FROM specialite";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            specialites.add(rs.getString("nom"));
+        }
+        return specialites;
+    }
+
+    public int getIdByName(String nom) throws SQLException {
+        String sql = "SELECT id_specialite FROM specialite WHERE nom = ?";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setString(1, nom);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("id_specialite");
+        }
+        throw new SQLException("Spécialité non trouvée");
+    }
+
+    public String getNameById(int id_specialite) throws SQLException {
+        String sql = "SELECT nom FROM specialite WHERE id_specialite = ?";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setInt(1, id_specialite);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getString("nom");
+        }
+        return "N/A"; // Si aucune spécialité n'est trouvée
+    }
+
 }

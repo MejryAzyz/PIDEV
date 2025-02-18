@@ -19,7 +19,14 @@ public class Clinique {
 
     }
 
-
+    public Clinique(String nom, String adresse, String telephone, String email, String description, double prix) {
+        this.nom = nom;
+        this.adresse = adresse;
+        this.telephone = telephone;
+        this.email = email;
+        this.description = description;
+        this.prix = prix;
+    }
 
     public Clinique(int idClinique, int rate, String nom, String adresse, String telephone, String email, String description, double prix) {
         this.idClinique = idClinique;

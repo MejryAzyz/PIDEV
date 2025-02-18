@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="477.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherDocteurController">
+   <children>
+      <AnchorPane layoutX="-3.0" prefHeight="95.0" prefWidth="738.0" style="-fx-background-color: #0dae6f;">
+         <children>
+            <Text fill="WHITE" layoutX="260.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des docteurs" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="table_docteur" layoutY="94.0" prefHeight="296.0" prefWidth="735.0">
+        <columns>
+          <TableColumn fx:id="idDocCol" prefWidth="75.0" text="ID" />
+          <TableColumn fx:id="nomDocCol" prefWidth="109.5999984741211" text="Nom" />
+            <TableColumn fx:id="prenomDocCol" prefWidth="116.79998779296875" text="Prenom" />
+            <TableColumn fx:id="emailDocCol" minWidth="4.0" prefWidth="117.60003662109375" text="Email" />
+            <TableColumn fx:id="telDocCol" prefWidth="129.60000610351562" text="Telephone" />
+            <TableColumn fx:id="specDocCol" prefWidth="190.39996337890625" text="Spécialité" />
+        </columns>
+      </TableView>
+      <Button layoutX="134.0" layoutY="418.0" mnemonicParsing="false" onAction="#ajouterDocteur" style="-fx-background-color: #27ae60;" text="➕ Ajouter" textFill="WHITE" />
+      <Button layoutX="331.0" layoutY="418.0" mnemonicParsing="false" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
+      <Button layoutX="529.0" layoutY="418.0" mnemonicParsing="false" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />
+   </children>
+</AnchorPane>

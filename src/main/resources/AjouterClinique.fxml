@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterCliniqueController">
+   <children>
+      <Text layoutX="50.0" layoutY="90.0" text="Nom:" />
+      <Text layoutX="40.0" layoutY="140.0" text="Description:" />
+      <Text layoutX="40.0" layoutY="190.0" text="Adresse:" />
+      <Text layoutX="320.0" layoutY="140.0" text="Email:" />
+      <Text layoutX="320.0" layoutY="90.0" text="Téléphone:" />
+      <Text layoutX="320.0" layoutY="190.0" text="Prix:" />
+
+      <TextField fx:id="nomTF" layoutX="120.0" layoutY="70.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
+      <TextField fx:id="descriptionTF" layoutX="120.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
+      <TextField fx:id="adresseTF" layoutX="120.0" layoutY="170.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
+      <TextField fx:id="telephoneTF" layoutX="400.0" layoutY="70.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
+      <TextField fx:id="emailTF" layoutX="400.0" layoutY="120.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
+      <TextField fx:id="prixTF" layoutX="400.0" layoutY="170.0" prefWidth="150.0" style="-fx-background-radius: 10;"/>
+
+      <Button layoutX="240.0" layoutY="250.0" mnemonicParsing="false" onAction="#ajouterClinique" text="Ajouter" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 5px 10px;"/>
+   </children>
+</AnchorPane>

@@ -48,11 +48,17 @@ public class ServiceClinique implements IService<Clinique>{
     }
 
     @Override
-    public void modifier(int id_clinique, String nom) throws SQLException {
-        String sql = "UPDATE clinique SET nom = ? WHERE id_clinique = ?";
+    public void modifier(Clinique clinique) throws SQLException {
+        String sql = "UPDATE clinique SET nom = ? , adresse = ? , telephone = ? , email = ? , rate = ? , description = ? , prix = ? WHERE id_clinique = ?";
         PreparedStatement st = cnx.prepareStatement(sql);
-        st.setString(1, nom);
-        st.setInt(2, id_clinique);
+        st.setString(1, clinique.getNom());
+        st.setString(2, clinique.getAdresse());
+        st.setString(3, clinique.getTelephone());
+        st.setString(4, clinique.getEmail());
+        st.setInt(5, clinique.getRate());
+        st.setString(6, clinique.getDescription());
+        st.setDouble(7, clinique.getPrix());
+        st.setInt(8, clinique.getIdClinique());
         st.executeUpdate();
         System.out.println("Clinique modifiée");
 
@@ -77,5 +83,26 @@ public class ServiceClinique implements IService<Clinique>{
             cliniques.add(c);
         }
         return cliniques;
+    }
+    public List<String> getAllCliniqueNames() throws SQLException {
+        List<String> cliniques = new ArrayList<>();
+        String sql = "SELECT nom FROM clinique";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            cliniques.add(rs.getString("nom"));
+        }
+        return cliniques;
+    }
+
+    public int getIdByName(String nom) throws SQLException {
+        String sql = "SELECT id_clinique FROM clinique WHERE nom = ?";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setString(1, nom);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt("id_clinique");
+        }
+        throw new SQLException("Clinique non trouvée");
     }
 }
