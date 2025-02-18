@@ -69,7 +69,7 @@
          <VBox prefHeight="200.0" prefWidth="217.0" spacing="6.0">
             <children>
                <Line endX="100.0" startX="-100.0" stroke="WHITE" />
-               <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="202.0" style="-fx-background-color: #0ba84a;" text="Gestion Hebergement" textFill="WHITE">
+               <Button mnemonicParsing="false" onAction="#navHeb" prefHeight="27.0" prefWidth="202.0" style="-fx-background-color: #0ba84a;" text="Gestion Hebergement" textFill="WHITE">
                   <font>
                      <Font size="16.0" />
                   </font>

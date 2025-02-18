@@ -61,7 +61,7 @@
                         </font>
                     </Button>
                     <Line endX="100.0" startX="-100.0" stroke="WHITE" />
-                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="202.0" style="-fx-background-color: #0ba84a;" text="Gestion Transport" textFill="WHITE">
+                    <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="202.0" onAction="#navtrans" style="-fx-background-color: #0ba84a;" text="Gestion Transport" textFill="WHITE">
                         <font>
                             <Font size="16.0" />
                         </font>
