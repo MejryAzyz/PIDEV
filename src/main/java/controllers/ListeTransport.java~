@@ -1,0 +1,177 @@
+package controllers;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import service.ServiceTransport;
+import Models.Transport;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class ListeTransport implements Initializable {
+    @FXML
+    private Button btnAjouter, btnModifier, btnSupprimer, btnConfirm, btnCancel;
+
+    @FXML
+    private TableColumn<Transport, String> colId, colCapacite, colPrix, colType;
+
+    @FXML
+    private TableView<Transport> tableTransport;
+
+    @FXML
+    private VBox ajoutPanel;
+
+    @FXML
+    private ComboBox<String> comboType;
+
+    @FXML
+    private TextField txtCapacite, txtPrix;
+
+    @FXML
+    private Label panelTitle;
+
+    private ObservableList<Transport> transports = FXCollections.observableArrayList();
+    private ServiceTransport serviceTransport = new ServiceTransport();
+    private Transport selectedTransport;
+
+    @FXML
+    private void btnAjouterAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutTransport.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter Transport");
+            stage.setScene(new Scene(root));
+
+            stage.setOnHiding(events -> {
+                try {
+                    afficherTransport();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors de l'ouverture de la fenêtre d'ajout");
+        }
+    }
+    @FXML
+    private void afficherTransport() throws SQLException {
+        ServiceTransport service = new ServiceTransport();
+        List<Transport> t = service.recuperer();
+        tableTransport.getItems().clear();
+        tableTransport.getItems().addAll(t);
+    }
+
+    @FXML
+    private void btnAnnulerAjout(ActionEvent event) {
+        ajoutPanel.setVisible(false);
+        txtCapacite.clear();
+        txtPrix.clear();
+        comboType.getSelectionModel().clearSelection();
+    }
+
+
+
+    @FXML
+    private void btnModifierAction(ActionEvent event) {
+        selectedTransport = tableTransport.getSelectionModel().getSelectedItem();
+        if (selectedTransport != null) {
+            panelTitle.setText("Modifier un Transport");
+            comboType.setValue(selectedTransport.getType());
+            txtCapacite.setText(String.valueOf(selectedTransport.getCapacite()));
+            txtPrix.setText(String.valueOf(selectedTransport.getTarif()));
+
+            ajoutPanel.setVisible(true);
+            btnConfirm.setOnAction(this::btnConfirmerModification);
+        }
+    }
+
+
+    @FXML
+    private void btnConfirmerModification(ActionEvent event) {
+        try {
+            String type = comboType.getValue();
+            int capacite = Integer.parseInt(txtCapacite.getText());
+            double prix = Double.parseDouble(txtPrix.getText());
+
+            // Mise à jour du transport dans la base de données
+            serviceTransport.modifier(selectedTransport);
+
+            // Mise à jour de l'objet Transport dans la liste
+            selectedTransport.setType(type);
+            selectedTransport.setCapacite(capacite);
+            selectedTransport.setTarif(prix);
+
+            // Rafraîchissement de la TableView
+            tableTransport.refresh();
+
+            btnAnnulerAjout(null);
+        } catch (SQLException | NumberFormatException e) {
+            System.out.println("Erreur lors de la modification : " + e.getMessage());
+        }
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            transports.addAll(serviceTransport.recuperer());
+        } catch (SQLException ex) {
+            Logger.getLogger(ListeTransport.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        comboType.setItems(FXCollections.observableArrayList("Bus", "Taxi", "Train", "Avion"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id_transport"));
+        colType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
+        colPrix.setCellValueFactory(new PropertyValueFactory<>("tarif"));
+
+        tableTransport.setItems(transports);
+
+        tableTransport.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            btnModifier.setDisable(newSelection == null);
+            btnSupprimer.setDisable(newSelection == null);
+        });
+    }
+    @FXML
+    private void btnSupprimerAction(ActionEvent event) {
+        Transport selectedTransport = tableTransport.getSelectionModel().getSelectedItem();
+        if (selectedTransport != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("Supprimer le transport");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer ce transport ?");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    try {
+                        serviceTransport.supprimer(selectedTransport.getId_transport());
+                        transports.remove(selectedTransport);
+                        tableTransport.refresh();
+                    } catch (SQLException e) {
+                        System.out.println("Erreur lors de la suppression : " + e.getMessage());
+                    }
+                }
+            });
+        }
+    }
+}

@@ -100,4 +100,6 @@ public class Hebergement {
         this.capacite = capacite;
         this.tarif_nuit = tarif_nuit;
     }
+
+
 }

@@ -35,7 +35,7 @@ public ServiceHebergement() {
         String sql = "UPDATE hebergement SET nom = ?, telephone = ?, capacite = ?, adresse = ?, email = ?, tarif_nuit = ? WHERE id_hebergement = ?";
         PreparedStatement ps = cnx.prepareStatement(sql);
         ps.setString(1, hebergement.getNom());
-        ps.setInt(2, hebergement.getTelephone());
+        ps.setString(2, String.valueOf(hebergement.getTelephone()));
         ps.setInt(3, hebergement.getCapacite());
         ps.setString(4, hebergement.getAdresse());
         ps.setString(5, hebergement.getEmail());

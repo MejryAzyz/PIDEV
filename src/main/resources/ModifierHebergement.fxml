@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0"
+            style="-fx-background-color: #f4f4f4;"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.ModifierHebergement">
+
+    <children>
+        <VBox layoutX="50.0" layoutY="50.0" spacing="20" alignment="CENTER"
+              style="-fx-background-color: white; -fx-padding: 30;
+              -fx-border-radius: 10; -fx-background-radius: 10;
+              -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);"
+              prefWidth="600.0">
+
+            <Label text="Modifier un Hébergement"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-alignment: center;"/>
+
+            <GridPane hgap="5" vgap="15" alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints halignment="LEFT" />
+                    <ColumnConstraints halignment="LEFT" />
+                </columnConstraints>
+
+                <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="nomheb" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Téléphone :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="telheb" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Capacité :" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="capaciteheb" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                <Label text="Adresse :" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="adresseheb" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <Label text="Email :" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="emailheb" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+                <Label text="Tarif :" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <TextField fx:id="tarifheb" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            </GridPane>
+
+            <Button text="Modifier" onAction="#ModifierHebergement"
+                    style="-fx-background-color: #e67e22; -fx-text-fill: white;
+                    -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;
+                    -fx-padding: 10 20; -fx-font-size: 14px;"/>
+        </VBox>
+    </children>
+</AnchorPane>

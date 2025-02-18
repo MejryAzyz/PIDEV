@@ -1,0 +1,142 @@
+package controllers;
+
+import Models.Hebergement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import service.ServiceHebergement;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ListeHebergement implements Initializable {
+    @FXML
+    private Button btnAjouter, btnModifier, btnSupprimer, btnConfirm, btnCancel;
+
+    @FXML
+    private TableColumn<Hebergement, String> colId, colNom, colAdresse, colTelephone, colEmail, colCapacite, colTarif;
+
+    @FXML
+    private TableView<Hebergement> tableHebergement;
+
+    @FXML
+    private VBox ajoutPanel;
+
+    @FXML
+    private TextField txtNom, txtAdresse, txtTelephone, txtEmail, txtCapacite, txtTarif;
+
+    @FXML
+    private Label panelTitle;
+
+    private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
+    private ServiceHebergement serviceHebergement = new ServiceHebergement();
+    private Hebergement selectedHebergement;
+
+    @FXML
+    private void btnAjouterAction(ActionEvent event) {
+        ajoutPanel.setVisible(true);
+        panelTitle.setText("Ajouter un Hébergement");
+    }
+
+    @FXML
+    private void btnAnnulerAjout(ActionEvent event) {
+        ajoutPanel.setVisible(false);
+        txtNom.clear();
+        txtAdresse.clear();
+        txtTelephone.clear();
+        txtEmail.clear();
+        txtCapacite.clear();
+        txtTarif.clear();
+    }
+
+    @FXML
+    private void btnModifierAction(ActionEvent event) {
+        selectedHebergement = tableHebergement.getSelectionModel().getSelectedItem();
+        if (selectedHebergement != null) {
+            panelTitle.setText("Modifier un Hébergement");
+            txtNom.setText(selectedHebergement.getNom());
+            txtAdresse.setText(selectedHebergement.getAdresse());
+            txtTelephone.setText(selectedHebergement.getTelephone());
+            txtEmail.setText(selectedHebergement.getEmail());
+            txtCapacite.setText(String.valueOf(selectedHebergement.getCapacite()));
+            txtTarif.setText(String.valueOf(selectedHebergement.getTarifNuit()));
+
+            ajoutPanel.setVisible(true);
+            btnConfirm.setOnAction(this::btnConfirmerModification);
+        }
+    }
+
+    @FXML
+    private void btnConfirmerModification(ActionEvent event) {
+        try {
+            String nom = txtNom.getText();
+            String adresse = txtAdresse.getText();
+            String telephone = txtTelephone.getText();
+            String email = txtEmail.getText();
+            int capacite = Integer.parseInt(txtCapacite.getText());
+            double tarif = Double.parseDouble(txtTarif.getText());
+
+            serviceHebergement.modifier(selectedHebergement.getIdHebergement(), nom, adresse, telephone, email, capacite, tarif);
+
+            selectedHebergement.setNom(nom);
+            selectedHebergement.setAdresse(adresse);
+            selectedHebergement.setTelephone(telephone);
+            selectedHebergement.setEmail(email);
+            selectedHebergement.setCapacite(capacite);
+            selectedHebergement.setTarifNuit(tarif);
+
+            tableHebergement.refresh();
+            btnAnnulerAjout(null);
+        } catch (SQLException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void btnSupprimerAction(ActionEvent event) {
+        Hebergement selectedHebergement = tableHebergement.getSelectionModel().getSelectedItem();
+        if (selectedHebergement != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("Supprimer l'hébergement");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer cet hébergement ?");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    try {
+                        serviceHebergement.supprimer(selectedHebergement.getIdHebergement());
+                        hebergements.remove(selectedHebergement);
+                        tableHebergement.refresh();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            hebergements.addAll(serviceHebergement.recuperer());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        colId.setCellValueFactory(cellData -> cellData.getValue().idHebergementProperty());
+        colNom.setCellValueFactory(cellData -> cellData.getValue().nomProperty());
+        colAdresse.setCellValueFactory(cellData -> cellData.getValue().adresseProperty());
+        colTelephone.setCellValueFactory(cellData -> cellData.getValue().telephoneProperty());
+        colEmail.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
+        colCapacite.setCellValueFactory(cellData -> cellData.getValue().capaciteProperty().asString());
+        colTarif.setCellValueFactory(cellData -> cellData.getValue().tarifNuitProperty().asString());
+
+        tableHebergement.setItems(hebergements);
+    }
+}

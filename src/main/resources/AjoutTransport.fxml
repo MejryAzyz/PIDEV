@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #f4f4f8; -fx-padding: 20px;"
+            xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AjoutTransport">
+
+   <children>
+      <Label layoutX="200.0" layoutY="20.0" text="Ajouter un Transport"
+             style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333;" />
+
+      <VBox layoutX="150.0" layoutY="80.0" spacing="15.0">
+         <children>
+            <ComboBox fx:id="typet" promptText="Type de transport"
+                      style="-fx-pref-width: 300px; -fx-padding: 8px; -fx-font-size: 14px;
+                             -fx-background-color: #ffffff; -fx-border-color: #ccc;
+                             -fx-border-radius: 8px; -fx-background-radius: 8px;">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Taxi" />
+                     <String fx:value="Bus" />
+                     <String fx:value="Van" />
+                     <String fx:value="Voiture" />
+                     <String fx:value="VTC" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+
+            <TextField fx:id="capacitet" promptText="Capacité"
+                       style="-fx-pref-width: 300px; -fx-padding: 8px; -fx-font-size: 14px;
+                              -fx-background-color: #ffffff; -fx-border-color: #ccc;
+                              -fx-border-radius: 8px; -fx-background-radius: 8px;" />
+
+            <TextField fx:id="prixt" promptText="Prix"
+                       style="-fx-pref-width: 300px; -fx-padding: 8px; -fx-font-size: 14px;
+                              -fx-background-color: #ffffff; -fx-border-color: #ccc;
+                              -fx-border-radius: 8px; -fx-background-radius: 8px;" />
+         </children>
+      </VBox>
+
+      <Button layoutX="250.0" layoutY="300.0" mnemonicParsing="false" onAction="#ajouttrans" text="Ajouter"
+              style="-fx-font-size: 14px; -fx-text-fill: white; -fx-background-color: #0078D7;
+                     -fx-padding: 10px 20px; -fx-border-radius: 8px; -fx-background-radius: 8px;" />
+   </children>
+</AnchorPane>

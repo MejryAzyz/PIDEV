@@ -33,23 +33,16 @@ public class ServiceTransport implements IService<Transport> {
     }
 
     @Override
-    public void modifier(Transport transport) throws SQLException {
+    public void modifier(int idTransport, String type, int capacite, double prix) throws SQLException {
         String query = "UPDATE transport SET type = ?, capacite = ?, tarif = ? WHERE id_transport = ?";
         try (PreparedStatement stmt = cnx.prepareStatement(query)) {
-            stmt.setString(1, transport.getType());
-            stmt.setInt(2, transport.getCapacite());
-            stmt.setDouble(3, transport.getTarif());
-            stmt.setInt(4, transport.getId_transport());
-
-            int rowsUpdated = stmt.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("Transport modifié avec succès !");
-            } else {
-                System.out.println("Aucun transport trouvé avec l'ID : " + transport.getId_transport());
-            }
+            stmt.setString(1, type);
+            stmt.setInt(2, capacite);
+            stmt.setDouble(3, prix);
+            stmt.setInt(4, idTransport);
+            stmt.executeUpdate();
         }
     }
-
 
 
     @Override

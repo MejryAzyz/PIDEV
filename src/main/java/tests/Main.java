@@ -19,8 +19,8 @@ public class Main {
             //sh.ajouter(hebergement);
             //sh.supprimer(3);
             //sh.modifier(1,"ahmed");
-            System.out.println(sh.recuperer());
-            System.out.println(st.recuperer());
+            //System.out.println(sh.recuperer());
+            //System.out.println(st.recuperer());
 
         } catch (Exception e) {
             System.err.println(e.getMessage());
