@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.displayController">
+   <children>
+      <HBox layoutX="186.0" layoutY="14.0" prefHeight="118.0" prefWidth="1032.0" style="-fx-background-color: #0dae62;" AnchorPane.bottomAnchor="462.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="118.0" prefWidth="1041.0">
+               <children>
+                  <Label layoutX="457.0" layoutY="36.0" prefHeight="51.0" prefWidth="313.0" text="LISTE PLANNING" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="35.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="110.0" fitWidth="158.0" layoutX="40.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/logo.PNG" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox layoutY="117.0" prefHeight="463.0" prefWidth="1032.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="117.0">
+         <children>
+            <VBox prefHeight="463.0" prefWidth="205.0" spacing="10.0" style="-fx-background-color: #0dae62;">
+               <children>
+                  <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion utilisateurs" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion reservations" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion hebergement" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion transport" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion planning" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion accompagnement" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </Label>
+                  <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion cliniques" textFill="WHITE" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </VBox>
+            <AnchorPane prefHeight="463.0" prefWidth="836.0">
+               <children>
+                  <TableView fx:id="tabview" layoutX="67.0" layoutY="102.0" prefHeight="261.0" prefWidth="700.0">
+                    <columns>
+                      <TableColumn fx:id="id_planning" maxWidth="-Infinity" minWidth="140.0" prefWidth="-1.0" text="ID planning" />
+                      <TableColumn fx:id="id_docteur" maxWidth="-Infinity" minWidth="140.0" prefWidth="-1.0" text="ID docteur" />
+                        <TableColumn fx:id="date_jour" maxWidth="-Infinity" minWidth="140.0" prefWidth="-1.0" text="date du jour" />
+                        <TableColumn fx:id="heure_debut" maxWidth="-Infinity" minWidth="140.0" prefWidth="-1.0" text="heure début" />
+                        <TableColumn fx:id="heure_fin" maxWidth="-Infinity" minWidth="140.0" prefWidth="-1.0" text="heure fin" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="delete" layoutX="508.0" layoutY="385.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #cc243f; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌  SUPPRIMER" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button id="update" fx:id="update" layoutX="354.0" layoutY="385.0" mnemonicParsing="false" onAction="#updateAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #fbc101; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄  MODIFIER" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button id="update" fx:id="add" layoutX="198.0" layoutY="385.0" mnemonicParsing="false" onAction="#addAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #0dae62; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕  AJOUTER" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

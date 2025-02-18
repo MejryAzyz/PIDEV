@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.updateController">
+    <children>
+        <HBox prefHeight="100.0" prefWidth="640.0">
+            <children>
+                <AnchorPane prefHeight="100.0" prefWidth="640.0" style="-fx-background-color: #0dae62;">
+                    <children>
+                        <ImageView fitHeight="87.0" fitWidth="98.0" layoutX="8.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@/logo.PNG" />
+                            </image>
+                        </ImageView>
+                        <Label layoutX="210.0" layoutY="25.0" prefHeight="51.0" prefWidth="266.0" text="MODIFIER PLANNING" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="25.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+        <HBox layoutY="99.0" prefHeight="381.0" prefWidth="640.0" style="-fx-background-color: #cccccccc;">
+            <children>
+                <AnchorPane prefHeight="381.0" prefWidth="644.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="34.0" prefHeight="41.0" prefWidth="123.0" text="ID docteur :">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="153.0" prefHeight="41.0" prefWidth="136.0" text="heure début : ">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="92.0" prefHeight="41.0" prefWidth="123.0" text="date du jour:">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="210.0" prefHeight="41.0" prefWidth="123.0" text="heure fin : ">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <DatePicker fx:id="date_input_update" layoutX="192.0" layoutY="100.0" />
+                        <TextField fx:id="hd_input_update" layoutX="192.0" layoutY="161.0" prefHeight="25.0" prefWidth="310.0" />
+                        <TextField fx:id="hf_input_update" layoutX="192.0" layoutY="218.0" prefHeight="25.0" prefWidth="310.0" />
+                        <Button fx:id="save_update" layoutX="298.0" layoutY="274.0" mnemonicParsing="false" onAction="#saveUpdateAction" prefHeight="35.0" prefWidth="98.0" style="-fx-border-color: #0dae62; -fx-border-width: 2; -fx-border-radius: 60; -fx-background-radius: 60;" text="🖫  SAVE">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Button>
+                        <ChoiceBox fx:id="id_input_update" layoutX="192.0" layoutY="42.0" prefHeight="25.0" prefWidth="174.0" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
