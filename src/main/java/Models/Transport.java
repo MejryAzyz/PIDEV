@@ -1,7 +1,7 @@
 package Models;
 
 public class Transport {
-    private	int id_transport;
+    private int id_transport;
     private String type;
     private int capacite;
     private double tarif;
@@ -38,8 +38,7 @@ public class Transport {
         this.tarif = tarif;
     }
 
-    public Transport() {
-    }
+    public Transport() {}
 
     public Transport(int id_transport, String type, int capacite, double tarif) {
         this.id_transport = id_transport;
@@ -64,4 +63,20 @@ public class Transport {
                 '}';
     }
 
+    public String getPhotoUrl() {
+        switch (type.toLowerCase()) {
+            case "vtc":
+                return "https://www.enquetesecuriteroutiere.org/images/blog/vtc.jpg";
+            case "bus":
+                return "https://img.linemedia.com/img/s/coach-bus-Temsa-Maraton-HDH-330kw-450HP-WC-USB-MATRIX-53-1-1-NO-FLIXBUS---1739353811855939579_common--25021210532098263900.jpg";
+            case "voiture":
+                return "https://img-4.linternaute.com/XpIwVOW1cq3k-npLPf_h0kYFxVE=/1500x/smart/52373731986a4566806476f7acb2dc3a/ccmcms-linternaute/10654353.jpg";
+            case "taxi":
+                return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRae_MuifW4xM_iK-vi-_El7z9KLsY1E8yGIw&s";
+            case "van":
+                return "https://i.ytimg.com/vi/sbyR9yBOPZA/hqdefault.jpg";
+            default:
+                return "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"; // Image par défaut
+        }
+    }
 }
