@@ -43,19 +43,26 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         }
     }
     @Override
-    public void modifier(int id,String nom, String prenom, String email, String motDePasse, String telephone, String adresse) throws SQLException {
+    public void modifier(Utilisateur u) {
         String sql = "UPDATE utilisateur SET nom = ?, prenom = ?, email = ?, mot_de_passe = ?, telephone = ?, adresse = ? WHERE id_utilisateur = ?";
-             PreparedStatement stmt = cnx.prepareStatement(sql);
-            stmt.setString(1, nom);
-            stmt.setString(2, prenom);
-            stmt.setString(3, email);
-            stmt.setString(4, motDePasse);
-            stmt.setString(5, telephone);
-            stmt.setString(6, adresse);
-            stmt.setInt(7, id);
+        try {
+            PreparedStatement stmt = cnx.prepareStatement(sql);
+            stmt.setString(1, u.getNom());
+            stmt.setString(2, u.getPrenom());
+            stmt.setString(3, u.getEmail());
+            stmt.setString(4, u.getMotDePasse());  // Ensure you set all placeholders, including mot_de_passe
+            stmt.setString(5, u.getTelephone());
+            stmt.setString(6, u.getAdresse());
+            stmt.setInt(7, u.getIdUtilisateur()); // Set the ID at the end, after all other fields
             stmt.executeUpdate();
-        System.out.println("user modified");
+            System.out.println("User modified successfully.");
+        } catch (SQLException e) {
+            System.err.println("Error updating user: " + e.getMessage());
+            // Optionally, you can throw a custom exception or alert the user
+            throw new RuntimeException("Failed to update user: " + e.getMessage(), e);
         }
+    }
+
 
 
 
@@ -78,5 +85,31 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
                 u.setAdresse(rs.getString("adresse"));
                 utilisateurs.add(u);
             }
+
         return utilisateurs;
-    }    }
+    }
+    public Utilisateur login(String email, String motDePasse) throws SQLException {
+        String sql = "SELECT * FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
+        PreparedStatement stmt = cnx.prepareStatement(sql);
+        stmt.setString(1, email);
+        stmt.setString(2, motDePasse);
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            Utilisateur utilisateur = new Utilisateur(
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getString("email"),
+                    rs.getString("mot_de_passe"),
+                    rs.getString("telephone"),
+                    rs.getDate("date_naissance"),
+                    rs.getString("adresse")
+            );
+            utilisateur.setIdUtilisateur(rs.getInt("id_utilisateur"));
+            utilisateur.setIdRole(rs.getInt("id_role"));
+            return utilisateur;
+        }
+        return null;
+    }
+
+}

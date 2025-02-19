@@ -15,8 +15,8 @@ public class Utilisateur {
 
     public Utilisateur(){}
 
-    public Utilisateur( int idRole, String nom, String prenom, String email, String motDePasse, String telephone, Date dateNaissance, String adresse) {
-        this.idRole = idRole;
+    public Utilisateur(  String nom, String prenom, String email, String motDePasse, String telephone, Date dateNaissance, String adresse) {
+        this.idRole = 1;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
