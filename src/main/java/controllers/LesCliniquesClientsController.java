@@ -52,14 +52,16 @@ public class LesCliniquesClientsController {
             Label adresseLabel = new Label("Adresse: " + clinique.getAdresse());
             Label emailLabel = new Label("Email: " + clinique.getEmail());
             Label telLabel = new Label("Téléphone: " + clinique.getTelephone());
+            Label prixLabel = new Label("Prix: " + clinique.getPrix() + " €");  // Ajout du label pour le prix
+            prixLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0dae6f;");
 
-            infoBox.getChildren().addAll(nomLabel, adresseLabel, emailLabel, telLabel);
+            infoBox.getChildren().addAll(nomLabel, adresseLabel, emailLabel, telLabel,prixLabel);
             card.getChildren().addAll(imageView, infoBox);
 
             cliniqueContainer.add(card, col, row);
             col++;
 
-            if (col > 2) {
+            if (col > 1) {
                 col = 0;
                 row++;
             }
