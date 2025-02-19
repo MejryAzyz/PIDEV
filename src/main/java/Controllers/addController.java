@@ -58,9 +58,9 @@ public class addController {
     void saveAction(ActionEvent event) {
 
         planning_docService ps = new planning_docService();
-        Integer id = id_input.getSelectionModel().getSelectedItem();
-        Date date = Date.valueOf(date_input.getValue());
 
+        int id = id_input.getSelectionModel().getSelectedItem();
+        Date date = Date.valueOf(date_input.getValue());
         String h_deb = hd_input.getText();
         String h_fin = hf_input.getText();
 
@@ -70,11 +70,13 @@ public class addController {
         Matcher matcher2 = pattern.matcher(h_fin);
 
 
-        if(matcher1.matches()&&matcher2.matches())
+        if(matcher1.matches() && matcher2.matches())
         {
             planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
+
             if(ps.checkExistence(p)==0)
             {
+                System.out.println(ps.checkExistence(p));
                 try {ps.add(p);}
                 catch (SQLException e){ System.err.println(e.getMessage());}
 

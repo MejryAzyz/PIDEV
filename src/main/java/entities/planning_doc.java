@@ -84,6 +84,7 @@ public class planning_doc{
     @Override
     public String toString() {
         return "planning_doc { " +
+                "ID planning = " + getId_planning() +
                 "ID docteur = " + id_doc.get() +
                 ", date du jour = " + date_j.get() +
                 ", heure debut = " + h_deb.get() +
@@ -100,6 +101,6 @@ public class planning_doc{
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_doc, date_j, h_deb, h_fin);
+        return Objects.hash(id_doc.get(), date_j.get(), h_deb.get(), h_fin.get());
     }
 }

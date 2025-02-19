@@ -45,12 +45,16 @@ public class planning_docService implements IService<planning_doc>{
 
     public int checkExistence(planning_doc p)
     {
-        try{
+        try
+        {
             List<planning_doc> list = retrieve();
-            if(list.contains(p))
-                return p.getId_planning();
-            else
-                return 0;
+
+            for(planning_doc i: list)
+            {
+                if(i.equals(p))
+                    return i.getId_planning();
+            }
+            return 0;
         }
         catch (SQLException e)
         {

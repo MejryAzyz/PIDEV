@@ -33,24 +33,24 @@
         </HBox>
         <HBox layoutY="99.0" prefHeight="381.0" prefWidth="640.0" style="-fx-background-color: #cccccccc;">
             <children>
-                <AnchorPane prefHeight="381.0" prefWidth="644.0">
+                <AnchorPane prefHeight="381.0" prefWidth="644.0" style="-fx-background-image: url('background.jpg'); -fx-background-size: cover; -fx-background-position: center center;">
                     <children>
                         <Label layoutX="14.0" layoutY="34.0" prefHeight="41.0" prefWidth="123.0" text="ID docteur :">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="153.0" prefHeight="41.0" prefWidth="136.0" text="heure début : ">
+                        <Label layoutX="14.0" layoutY="153.0" prefHeight="41.0" prefWidth="136.0" text="Heure début : ">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="92.0" prefHeight="41.0" prefWidth="123.0" text="date du jour:">
+                        <Label layoutX="14.0" layoutY="92.0" prefHeight="41.0" prefWidth="136.0" text="Date du jour :">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="210.0" prefHeight="41.0" prefWidth="123.0" text="heure fin : ">
+                        <Label layoutX="14.0" layoutY="210.0" prefHeight="41.0" prefWidth="123.0" text="Heure fin : ">
                             <font>
                                 <Font name="System Bold" size="20.0" />
                             </font>

@@ -102,8 +102,10 @@ public class updateController {
         if(matcher1.matches()&&matcher2.matches())
         {
             planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
-            if(ps.checkExistence(p)==0 || (ps.checkExistence(p)== selectedItem.getId_planning()))
+            if((ps.checkExistence(p)==0) || (ps.checkExistence(p) == selectedItem.getId_planning()))
             {
+                System.out.println(ps.checkExistence(p));
+                System.out.println(selectedItem.getId_planning());
                 try {ps.update(id_planning,p);}
                 catch (SQLException e){ System.err.println(e.getMessage());}
 

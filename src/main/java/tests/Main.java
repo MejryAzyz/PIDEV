@@ -14,10 +14,13 @@ public class Main {
 
         planning_docService ps = new planning_docService();
 
-        planning_doc p = new planning_doc(1, Date.valueOf("2023-09-09"), Time.valueOf("14:00:00"), Time.valueOf("20:00:00"));
+        planning_doc p = new planning_doc(1, Date.valueOf("2025-02-19"), Time.valueOf("8:00:00"), Time.valueOf("9:00:00"));
 
-        try {
-            System.out.println(ps.retrieveIdDoc());
+
+        try
+        {
+            System.out.println(ps.retrieve());
+            System.out.println(ps.checkExistence(p));
         }
         catch(SQLException e)
         {
