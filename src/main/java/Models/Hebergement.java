@@ -102,4 +102,7 @@ public class Hebergement {
     }
 
 
+    public String getPhotoUrl() {
+        return "https://www.kayak.fr/news/wp-content/uploads/sites/7/2023/08/THEME_HOTEL_SIGN_FIVE_STARS_FACADE_BUILDING_GettyImages-1320779330-3-1640x1312.jpg";
+    }
 }
