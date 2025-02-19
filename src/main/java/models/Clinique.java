@@ -7,6 +7,8 @@ public class Clinique {
     private int idClinique ,rate;
     private String nom,adresse,telephone,email,description;
     private double prix;
+    private List<Docteur> docteurs = new ArrayList<>();
+    private List<Specialite> specialites = new ArrayList<>();
 
     public Clinique(int rate, String nom, String adresse, String telephone, String email, String description, double prix) {
         this.rate = rate;
