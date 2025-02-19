@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -255,6 +256,28 @@ public class AfficherCliniqueController {
             }
         } else {
             showAlert(Alert.AlertType.WARNING, "Aucune clinique sélectionnée", "Veuillez sélectionner une clinique.");
+        }
+    }
+
+    @FXML
+    void afficherLesSpecialite(ActionEvent event) {
+        try {
+            System.out.println("Navigation vers AfficherSpecialite.fxml...");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSpecialite.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

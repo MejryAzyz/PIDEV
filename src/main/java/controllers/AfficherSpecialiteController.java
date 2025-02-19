@@ -2,8 +2,10 @@ package controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -144,6 +146,28 @@ public class AfficherSpecialiteController {
         try {
             table_specialite.getItems().setAll(service.recuperer());
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void afficherLesCliniques(ActionEvent event) {
+        try {
+            System.out.println("Navigation vers AfficherClinique.fxml...");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherClinique.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
             e.printStackTrace();
         }
     }

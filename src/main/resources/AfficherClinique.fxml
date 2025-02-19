@@ -4,28 +4,35 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="478.0" prefWidth="891.0" style="-fx-background-color: #f0f2f2;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherCliniqueController">
    <children>
       <AnchorPane prefHeight="478.0" prefWidth="218.0" style="-fx-background-color: #0dae6f;">
          <children>
-            <TextField fx:id="nomAF" layoutX="56.0" layoutY="44.0" style="-fx-background-color: #d9d9d9;" />
-            <TextField fx:id="adrAF" layoutX="57.0" layoutY="80.0" style="-fx-background-color: #d9d9d9;" />
-            <TextField fx:id="telAF" layoutX="57.0" layoutY="115.0" style="-fx-background-color: #d9d9d9;" />
-            <TextField fx:id="emailAF" layoutX="58.0" layoutY="152.0" style="-fx-background-color: #d9d9d9;" />
-            <TextField fx:id="descAF" layoutX="57.0" layoutY="188.0" style="-fx-background-color: #d9d9d9;" />
-            <TextField fx:id="prixAF" layoutX="57.0" layoutY="227.0" style="-fx-background-color: #d9d9d9;" />
-            <Text layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom:" />
-            <Text layoutX="6.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Adresse:" />
-            <Text layoutX="14.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel:" />
-            <Text layoutX="14.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
-            <Text layoutX="14.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desc:" />
-            <Text layoutX="14.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prix:" />
+            <Button layoutX="-3.0" layoutY="107.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="218.0" style="-fx-background-color: #0dae6f;" text="Gestion Cliniques" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Line endX="109.39999389648438" endY="7.62939453125E-6" layoutX="106.0" layoutY="107.0" startX="-106.00000762939453" startY="7.62939453125E-6" stroke="WHITE" />
+            <Line endX="100.0" layoutX="115.0" layoutY="153.0" startX="-117.99998474121094" startY="0.399993896484375" stroke="WHITE" />
+            <Button layoutX="-2.0" layoutY="154.0" mnemonicParsing="false" onAction="#afficherLesSpecialite" prefHeight="46.0" prefWidth="218.0" style="-fx-background-color: #0dae6f;" text="Gestion Spécialité" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Line endX="109.39999389648438" endY="7.62939453125E-6" layoutX="104.0" layoutY="200.0" startX="-106.00000762939453" startY="7.62939453125E-6" stroke="WHITE" />
+            <ImageView fitHeight="78.0" fitWidth="94.0" layoutX="52.0" layoutY="8.0">
+               <image>
+                  <Image url="@../../../../../Esprit3/Projet%20PiDev/images/logo.PNG" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <TableView fx:id="table_clinique" layoutX="222.0" layoutY="54.0" prefHeight="356.0" prefWidth="667.0">
