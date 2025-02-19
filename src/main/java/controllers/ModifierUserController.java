@@ -61,9 +61,7 @@ public class ModifierUserController {
 
         java.sql.Date dateNaissance = (Date) utilisateur.getDateNaissance();
         if (dateNaissance != null) {
-            // Convert to java.util.Date
             java.util.Date utilDate = new java.util.Date(dateNaissance.getTime());
-            // Convert to LocalDate
             userDate.setValue(utilDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         }
     }
