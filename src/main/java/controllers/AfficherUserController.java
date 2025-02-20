@@ -48,7 +48,6 @@ public class AfficherUserController {
     private Button btnModifier;
 
     private final ServiceUtilisateur su = new ServiceUtilisateur();
-    private ObservableList<Utilisateur> utilisateurList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -97,26 +96,7 @@ public class AfficherUserController {
         }
     }
 
-    @FXML
-    private void ouvrirAjoutUtilisateur(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjouterUtilisateur.fxml"));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setTitle("Ajouter un Utilisateur");
-            stage.setScene(new Scene(root));
-            stage.setOnHiding(evt -> {
-                try {
-                    afficherUtilisateur();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-            stage.show();
-        } catch (IOException e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur de chargement", "Impossible d'ouvrir l'interface d'ajout.");
-        }
-    }
+
 
     @FXML
     private void modifierUtilisateur(ActionEvent event) {

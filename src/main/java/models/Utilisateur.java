@@ -13,9 +13,19 @@ public class Utilisateur {
     private Date dateNaissance;
     private String adresse;
 
+    private String image_url;
+
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
+
     public Utilisateur(){}
 
-    public Utilisateur(  String nom, String prenom, String email, String motDePasse, String telephone, Date dateNaissance, String adresse) {
+    public Utilisateur(  String nom, String prenom, String email, String motDePasse, String telephone, Date dateNaissance, String adresse,String image_url) {
         this.idRole = 1;
         this.nom = nom;
         this.prenom = prenom;
@@ -24,6 +34,7 @@ public class Utilisateur {
         this.telephone = telephone;
         this.dateNaissance = dateNaissance;
         this.adresse = adresse;
+        this.image_url =image_url;
     }
 
     public int getIdUtilisateur() {

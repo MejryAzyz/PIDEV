@@ -6,27 +6,61 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherUserController">
+<AnchorPane prefHeight="580.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherUserController">
     <children>
-        <TableView fx:id="table_utilisateur" layoutX="50.0" layoutY="80.0" prefHeight="300.0" prefWidth="800.0">
-            <columns>
-                <TableColumn fx:id="col_id" prefWidth="50.0" text="ID" />
-                <TableColumn fx:id="col_nom" prefWidth="100.0" text="Nom" />
-                <TableColumn fx:id="col_prenom" prefWidth="100.0" text="Prénom" />
-                <TableColumn fx:id="col_email" prefWidth="150.0" text="Email" />
-                <TableColumn fx:id="col_telephone" prefWidth="100.0" text="Téléphone" />
-                <TableColumn fx:id="col_adresse" prefWidth="150.0" text="Adresse" />
-                <TableColumn fx:id="col_date_naissance" prefWidth="148.0" text="Date Naissance" />
-            </columns>
-        </TableView>
-        <HBox layoutX="50.0" layoutY="400.0">
+        <HBox layoutX="186.0" layoutY="14.0" prefHeight="118.0" prefWidth="1032.0" style="-fx-background-color: #0dae62;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button onAction="#deleteAction" text="Supprimer" />
-                <Button layoutX="406.0" layoutY="420.0" mnemonicParsing="false" onAction="#modifierUtilisateur" prefHeight="26.0" prefWidth="112.0" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
-
+                <AnchorPane prefHeight="118.0" prefWidth="1041.0">
+                    <children>
+                        <Label layoutX="457.0" layoutY="36.0" prefHeight="51.0" prefWidth="394.0" text="LISTE UTILISATEURS" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="35.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </AnchorPane>
             </children>
         </HBox>
-        <Label layoutX="350.0" layoutY="30.0" text="Liste des Utilisateurs" />
+        <HBox layoutY="117.0" prefHeight="463.0" prefWidth="1032.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="117.0">
+            <children>
+                <VBox prefHeight="463.0" prefWidth="205.0" spacing="10.0" style="-fx-background-color: #0dae62;">
+                    <children>
+                        <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion utilisateurs" textFill="WHITE" VBox.vgrow="ALWAYS">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <AnchorPane prefHeight="463.0" prefWidth="836.0">
+                    <children>
+                        <TableView fx:id="table_utilisateur" layoutX="67.0" layoutY="102.0" prefHeight="261.0" prefWidth="700.0">
+                            <columns>
+                                <TableColumn fx:id="col_id" minWidth="100.0" text="ID" />
+                                <TableColumn fx:id="col_nom" minWidth="140.0" text="Nom" />
+                                <TableColumn fx:id="col_prenom" minWidth="140.0" text="Prénom" />
+                                <TableColumn fx:id="col_email" minWidth="200.0" text="Email" />
+                                <TableColumn fx:id="col_telephone" minWidth="140.0" text="Téléphone" />
+                                <TableColumn fx:id="col_adresse" minWidth="200.0" text="Adresse" />
+                                <TableColumn fx:id="col_date_naissance" minWidth="140.0" text="Date Naissance" />
+                            </columns>
+                        </TableView>
+                        <Button fx:id="delete" layoutX="508.0" layoutY="385.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #cc243f; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌ SUPPRIMER" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="update" layoutX="354.0" layoutY="385.0" mnemonicParsing="false" onAction="#modifierUtilisateur" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #fbc101; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄 MODIFIER" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>
