@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.Clinique.ListeCliniqueController"
+            prefHeight="400.0" prefWidth="600.0">
+    <TableView fx:id="table_clinique" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="572.0">
+        <columns>
+            <TableColumn fx:id="col_id" text="ID" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="idClinique" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_nom" text="Nom" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nom" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_adesse" text="Adresse" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="adresse" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_tel" text="Téléphone" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="telephone" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_email" text="Email" prefWidth="150">
+                <cellValueFactory>
+                    <PropertyValueFactory property="email" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_rate" text="Rate" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="rate" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_desc" text="Description" prefWidth="200">
+                <cellValueFactory>
+                    <PropertyValueFactory property="description" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="col_prix" text="Prix" prefWidth="100">
+                <cellValueFactory>
+                    <PropertyValueFactory property="prix" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+
+</AnchorPane>

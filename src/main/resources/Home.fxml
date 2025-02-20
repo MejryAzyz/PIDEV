@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+
+<BorderPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.User.HomeController">
+    <top>
+        <HBox alignment="CENTER_LEFT" style="-fx-background-color: #0dae6f; -fx-padding: 10;">
+            <ImageView fitHeight="64.0" fitWidth="741.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@images/logo.PNG" />
+                </image>
+            </ImageView>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button fx:id="loginButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" onAction="#login" styleClass="login-button" text="Login" />
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane>
+            <ImageView fitHeight="400" fitWidth="800" preserveRatio="true">
+                <Image url="@images/home.png" />
+            </ImageView>
+
+            <VBox alignment="CENTER" spacing="20" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-padding: 20;">
+                <Label styleClass="section-title" text="MedTravel" />
+                <Label styleClass="section-text" text="MedTravel est une plateforme leader qui connecte les patients à des services médicaux de classe mondiale" textAlignment="CENTER" wrapText="true" />
+                <Label styleClass="section-text" text="à travers le globe. Notre mission est de rendre le tourisme médical fluide, accessible et sans stress pour tous." textAlignment="CENTER" wrapText="true" />
+            </VBox>
+        </StackPane>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #0dae6f; -fx-padding: 10;">
+            <Label styleClass="footer-text" text="© 2025 MedTravel. All rights reserved." />
+        </HBox>
+    </bottom>
+</BorderPane>

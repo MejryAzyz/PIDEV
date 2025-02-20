@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.HT.Viewhebergement"
+            prefHeight="700.0" prefWidth="900.0"
+            style="-fx-background-color: #f4f4f4;">
+
+    <VBox spacing="20" alignment="TOP_CENTER" layoutX="20.0" layoutY="20.0" prefWidth="860.0">
+
+        <Label fx:id="titreLabel" text="Détails de l'Hébergement"
+               style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #34495e; -fx-padding: 10px;" />
+
+        <ImageView fx:id="imageView" fitHeight="350.0" fitWidth="500.0"
+                   style="-fx-border-radius: 10px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);" />
+
+        <Label fx:id="descriptionLabel" text="Cet hôtel offre un séjour luxueux avec des chambres modernes, des équipements de haute qualité, et une vue imprenable sur la ville. Il propose des services personnalisés et une expérience inoubliable pour les voyageurs."
+               style="-fx-font-size: 16px; -fx-font-family: 'Arial'; -fx-text-fill: #7f8c8d; -fx-padding: 20px; -fx-background-color: #ffffff; -fx-border-radius: 5px; -fx-max-width: 800px;" wrapText="true" />
+
+        <VBox spacing="12" alignment="TOP_LEFT" style="-fx-padding: 15px; -fx-background-color: #ffffff; -fx-border-radius: 8px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 5);">
+            <Label fx:id="nomLabel" text="Nom : Hôtel XYZ" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+            <Label fx:id="adresseLabel" text="Adresse : 123 Rue des Voyages, Paris, France" style="-fx-font-size: 18px; -fx-text-fill: #34495e;" />
+            <Label fx:id="tarifLabel" text="Tarif par nuit : 120€" style="-fx-font-size: 18px; -fx-text-fill: #34495e;" />
+        </VBox>
+
+        <Button fx:id="retourButton" text="Retour"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 10px 20px; -fx-background-radius: 8px; -fx-font-size: 16px;"
+               onAction="#retour" alignment="CENTER" />
+    </VBox>
+
+</AnchorPane>

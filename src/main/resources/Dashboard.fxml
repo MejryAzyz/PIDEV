@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="529.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Reservation.Dashboard">
+   <children>
+      <Pane fx:id="pn_home" layoutX="-1.0" layoutY="-2.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: rgba(13,174,98,255);">
+               <children>
+                  <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
+                  <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
+                  <Button layoutX="5.0" layoutY="184.0" mnemonicParsing="false" onAction="#toHome" prefHeight="26.0" prefWidth="125.0" text="Home" />
+                  <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: rgba(13,174,98,255);" />
+         </children>
+      </Pane>
+      <Pane fx:id="pn_res" layoutY="-1.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;">
+         <children>
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: rgba(13,174,98,255);">
+               <children>
+                  <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
+                  <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
+                  <Button layoutX="5.0" layoutY="184.0" mnemonicParsing="false" onAction="#toHome" prefHeight="26.0" prefWidth="125.0" text="Home" />
+                  <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: rgba(13,174,98,255);" />
+            <Label layoutX="152.0" layoutY="124.0" prefHeight="40.0" prefWidth="126.0" text="Reservation list :">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="152.0" layoutY="176.0" prefHeight="297.0" prefWidth="684.0">
+               <content>
+                  <GridPane fx:id="gridres" prefHeight="66.0" prefWidth="678.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </Pane>
+      <Pane fx:id="pn_pai" layoutY="-1.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;">
+         <children>
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: rgba(13,174,98,255);">
+               <children>
+                  <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
+                  <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
+                  <Button layoutX="5.0" layoutY="184.0" mnemonicParsing="false" onAction="#toHome" prefHeight="26.0" prefWidth="125.0" text="Home" />
+                  <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: rgba(13,174,98,255);" />
+            <Label layoutX="152.0" layoutY="108.0" prefHeight="40.0" prefWidth="230.0" text="Clients purchases history :">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="152.0" layoutY="152.0" prefHeight="343.0" prefWidth="684.0">
+               <content>
+                  <GridPane fx:id="gridpai" prefHeight="66.0" prefWidth="678.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </ScrollPane>
+            <Label fx:id="revenue" layoutX="606.0" layoutY="108.0" prefHeight="40.0" prefWidth="230.0" text="Total Revenue :">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="pn_signin" layoutY="-1.0" prefHeight="529.0" prefWidth="853.0" style="-fx-background-color: white;" styleClass="root" stylesheets="@style.css">
+         <children>
+            <TextField fx:id="tf_log" layoutX="519.0" layoutY="161.0" prefHeight="40.0" prefWidth="317.0" promptText="Your email .." />
+            <TextField layoutX="519.0" layoutY="225.0" prefHeight="40.0" prefWidth="317.0" promptText="Your password .." />
+            <Button layoutX="626.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="104.0" text="Login" />
+            <Hyperlink layoutX="599.0" layoutY="328.0" onAction="#toSignup" text="don't have account ? signup" />
+            <Label layoutX="599.0" layoutY="112.0" prefHeight="32.0" prefWidth="171.0" text="Hello and welcome back">
+               <font>
+                  <Font name="Segoe UI Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="id" layoutX="65.0" layoutY="47.0" opacity="0.0" text="Label" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

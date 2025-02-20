@@ -1,0 +1,300 @@
+package controllers.HT;
+import Models.HT.Hebergement;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import service.HT.ServiceHebergement;
+
+import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.ResourceBundle;
+public class ListeHebergement implements Initializable{
+    @FXML
+    private Button btnAjouter, btnModifier, btnSupprimer;
+
+    @FXML
+    private TableColumn<Hebergement, String> colId, colNom, colAdresse, colTelephone, colEmail, colCapacite, colTarif;
+
+    @FXML
+    private TableView<Hebergement> tableHebergement;
+
+    @FXML
+    private VBox ajoutPanel;
+
+
+    @FXML
+    private Label panelTitle;
+
+    private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
+    private ServiceHebergement serviceHebergement = new ServiceHebergement();
+    private Hebergement selectedHebergement;
+
+    @FXML
+    private void btnAjouterAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AjoutHebergement.fxml"));
+            Parent root = loader.load();
+
+
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter un Hébergement");
+            stage.setScene(new Scene(root));
+            stage.setOnHiding(events -> {
+                try {
+                    afficherHebergements();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void afficherHebergements() throws SQLException {
+        ServiceHebergement service = new ServiceHebergement();
+        List<Hebergement> h = service.recuperer();
+        tableHebergement.getItems().clear();
+        tableHebergement.getItems().addAll(h);
+    }
+
+
+    @FXML
+    private void btnModifierAction(ActionEvent event) {
+        Hebergement selectedHebergement = tableHebergement.getSelectionModel().getSelectedItem();
+        if (selectedHebergement != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierHebergement.fxml"));
+                Parent root = loader.load();
+
+                ModifierHebergement controller = loader.getController();
+                controller.setHebergement(selectedHebergement, this);
+
+                Stage stage = new Stage();
+                stage.setTitle("Modifier un Hébergement");
+                stage.setScene(new Scene(root));
+                stage.setOnHiding(events -> {
+                    try {
+                        afficherHebergements();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Sélection requise");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner un hébergement à modifier.");
+            alert.showAndWait();
+        }
+    }
+
+
+
+
+    @FXML
+    private void btnSupprimerAction(ActionEvent event) {
+        Hebergement selectedHebergement = tableHebergement.getSelectionModel().getSelectedItem();
+        if (selectedHebergement != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation de suppression");
+            alert.setHeaderText("Supprimer l'hébergement");
+            alert.setContentText("Êtes-vous sûr de vouloir supprimer cet hébergement ?");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+                    try {
+                        serviceHebergement.supprimer(selectedHebergement.getId_hebergement());
+                        hebergements.remove(selectedHebergement);
+                        tableHebergement.refresh();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            hebergements.addAll(serviceHebergement.recuperer());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        colId.setCellValueFactory(new PropertyValueFactory<>("id_hebergement"));
+        colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
+        colTelephone.setCellValueFactory(new PropertyValueFactory<>("telephone"));
+        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
+        colTarif.setCellValueFactory(new PropertyValueFactory<>("tarif_nuit"));
+
+        tableHebergement.setItems(hebergements);
+
+        btnModifier.setDisable(true);
+        btnSupprimer.setDisable(true);
+
+        tableHebergement.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                btnModifier.setDisable(false);
+                btnSupprimer.setDisable(false);
+            } else {
+                btnModifier.setDisable(true);
+                btnSupprimer.setDisable(true);
+            }
+        });
+    }
+
+    @FXML
+
+    public void navUser(ActionEvent actionEvent) {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherUser.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+
+    public void NavSpec(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSpecialite.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+
+    public void NavTransport(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeTransport.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+    void NavHeb(ActionEvent event) {
+        try {
+            System.out.println("Navigation vers ListeHebergement.fxml...");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ListeHebegement.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    @FXML
+
+    public void NavRes(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Reservation.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+    @FXML
+
+    public void NavPlanning(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/display.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+
+}

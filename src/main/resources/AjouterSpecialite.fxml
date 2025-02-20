@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="456.0" prefWidth="682.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Clinique.AjouterSpecialiteController">
+   <children>
+      <AnchorPane layoutY="-8.0" prefHeight="64.0" prefWidth="698.0" style="-fx-background-color: #0dae6f;" />
+      <TextField fx:id="nomSp" layoutX="322.0" layoutY="191.0" prefHeight="37.0" prefWidth="209.0" />
+      <Button layoutX="559.0" layoutY="378.0" mnemonicParsing="false" onAction="#ajouterSpecialite" prefHeight="31.0" prefWidth="102.0" style="-fx-background-color: #27ae60;" text="➕ Ajouter" />
+      <Text layoutX="130.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la spécialité:" wrappingWidth="146.29095458984375">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Text>
+      <ButtonBar layoutX="168.0" layoutY="284.0" prefHeight="40.0" prefWidth="200.0" />
+      <Text layoutX="264.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter spécialité " textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

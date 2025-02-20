@@ -1,0 +1,42 @@
+
+
+/* Global Styles */
+.root {
+    -fx-border-color: #0dae6f;
+    -fx-border-width: 5px;
+}
+
+/* Login Button */
+.login-button {
+    -fx-background-color: #0dae6f;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10 20;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.login-button:hover {
+    -fx-background-color: #0b8e5a;
+}
+
+/* Section Titles */
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0dae6f;
+}
+
+/* Section Text */
+.section-text {
+    -fx-font-size: 16px;
+    -fx-text-fill: #34495e;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+/* Footer Text */
+.footer-text {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
