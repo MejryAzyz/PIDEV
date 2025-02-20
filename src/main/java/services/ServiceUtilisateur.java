@@ -15,7 +15,7 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
     }
     @Override
     public void ajouter(Utilisateur u) throws SQLException  {
-        String sql = "INSERT INTO utilisateur (id_role, nom, prenom, email, mot_de_passe, telephone, date_naissance, adresse) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO utilisateur (id_role, nom, prenom, email, mot_de_passe, telephone, date_naissance, adresse,image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = cnx.prepareStatement(sql);
         stmt.setInt(1, u.getIdRole());
@@ -26,6 +26,7 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         stmt.setString(6, u.getTelephone());
         stmt.setDate(7, new java.sql.Date(u.getDateNaissance().getTime()));
         stmt.setString(8, u.getAdresse());
+        stmt.setString(9, u.getImage_url());
         stmt.executeUpdate();
         System.out.println("user added");
 
@@ -103,7 +104,8 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
                     rs.getString("mot_de_passe"),
                     rs.getString("telephone"),
                     rs.getDate("date_naissance"),
-                    rs.getString("adresse")
+                    rs.getString("adresse"),
+                    rs.getString("image_url")
             );
             utilisateur.setIdUtilisateur(rs.getInt("id_utilisateur"));
             utilisateur.setIdRole(rs.getInt("id_role"));

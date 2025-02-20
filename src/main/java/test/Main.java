@@ -14,7 +14,7 @@ public class Main {
         MyDataBase md=  MyDataBase.getInstance();
        ServiceUtilisateur service = new ServiceUtilisateur();
 
-        Utilisateur nouvelUtilisateur = new Utilisateur("Mejri","islem","islem@example.com","password123", "12345678",new Date(),"Tunis");
+        //Utilisateur nouvelUtilisateur = new Utilisateur("Mejri","islem","islem@example.com","password123", "12345678",new Date(),"Tunis");
 
         try {
           List U = new ArrayList<>(  service.recuperer());
