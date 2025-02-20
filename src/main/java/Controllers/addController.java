@@ -12,6 +12,7 @@ import services.planning_docService;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,13 +71,12 @@ public class addController {
         Matcher matcher2 = pattern.matcher(h_fin);
 
 
-        if(matcher1.matches() && matcher2.matches())
+        if(matcher1.matches() && matcher2.matches() && !(date_input.getValue().isBefore(LocalDate.now())))
         {
             planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
 
             if(ps.checkExistence(p)==0)
             {
-                System.out.println(ps.checkExistence(p));
                 try {ps.add(p);}
                 catch (SQLException e){ System.err.println(e.getMessage());}
 
@@ -102,7 +102,7 @@ public class addController {
         {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("FAIL");
-            alert.setContentText("enter a valid time format HH:mm");
+            alert.setContentText("enter a valid Time or Date");
             alert.showAndWait();
         }
 
