@@ -13,7 +13,7 @@
 
     <ImageView fitWidth="400" fitHeight="500">
         <image>
-            <Image url="@images/img.png" />
+            <Image url="@images/SkyMed.png" />
         </image>
     </ImageView>
 
