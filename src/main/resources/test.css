@@ -1,0 +1,63 @@
+.background-image {
+    -fx-background-image: url("/images/homeTest.png");
+    -fx-background-size: cover;  /* Ensures the image covers the entire window */
+    -fx-background-position: center center; /* Centers the image */
+    -fx-background-repeat: no-repeat; /* Prevents tiling */
+}
+.vbox-background {
+    -fx-background-image: url("/images/SkyMed.png"); /* Path to your image */
+    -fx-background-size: cover; /* Set the exact size */
+    -fx-background-repeat: no-repeat; /* Prevent repetition */
+    -fx-background-position: center; /* Center the image */
+    -fx-pref-width: 1250px; /* Ensure VBox width matches */
+    -fx-pref-height: 700px; /* Ensure VBox height matches */
+}
+
+.bar-button {
+    -fx-background-color: transparent;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 30;
+    -fx-font-size: 18px; /* Increase font size */
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+}
+
+.bar-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.top-bar{
+    -fx-background-color: #0DAE62;
+;
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.pink-button{
+    -fx-background-color: rgb(61, 141, 122);
+    -fx-background-radius: 100;
+}
+
+.purple-button{
+    -fx-background-color: rgb(163, 209, 198);
+    -fx-background-radius: 100;
+}
+
+.transparent-button{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 100;
+}
+
+.shadow{
+    -fx-effect: dropShadow(one-pass-box,rgba(0,0,0,0.3), 10.0 , 0.0 , 0.0, 10.0);
+}
+
+.offer-background{
+    -fx-background-color:rgb(163, 209, 198);
+    -fx-background-radius: 30;
+}

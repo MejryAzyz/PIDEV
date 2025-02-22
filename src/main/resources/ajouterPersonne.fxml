@@ -6,16 +6,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="650.0" prefWidth="400.0" style="-fx-background-color: linear-gradient(to right, #66cdaa, #20b2aa);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterPersonneController">
 
-   <ImageView fx:id="imagePreview" fitWidth="150" fitHeight="150" layoutX="125.0" layoutY="30.0" />
-
-   <VBox alignment="CENTER" layoutX="50.0" layoutY="50.0" spacing="10" style="-fx-background-color: rgba(255,255,255,0.9); -fx-padding: 20; -fx-background-radius: 10; -fx-pref-width: 300;">
+   <VBox alignment="CENTER" layoutX="50.0" layoutY="51.0" spacing="10" style="-fx-background-color: rgba(255,255,255,0.9); -fx-padding: 20; -fx-background-radius: 10; -fx-pref-width: 300;">
 
       <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-alignment: center;" text="Sign up" />
 
@@ -26,9 +23,11 @@
       <PasswordField fx:id="userPassword" promptText="Mot de passe" />
       <TextField fx:id="userPhone" promptText="Entrer votre num" />
       <TextField fx:id="userAdd" promptText="Entrer votre adresse" />
+   
+      <ImageView fx:id="imagePreview" fitHeight="150" fitWidth="150" />
 
       <!-- Image Upload Section -->
-      <Button fx:id="uploadImageButton" onAction="#uploadImage" text="Upload Image" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px;" />
+      <Button fx:id="uploadImageButton" onAction="#uploadImage" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5px;" text="Upload Image" />
 
       <Button fx:id="addUser" onAction="#addUser" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px;" text="Register" />
 
