@@ -28,7 +28,7 @@
     <center>
         <StackPane>
             <ImageView fitHeight="400" fitWidth="800" preserveRatio="true">
-                <Image url="@images/home.png" />
+                <Image url="@images/SkyMed.png" />
             </ImageView>
 
             <VBox alignment="CENTER" spacing="20" style="-fx-background-color: rgba(255, 255, 255, 0.8); -fx-padding: 20;">
