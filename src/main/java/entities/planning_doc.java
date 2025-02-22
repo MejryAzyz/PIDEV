@@ -7,7 +7,7 @@ import java.sql.Time;
 import java.util.Objects;
 
 
-public class planning_doc{
+public class planning_doc extends planning{
     private SimpleIntegerProperty id_planning = new SimpleIntegerProperty();
     private SimpleIntegerProperty id_doc = new SimpleIntegerProperty();
     private SimpleObjectProperty<Date> date_j = new SimpleObjectProperty<>();

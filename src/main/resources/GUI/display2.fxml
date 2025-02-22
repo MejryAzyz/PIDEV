@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1032.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.displayController">
+   <children>
+      <VBox fx:id="Vbar" prefHeight="582.0" prefWidth="202.0" spacing="8.0" style=";">
+         <children>
+            <AnchorPane prefHeight="184.0" prefWidth="202.0">
+               <children>
+                  <ImageView fitHeight="135.0" fitWidth="133.0" layoutX="33.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/logo.PNG" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Label prefHeight="30.0" prefWidth="200.0" text="Gestion utilisateurs" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label text="👤  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" text="Gestion reservations" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="📅  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" text="Gestion hebergement" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="🏨" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" text="Gestion transport" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="🚗  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" text="Gestion planning" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="📋  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="45.0" prefWidth="182.0" text="Gestion accompagnement" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="35.0" prefWidth="31.0" text="👬" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" text="Gestion cliniques" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="🏥  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="201.0" layoutY="1.0" prefHeight="581.0" prefWidth="832.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="Hbar" prefHeight="59.0" prefWidth="832.0" style=";">
+               <children>
+                  <TextField layoutX="12.0" layoutY="17.0" prefHeight="25.0" prefWidth="286.0" promptText="  search ..." style="-fx-font-size: 13; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button layoutX="296.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="#e6f0ff">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Button>
+                  <ImageView fitHeight="33.0" fitWidth="28.0" layoutX="767.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@/avatar.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
+            <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #e6f0ff;">
+               <children>
+                  <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="393.0" prefWidth="800.0">
+                     <columns>
+
+                     </columns>
+                  </TableView>
+                  <Button fx:id="delete" layoutX="512.0" layoutY="456.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌  SUPPRIMER" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button id="update" fx:id="update" layoutX="356.0" layoutY="456.0" mnemonicParsing="false" onAction="#updateAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄  MODIFIER" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Button id="add" fx:id="add" layoutX="201.0" layoutY="456.0" mnemonicParsing="false" onAction="#addAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕  AJOUTER" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+                  <Rectangle arcHeight="5.0" fill="#001433" height="33.0" layoutX="17.0" layoutY="10.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 35;" width="174.5" />
+                  <Button fx:id="accompagnant" layoutX="87.0" layoutY="14.0" mnemonicParsing="false" onAction="#showAcc" text="accompagnant">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="docteur" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#showDocteur" text="docteur">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -1,4 +1,5 @@
 package Controllers;
+import entities.planning_acc;
 import entities.planning_doc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import services.planning_accService;
 import services.planning_docService;
 
 import java.sql.Date;
@@ -40,13 +42,23 @@ public class addController {
     }
 
     @FXML
-    public void initialize() {
+    public void initializeChoiceBox() {
         planning_docService ps = new planning_docService();
+        planning_accService ps2 = new planning_accService();
         try
         {
-            ObservableList<Integer> observableList = FXCollections.observableArrayList(ps.retrieveIdDoc());
+            ObservableList<Integer> observableList;
+            if(displayController.isDocteur)
+            {
+                observableList = FXCollections.observableArrayList(ps.retrieveIdDoc());
+            }
+            else
+            {
+                observableList = FXCollections.observableArrayList(ps2.retrieveIdAcc());
+            }
             id_input.setItems(observableList);
             id_input.setValue(observableList.get(0));
+
         }
         catch (SQLException e)
         {
@@ -58,7 +70,7 @@ public class addController {
     @FXML
     void saveAction(ActionEvent event) {
 
-        planning_docService ps = new planning_docService();
+
 
         int id = id_input.getSelectionModel().getSelectedItem();
         Date date = Date.valueOf(date_input.getValue());
@@ -73,29 +85,61 @@ public class addController {
 
         if(matcher1.matches() && matcher2.matches() && !(date_input.getValue().isBefore(LocalDate.now())))
         {
-            planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
 
-            if(ps.checkExistence(p)==0)
+
+            if(displayController.isDocteur)
             {
-                try {ps.add(p);}
-                catch (SQLException e){ System.err.println(e.getMessage());}
+                planning_docService ps = new planning_docService();
+                planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
+                if(ps.checkExistence(p)==0)
+                {
+                    try {ps.add(p);}
+                    catch (SQLException e){ System.err.println(e.getMessage());}
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("SUCCESS");
-                alert.setContentText("planning added with success");
-                alert.showAndWait();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("SUCCESS");
+                    alert.setContentText("planning added with success");
+                    alert.showAndWait();
 
-                displayController.refresh();
+                    displayController.refresh();
 
-                Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                currentStage.close();
+                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.close();
+                }
+                else
+                {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("FAIL");
+                    alert.setContentText("planning not added,time already taken");
+                    alert.showAndWait();
+                }
             }
             else
             {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("FAIL");
-                alert.setContentText("planning not added,time already taken");
-                alert.showAndWait();
+                planning_accService ps = new planning_accService();
+                planning_acc p = new planning_acc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
+                if(ps.checkExistence(p)==0)
+                {
+                    try {ps.add(p);}
+                    catch (SQLException e){ System.err.println(e.getMessage());}
+
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("SUCCESS");
+                    alert.setContentText("planning added with success");
+                    alert.showAndWait();
+
+                    displayController.refresh();
+
+                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    currentStage.close();
+                }
+                else
+                {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("FAIL");
+                    alert.setContentText("planning not added,time already taken");
+                    alert.showAndWait();
+                }
             }
         }
         else

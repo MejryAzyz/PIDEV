@@ -1,6 +1,7 @@
 package services;
 
 import entities.planning_acc;
+import entities.planning_doc;
 import tools.MyDataBase;
 
 import java.sql.Connection;
@@ -28,6 +29,7 @@ public class planning_accService implements IService<planning_acc>{
         while(rs.next())
         {
             planning_acc p = new planning_acc();
+            p.setId_planning(rs.getInt("id_planning"));
             p.setId_acc(rs.getInt("id_accompagnateur"));
             p.setDate_j(rs.getDate("date_jour"));
             p.setH_deb(rs.getTime("heure_debut"));
@@ -41,12 +43,16 @@ public class planning_accService implements IService<planning_acc>{
 
     public int checkExistence(planning_acc p)
     {
-        try{
+        try
+        {
             List<planning_acc> list = retrieve();
-            if(list.contains(p))
-                return 1;
-            else
-                return 0;
+
+            for(planning_acc i: list)
+            {
+                if(i.equals(p))
+                    return i.getId_planning();
+            }
+            return 0;
         }
         catch (SQLException e)
         {
@@ -57,8 +63,6 @@ public class planning_accService implements IService<planning_acc>{
 
     public void add(planning_acc p) throws SQLException
     {
-        if(checkExistence(p)==0)
-        {
             String sql ="insert into planning_accompagnateur(id_accompagnateur,date_jour,heure_debut,heure_fin)"+"values(?,?,?,?)";
             PreparedStatement st = cnx.prepareStatement(sql);
             st.setInt(1,p.getId_acc());
@@ -68,11 +72,7 @@ public class planning_accService implements IService<planning_acc>{
 
             st.executeUpdate();
             System.out.println("planning entry added");
-        }
-        else if (checkExistence(p)==1)
-            System.out.println("planning entry not added, time slot already taken");
-        else
-            System.out.println("impossible to establish connection with database");
+
     }
 
     public void delete(int id) throws SQLException{
@@ -90,6 +90,20 @@ public class planning_accService implements IService<planning_acc>{
         PreparedStatement st = cnx.prepareStatement(sql);
         st.executeUpdate();
         System.out.println("planning "+id+" updated");
+    }
+
+    public List<Integer> retrieveIdAcc() throws SQLException{
+        List<Integer> list = new ArrayList<>();
+        String sql = "select id_accompagnateur from accompagnateur";
+        PreparedStatement st = cnx.prepareStatement(sql);
+        ResultSet rs = st.executeQuery(sql);
+
+        while(rs.next())
+        {
+            list.add(rs.getInt("id_accompagnateur"));
+        }
+
+        return list;
     }
 
 

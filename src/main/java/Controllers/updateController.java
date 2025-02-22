@@ -1,5 +1,7 @@
 package Controllers;
 
+import entities.planning;
+import entities.planning_acc;
 import entities.planning_doc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import services.planning_accService;
 import services.planning_docService;
 import java.sql.Date;
 
@@ -33,7 +36,7 @@ public class updateController {
     @FXML
     private Button save_update;
 
-    private planning_doc selectedItem;
+    private planning selectedItem;
 
     private displayController displayController;
 
@@ -41,24 +44,37 @@ public class updateController {
         this.displayController = displayController;
     }
 
-    public void setSelectedItem(planning_doc selectedItem) {
+    public void setSelectedItem(planning selectedItem) {
         this.selectedItem = selectedItem;
     }
 
-    public planning_doc getSelectedItem()
+    public planning getSelectedItem()
     {
         return selectedItem;
     }
 
     @FXML
     public void fillFields() {
-        planning_docService ps = new planning_docService();
+
         try
         {
-            ObservableList<Integer> observableList = FXCollections.observableArrayList(ps.retrieveIdDoc());
-            id_input_update.setItems(observableList);
 
-            id_input_update.setValue(selectedItem.getId_doc());
+            if(displayController.isDocteur) {
+                planning_docService ps = new planning_docService();
+                ObservableList<Integer> observableList = FXCollections.observableArrayList(ps.retrieveIdDoc());
+                id_input_update.setItems(observableList);
+                planning_doc p = (planning_doc) selectedItem;
+                id_input_update.setValue(p.getId_doc());
+            }
+            else
+            {
+                planning_accService ps = new planning_accService();
+                ObservableList<Integer> observableList = FXCollections.observableArrayList(ps.retrieveIdAcc());
+                id_input_update.setItems(observableList);
+                planning_acc p = (planning_acc) selectedItem;
+                id_input_update.setValue(p.getId_acc());
+            }
+
             date_input_update.setValue(selectedItem.getDate_j().toLocalDate());
 
             String h_deb = selectedItem.getH_deb().toString();
@@ -82,8 +98,6 @@ public class updateController {
     @FXML
     void saveUpdateAction(ActionEvent event) {
 
-        planning_docService ps = new planning_docService();
-
         int id_planning = selectedItem.getId_planning();
 
         Integer id = id_input_update.getSelectionModel().getSelectedItem();
@@ -101,31 +115,64 @@ public class updateController {
 
         if(matcher1.matches()&&matcher2.matches())
         {
-            planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
-            if((ps.checkExistence(p)==0) || (ps.checkExistence(p) == selectedItem.getId_planning()))
-            {
-                System.out.println(ps.checkExistence(p));
-                System.out.println(selectedItem.getId_planning());
-                try {ps.update(id_planning,p);}
-                catch (SQLException e){ System.err.println(e.getMessage());}
+           if(displayController.isDocteur)
+           {
+               planning_docService ps = new planning_docService();
+               planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
+               if((ps.checkExistence(p)==0) || (ps.checkExistence(p) == selectedItem.getId_planning()))
+               {
+                   System.out.println(ps.checkExistence(p));
+                   System.out.println(selectedItem.getId_planning());
+                   try {ps.update(id_planning,p);}
+                   catch (SQLException e){ System.err.println(e.getMessage());}
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("SUCCESS");
-                alert.setContentText("planning updated successfully");
-                alert.showAndWait();
+                   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                   alert.setTitle("SUCCESS");
+                   alert.setContentText("planning updated successfully");
+                   alert.showAndWait();
 
-                displayController.refresh();
+                   displayController.refresh();
 
-                Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                currentStage.close();
-            }
-            else
-            {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("FAIL");
-                alert.setContentText("failed to update planning,time already taken");
-                alert.showAndWait();
-            }
+                   Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                   currentStage.close();
+               }
+               else
+               {
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setTitle("FAIL");
+                   alert.setContentText("failed to update planning,time already taken");
+                   alert.showAndWait();
+               }
+           }
+           else
+           {
+               planning_accService ps = new planning_accService();
+               planning_acc p = new planning_acc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
+               if((ps.checkExistence(p)==0) || (ps.checkExistence(p) == selectedItem.getId_planning()))
+               {
+                   System.out.println(ps.checkExistence(p));
+                   System.out.println(selectedItem.getId_planning());
+                   try {ps.update(id_planning,p);}
+                   catch (SQLException e){ System.err.println(e.getMessage());}
+
+                   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                   alert.setTitle("SUCCESS");
+                   alert.setContentText("planning updated successfully");
+                   alert.showAndWait();
+
+                   displayController.refresh();
+
+                   Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                   currentStage.close();
+               }
+               else
+               {
+                   Alert alert = new Alert(Alert.AlertType.ERROR);
+                   alert.setTitle("FAIL");
+                   alert.setContentText("failed to update planning,time already taken");
+                   alert.showAndWait();
+               }
+           }
         }
         else
         {
