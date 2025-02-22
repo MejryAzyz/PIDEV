@@ -14,6 +14,7 @@ public class Utilisateur {
     private String adresse;
 
     private String image_url;
+    private int status ;
 
     public String getImage_url() {
         return image_url;
@@ -35,6 +36,7 @@ public class Utilisateur {
         this.dateNaissance = dateNaissance;
         this.adresse = adresse;
         this.image_url =image_url;
+        this.status=0;
     }
 
     public int getIdUtilisateur() {

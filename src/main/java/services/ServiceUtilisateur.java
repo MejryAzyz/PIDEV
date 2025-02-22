@@ -97,6 +97,12 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         ResultSet rs = stmt.executeQuery();
 
         if (rs.next()) {
+
+            String updateStatusSql = "UPDATE utilisateur SET status = 1 WHERE email = ?";
+            PreparedStatement updateStmt = cnx.prepareStatement(updateStatusSql);
+            updateStmt.setString(1, email);
+            updateStmt.executeUpdate();
+
             Utilisateur utilisateur = new Utilisateur(
                     rs.getString("nom"),
                     rs.getString("prenom"),
@@ -114,4 +120,24 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         return null;
     }
 
+    public int countRegisteredUsers() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM utilisateur";
+        Statement stmt = cnx.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return 0;
+    }
+
+    public int countConnectedUsers() throws SQLException {
+        // Assuming there's a 'status' column where '1' means connected users
+        String sql = "SELECT COUNT(*) FROM utilisateur WHERE status = 1";
+        Statement stmt = cnx.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return 0;
+    }
 }
