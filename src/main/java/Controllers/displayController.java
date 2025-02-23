@@ -60,10 +60,13 @@ public class displayController {
     @FXML
     private TextField search_input;
 
+    @FXML
+    private  Button cancel_search;
+
     public boolean isDocteur;
 
 
-    private ObservableList<planning> docteurs = FXCollections.observableArrayList();// Observable list for TableView
+    private ObservableList<planning> docteurs = FXCollections.observableArrayList();
     private ObservableList<planning> accompagnants = FXCollections.observableArrayList();
 
 
@@ -72,7 +75,7 @@ public class displayController {
     public void initialize() {
 
         docteur.getStyleClass().add("selected");
-        // Call your existing method to retrieve data from the database
+
         planning_docService ps = new planning_docService();
 
         delete.disableProperty().bind(Bindings.isNull(tabview.getSelectionModel().selectedItemProperty()));
@@ -80,7 +83,7 @@ public class displayController {
 
         isDocteur=true;
 
-        // Bind columns to the Person properties
+
         TableColumn<planning,Integer> id_planning = new TableColumn<>("ID Planning");
         id_planning.setCellValueFactory(cellData -> cellData.getValue().idPlanProperty().asObject());
 
@@ -246,17 +249,17 @@ public class displayController {
 
     @FXML
     void showAcc(ActionEvent event) {
+
         toggleSelection(accompagnant,docteur);
 
         planning_accService ps = new planning_accService();
 
-        isDocteur = false; // Assuming this flag is defined elsewhere
+        isDocteur = false;
 
-        // Clear the TableView and its columns
-        tabview.getItems().clear();
+        /*tabview.getItems().clear();*/
         tabview.getColumns().clear();
 
-        // Add common columns (using the superclass type `planning`)
+
         TableColumn<planning, Integer> idPlanningColumn = new TableColumn<>("ID Planning");
         idPlanningColumn.setCellValueFactory(cellData -> cellData.getValue().idPlanProperty().asObject());
 
@@ -276,7 +279,7 @@ public class displayController {
                 if (p instanceof planning_acc) {
                     return ((planning_acc) p).idAccProperty().asObject();
                 }
-                return null; // Return null for other subclasses
+                return null;
             });
 
         tabview.getColumns().addAll(idPlanningColumn,idAccompagnantColumn,dateJourColumn, heureDebutColumn, heureFinColumn);
@@ -297,7 +300,7 @@ public class displayController {
     void showDocteur(ActionEvent event) {
         toggleSelection(docteur,accompagnant);
         isDocteur = true;
-        tabview.getItems().clear();
+        /*tabview.getItems().clear();*/
         tabview.getColumns().clear();
         initialize();
     }
@@ -328,6 +331,7 @@ public class displayController {
         Matcher numberMatcher = numberPattern.matcher(keyword);
 
         ObservableList<planning> results = FXCollections.observableArrayList();
+
 
         if(tabview.getColumns().isEmpty())
         {
@@ -404,8 +408,8 @@ public class displayController {
                         alert.setTitle("FAIL");
                         alert.setContentText("Enter valid keyword");
                         alert.showAndWait();
+                        return;
                     }
-            tabview.setItems(results);
 
         }
         else
@@ -440,12 +444,25 @@ public class displayController {
                 alert.setTitle("FAIL");
                 alert.setContentText("Enter valid keyword");
                 alert.showAndWait();
+                return;
             }
 
-            tabview.setItems(results);
         }
+        tabview.setItems(results);
     }
 
+    @FXML
+    private void cancelSearchAction(){
+        search_input.clear();
+        if(isDocteur)
+        {
+            showDocteur(new ActionEvent());
+        }
+        else
+        {
+            showAcc(new ActionEvent());
+        }
+    }
 
 }
 

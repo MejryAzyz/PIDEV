@@ -162,7 +162,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="search_button" layoutX="296.0" layoutY="17.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="#e6f0ff">
+                  <Button fx:id="search_button" layoutX="327.0" layoutY="17.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Button>
@@ -171,6 +171,11 @@
                         <Image url="@/avatar.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="cancel_search" layoutX="297.0" layoutY="17.0" mnemonicParsing="false" onAction="#cancelSearchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff transparent #e6f0ff transparent; -fx-border-width: 2;" text="❌" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
                </children></AnchorPane>
             <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #e6f0ff;">
                <children>
