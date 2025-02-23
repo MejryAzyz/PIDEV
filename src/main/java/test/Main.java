@@ -26,7 +26,7 @@ public class Main {
         try {
             // Example: Generate the verification link
             String email = "fihit18472@codverts.com";  // Replace with recipient's email
-            String name = "John Doe";  // Replace with recipient's name
+            String name = "John Doee";  // Replace with recipient's name
             String verificationLink = generateVerificationLink(email);
 
             // Send the verification email
