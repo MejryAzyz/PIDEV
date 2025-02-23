@@ -4,11 +4,10 @@ import models.Utilisateur;
 import org.mindrot.jbcrypt.BCrypt;
 import tools.MyDataBase;
 
+import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.sql.Date;
+import java.util.*;
 
 public class ServiceUtilisateur implements IService<Utilisateur> {
     Connection cnx;
@@ -17,8 +16,10 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         cnx = MyDataBase.getInstance().getCnx();
     }
     @Override
-    public void ajouter(Utilisateur u) throws SQLException  {
-        String sql = "INSERT INTO utilisateur (id_role, nom, prenom, email, mot_de_passe, telephone, date_naissance, adresse,image_url,status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void ajouter(Utilisateur u) throws SQLException, IOException {
+        String sql = "INSERT INTO utilisateur (id_role, nom, prenom, email, mot_de_passe, telephone, date_naissance, adresse,image_url,status , verif , verification_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        String token = UUID.randomUUID().toString();
 
         PreparedStatement stmt = cnx.prepareStatement(sql);
         stmt.setInt(1, u.getIdRole());
@@ -34,9 +35,16 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         stmt.setString(8, u.getAdresse());
         stmt.setString(9, u.getImage_url());
         stmt.setInt(10, u.getStatus());
+        stmt.setInt(11, 0);
+        stmt.setString(12, token);
 
         stmt.executeUpdate();
         System.out.println("user added");
+        System.out.println("User added. Verification email sent.");
+
+        // Send verification email
+        String verificationLink = "http://localhost:8000/verify?token=" + token;
+        ServiceSendEmail.sendVerificationEmail(u.getEmail(), u.getNom(), verificationLink);
 
     }
 
@@ -106,6 +114,13 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+
+                int verif = rs.getInt("verif"); // Check verification status
+                if (verif == 0) {
+                    System.out.println("You need to verify your email before logging in.");
+                    return null; // Prevent login
+                }
+
                 String storedHashedPassword = rs.getString("mot_de_passe");
 
                 // Compare the input password with the stored hash
@@ -159,7 +174,6 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
 
     private Map<String, String> userVerificationTokens = new HashMap<>(); // email -> token
 
-    // This method would be called when the user clicks the verification link
     public boolean verifyEmail(String token) {
         for (Map.Entry<String, String> entry : userVerificationTokens.entrySet()) {
             if (entry.getValue().equals(token)) {
@@ -170,4 +184,15 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
         }
         return false;  // Token is invalid
     }
+    public boolean verifyAccount(String token) throws SQLException {
+        String sql = "UPDATE utilisateur SET status = 1 WHERE verification_token = ?";
+
+        PreparedStatement stmt = cnx.prepareStatement(sql);
+        stmt.setString(1, token);
+
+        int rowsUpdated = stmt.executeUpdate();
+
+        return rowsUpdated > 0; // If a row was updated, verification was successful
+    }
+
 }

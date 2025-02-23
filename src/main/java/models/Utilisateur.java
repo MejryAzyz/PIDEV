@@ -16,6 +16,27 @@ public class Utilisateur {
     private String image_url;
     private int status ;
 
+    private int verif ;
+
+
+    private String verification_token;
+
+    public int getVerif() {
+        return verif;
+    }
+
+    public void setVerif(int verif) {
+        this.verif = verif;
+    }
+
+    public String getVerification_token() {
+        return verification_token;
+    }
+
+    public void setVerification_token(String verification_token) {
+        this.verification_token = verification_token;
+    }
+
     public String getImage_url() {
         return image_url;
     }

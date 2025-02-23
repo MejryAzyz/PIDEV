@@ -3,9 +3,15 @@ package Server;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import tools.MyDataBase;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LocalHttpServer {
 
@@ -23,23 +29,30 @@ public class LocalHttpServer {
 
     // Handler for the /verify endpoint
     static class VerifyTokenHandler implements HttpHandler {
+        Connection cnx;
+
+        public VerifyTokenHandler() {
+            cnx = MyDataBase.getInstance().getCnx();
+        }
         @Override
         public void handle(HttpExchange exchange) throws IOException {
-            String query = exchange.getRequestURI().getQuery();  // Get the query string (e.g., token=abcd1234)
+            String query = exchange.getRequestURI().getQuery(); // Get the query string (e.g., token=abcd1234)
 
             if (query != null && query.contains("token=")) {
                 String token = query.split("=")[1];
 
-                // Here you can check the token, validate it, and verify the user's email
-                // For example:
-                if (verifyToken(token)) {
-                    String response = "Token is valid! User verified.";
+                // Check if token is valid
+                if (verifyTokenInDatabase(token)) {
+                    // Update user status
+                    updateUserVerificationStatus(token);
+
+                    String response = "Email verified successfully! You can now log in.";
                     exchange.sendResponseHeaders(200, response.getBytes().length);
                     OutputStream os = exchange.getResponseBody();
                     os.write(response.getBytes());
                     os.close();
                 } else {
-                    String response = "Invalid token.";
+                    String response = "Invalid or expired token.";
                     exchange.sendResponseHeaders(400, response.getBytes().length);
                     OutputStream os = exchange.getResponseBody();
                     os.write(response.getBytes());
@@ -48,13 +61,33 @@ public class LocalHttpServer {
             }
         }
 
-        // Method to simulate token verification
-        private boolean verifyToken(String token) {
-            // Simulate token verification logic (use a stored token from your database)
-            // For now, we'll accept any token as valid
-            return token != null && !token.isEmpty();
+        // Check if the token exists in the database
+        private boolean verifyTokenInDatabase(String token) {
+            try {
+                String sql = "SELECT COUNT(*) FROM utilisateur WHERE verification_token = ?";
+                PreparedStatement pstmt = cnx.prepareStatement(sql);
+                pstmt.setString(1, token);
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    return true;
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        // Update user status to verified
+        private void updateUserVerificationStatus(String token) {
+            try  {
+                String sql = "UPDATE utilisateur SET verif = 1, verification_token = 'verified' WHERE verification_token = ?";
+                PreparedStatement pstmt = cnx.prepareStatement(sql);
+                pstmt.setString(1, token);
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
-
 
 }

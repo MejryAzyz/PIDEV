@@ -28,7 +28,8 @@ public class Main {
         LocalHttpServer Lh = new LocalHttpServer();
 
         Lh.startServer();
-        try {
+
+       /* try {
             // Example: Generate the verification link
             String email = "fihit18472@codverts.com";  // Replace with recipient's email
             String name = "John Doee";  // Replace with recipient's name
@@ -40,34 +41,26 @@ public class Main {
             e.printStackTrace();
         }
           // Debugging line
-    }
+    }*/
 
 
 /*/String templateid =  "d-230b850d02cb4bfb85298b91ed20e70f";
         se.sendEmailUsingTemplate("msehli.elyes@esprit.tn","test",templateid,"aya behy l email khtaf");
 
 */
-     /*   Utilisateur nouvelUtilisateur = new Utilisateur("Mejri","islem","islem@example.com","123", "12345678",new Date(),"Tunis","https://ibb.co/r25WJZ9");
-service.login("islem@example.com","123");
-=======
-public class Main {
-    public static void main(String[] args) throws SQLException {
-        MyDataBase md=  MyDataBase.getInstance();
-       ServiceUtilisateur service = new ServiceUtilisateur();
-
-        //Utilisateur nouvelUtilisateur = new Utilisateur("Mejri","islem","islem@example.com","password123", "12345678",new Date(),"Tunis");
+       Utilisateur nouvelUtilisateur = new Utilisateur("Mejri","islem","waxijeh910@noomlocs.com","123", "12345678",new Date(),"Tunis","https://ibb.co/r25WJZ9");
+service.login("waxijeh910@noomlocs.com","123");
+/*
 int count = service.countConnectedUsers();
         System.out.println("conneted users : " + count);
->>>>>>> 64cb027335baa02aeb28eb5c94e7c6ee3f444595
         try {
           List U = new ArrayList<>(  service.recuperer());
             System.out.println(U);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-<<<<<<< HEAD
 */
-    }
+    }}
 
 
 
