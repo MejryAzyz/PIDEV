@@ -49,11 +49,11 @@
 }
 
 #Hbar{
-    -fx-background-color: linear-gradient(from 40% 0% to 100% 0%, #000a1a, #002966  );
+    -fx-background-color: linear-gradient(from 40% 0% to 100% 0%, #001433, #002966  );
 }
 
 #Vbar{
-    -fx-background-color: linear-gradient(from 0% 60% to 0% 100%,#000a1a, #002966  	);
+    -fx-background-color: linear-gradient(from 0% 60% to 0% 100%,#001433, #002966  	);
 }
 
 .table-view .scroll-bar:horizontal {
@@ -88,7 +88,7 @@
 }
 
 .Gradient{
-    -fx-background-color: linear-gradient(from 0% 60% to 0% 100%,#000a1a, #002966   );
+    -fx-background-color: linear-gradient(from 0% 60% to 0% 100%,#001433, #002966   );
 }
 
 .date-picker{
@@ -131,7 +131,7 @@
 }
 
 .choice-box .menu-item .label {
-    -fx-text-fill: #000a1a;
+    -fx-text-fill: #001433;
 }
 
 .hover-element:hover{
