@@ -125,7 +125,7 @@ public class ModifierCliniqueController {
     }
 
     private boolean isValidPhone(String phone) {
-        return phone.matches("\\d{8,15}"); // Seulement des chiffres
+        return phone.matches("\\d{8,15}");
     }}
 
 

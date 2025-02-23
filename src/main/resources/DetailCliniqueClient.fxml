@@ -1,59 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
-<AnchorPane xmlns="http://javafx.com/javafx"
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.FontWeight?>
+
+<ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.DetailCliniqueClientController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="1000.0"
+            style="-fx-background-color: transparent;">
+    <!-- Fond avec dégradé -->
+    <VBox style="-fx-background-color: linear-gradient(to bottom, #f0f4f8, #d9e2ec); -fx-padding: 20;">
+        <!-- Conteneur principal pour les informations de la clinique -->
+        <HBox spacing="20" style="-fx-padding: 10;">
+            <!-- Image de la clinique avec ombre portée et bordure arrondie -->
+            <ImageView fx:id="cliniqueImageView" fitHeight="250" fitWidth="400"
+                       style="-fx-border-color: #aaaaaa; -fx-border-width: 2px; -fx-background-color: #f4f4f4; -fx-background-radius: 10; -fx-border-radius: 10;">
+                <effect>
+                    <DropShadow radius="10" spread="0.2" color="#333333"/>
+                </effect>
+            </ImageView>
 
-    <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 30;" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-        <!-- Image de la clinique -->
-        <ImageView fx:id="cliniqueImageView" fitHeight="250" fitWidth="400"
-                   style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);" />
+            <!-- Section pour les informations de la clinique -->
+            <VBox alignment="TOP_LEFT" spacing="15">
+                <!-- Nom de la clinique avec dégradé de couleur -->
+                <Label fx:id="nomLabel" style="-fx-font-size: 28px; -fx-font-weight: bold;">
+                    <textFill>
+                        <LinearGradient startX="0.0" startY="0.0" endX="1.0" endY="0.0">
+                            <stops>
+                                <Stop color="#4CAF50" offset="0.0"/>
+                                <Stop color="#35733e" offset="1.0"/>
+                            </stops>
+                        </LinearGradient>
+                    </textFill>
+                </Label>
 
-        <!-- Section pour le nom de la clinique -->
-        <Label fx:id="nomLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;" />
+                <!-- Description de la clinique -->
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Description :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <Label fx:id="descriptionLabel" wrapText="true" style="-fx-font-size: 16px; -fx-text-fill: #666666;" />
+                </HBox>
 
-        <!-- Section pour la description de la clinique -->
-        <Label text="Description :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
-        <Label fx:id="descriptionLabel" wrapText="true" style="-fx-font-size: 16px; -fx-text-fill: #666666;" />
+                <!-- Adresse de la clinique -->
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Adresse :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <Label fx:id="adresseLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                </HBox>
 
-        <!-- Section pour l'adresse de la clinique -->
-        <Label text="Adresse :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
-        <Label fx:id="adresseLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                <!-- Email de la clinique -->
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Email :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <Label fx:id="emailLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                </HBox>
 
-        <!-- Section pour l'email de la clinique -->
-        <Label text="Email :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
-        <Label fx:id="emailLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                <!-- Téléphone de la clinique -->
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Téléphone :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+                    <Label fx:id="telLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+                </HBox>
+            </VBox>
+        </HBox>
 
-        <!-- Section pour le téléphone de la clinique -->
-        <Label text="Téléphone :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
-        <Label fx:id="telLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
-        <VBox fx:id="docteurContainer" spacing="10" style="-fx-padding: 10;">
-            <!-- Les docteurs seront affichés ici dynamiquement -->
+        <!-- Section pour la liste des docteurs (sur toute la largeur) -->
+        <VBox style="-fx-padding: 20 30 10 30;">
+            <Label text="Docteurs :" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+            <VBox fx:id="docteursContainer" spacing="10" alignment="TOP_CENTER" style="-fx-padding: 10;">
+                <!-- Docteurs seront ajoutés ici dynamiquement -->
+                <Label fx:id="prenomLabel" text="Prénom: " style="-fx-font-size: 16px; -fx-text-fill: #555555;" />
+            </VBox>
         </VBox>
+
+        <!-- Espace vide entre la liste des docteurs et la section du prix/bouton -->
+        <Region prefHeight="30" />
+
+        <!-- Section pour le prix de la clinique et le bouton Réserver -->
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 10 30;">
+            <!-- Prix avec ombre portée -->
+            <Label fx:id="prixLabel" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #35733e;">
+                <effect>
+                    <DropShadow radius="5" color="#000000" offsetX="2" offsetY="2"/>
+                </effect>
+            </Label>
+
+            <!-- Espacement flexible pour séparer Prix et Bouton -->
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Bouton Réserver statique avec effet de profondeur -->
+            <Button fx:id="reserverButton" text="Réserver"
+                    style="-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;
+                           -fx-pref-width: 200; -fx-background-radius: 30; -fx-border-radius: 30; -fx-padding: 10 20;">
+                <effect>
+                    <InnerShadow radius="5" color="#000000" offsetX="2" offsetY="2"/>
+                </effect>
+            </Button>
+        </HBox>
     </VBox>
-        <!-- Section pour le prix de la clinique -->
-    <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 10 30;" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
-
-        <!-- Prix à gauche -->
-
-        <Label fx:id="prixLabel" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #35733e;" />
-
-        <!-- Espacement flexible pour séparer Prix et Bouton -->
-        <Region HBox.hgrow="ALWAYS" />
-
-        <!-- Bouton Réserver à droite -->
-        <Button fx:id="reserverButton" text="Réserver"
-                style="-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;
-                       -fx-pref-width: 200; -fx-background-radius: 30; -fx-border-radius: 30; -fx-padding: 10 20;"
-                 />
-    </HBox>
-
-</AnchorPane>
+</ScrollPane>

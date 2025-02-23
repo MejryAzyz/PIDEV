@@ -121,24 +121,22 @@ public class ServiceDocteur implements IService<Docteur> {
         List<Docteur> docteurs = new ArrayList<>();
         String query = "SELECT * FROM docteur WHERE id_clinique = ? AND id_specialite = ?";
 
-        try (
-             PreparedStatement pst = cnx.prepareStatement(query)) {
-            pst.setInt(1, cliniqueId);
-            pst.setInt(2, specialiteId);
+        PreparedStatement stmt = cnx.prepareStatement(query);
+        stmt.setInt(1, cliniqueId);
+        stmt.setInt(2, specialiteId);
 
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Docteur docteur = new Docteur(
-                        rs.getInt("id_docteur"),
-                        rs.getInt("id_clinique"),
-                        rs.getInt("id_specialite"),
-                        rs.getString("nom"),
-                        rs.getString("prenom"),
-                        rs.getString("email"),
-                        rs.getString("telephone")
-                );
-                docteurs.add(docteur);
-            }
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Docteur docteur = new Docteur(
+                    rs.getInt("id_docteur"),
+                    rs.getInt("id_clinique"),
+                    rs.getInt("id_specialite"),
+                    rs.getString("nom"),
+                    rs.getString("prenom"),
+                    rs.getString("email"),
+                    rs.getString("telephone")
+            );
+            docteurs.add(docteur);
         }
         return docteurs;
     }
