@@ -34,7 +34,9 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+          // Debugging line
     }
+
 
 /*/String templateid =  "d-230b850d02cb4bfb85298b91ed20e70f";
         se.sendEmailUsingTemplate("msehli.elyes@esprit.tn","test",templateid,"aya behy l email khtaf");
