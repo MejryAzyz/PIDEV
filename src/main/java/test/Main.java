@@ -7,6 +7,11 @@ import services.ServiceUtilisateur;
 import tools.MyDataBase;
 
 import java.io.IOException;
+import models.Utilisateur;
+import services.ServiceUtilisateur;
+import tools.MyDataBase;
+
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,13 +49,28 @@ public class Main {
 */
      /*   Utilisateur nouvelUtilisateur = new Utilisateur("Mejri","islem","islem@example.com","123", "12345678",new Date(),"Tunis","https://ibb.co/r25WJZ9");
 service.login("islem@example.com","123");
+=======
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        MyDataBase md=  MyDataBase.getInstance();
+       ServiceUtilisateur service = new ServiceUtilisateur();
+
+        //Utilisateur nouvelUtilisateur = new Utilisateur("Mejri","islem","islem@example.com","password123", "12345678",new Date(),"Tunis");
+int count = service.countConnectedUsers();
+        System.out.println("conneted users : " + count);
+>>>>>>> 64cb027335baa02aeb28eb5c94e7c6ee3f444595
         try {
           List U = new ArrayList<>(  service.recuperer());
             System.out.println(U);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+<<<<<<< HEAD
 */
     }
+
+
+
+
 
 
