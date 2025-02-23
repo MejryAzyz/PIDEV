@@ -157,12 +157,12 @@
          <children>
             <AnchorPane fx:id="Hbar" prefHeight="59.0" prefWidth="832.0" style=";">
                <children>
-                  <TextField layoutX="12.0" layoutY="17.0" prefHeight="25.0" prefWidth="286.0" promptText="  search ..." style="-fx-font-size: 13; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
+                  <TextField fx:id="search_input" layoutX="12.0" layoutY="17.0" prefHeight="25.0" prefWidth="286.0" promptText="  search ..." style="-fx-font-size: 13; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <Button layoutX="296.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="#e6f0ff">
+                  <Button fx:id="search_button" layoutX="296.0" layoutY="17.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="#e6f0ff">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Button>

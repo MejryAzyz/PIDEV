@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.AnchorPane;
@@ -26,7 +23,10 @@ import services.planning_docService;
 import javax.swing.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class displayController {
 
@@ -38,18 +38,6 @@ public class displayController {
 
     @FXML
     private TableView<planning> tabview;
-
-   /* @FXML
-    private TableColumn<planning, Integer> id_planning;
-
-    @FXML
-    private TableColumn<planning, String> date_jour;
-
-    @FXML
-    private TableColumn<planning, String> heure_debut;
-
-    @FXML
-    private TableColumn<planning, String> heure_fin;*/
 
     @FXML
     private Button delete;
@@ -65,6 +53,12 @@ public class displayController {
 
     @FXML
     private Button accompagnant;
+
+    @FXML
+    private Button search_button;
+
+    @FXML
+    private TextField search_input;
 
     public boolean isDocteur;
 
@@ -314,6 +308,142 @@ public class displayController {
         other.getStyleClass().removeIf(s -> s.equals("selected"));
 
         selected.getStyleClass().add("selected");
+    }
+
+    @FXML
+    private void searchAction(){
+
+        String time = "^([01]?[0-9]|2[0-3]):([0-5]?[0-9])$";
+        String date = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$";
+        String number = "^\\d+$";
+
+        Pattern timePattern = Pattern.compile(time);
+        Pattern datePattern = Pattern.compile(date);
+        Pattern numberPattern = Pattern.compile(number);
+
+        String keyword = search_input.getText();
+
+        Matcher timeMatcher = timePattern.matcher(keyword);
+        Matcher dateMatcher = datePattern.matcher(keyword);
+        Matcher numberMatcher = numberPattern.matcher(keyword);
+
+        ObservableList<planning> results = FXCollections.observableArrayList();
+
+        if(tabview.getColumns().isEmpty())
+        {
+            TableColumn<planning,Integer> id_planning = new TableColumn<>("ID Planning");
+            id_planning.setCellValueFactory(cellData -> cellData.getValue().idPlanProperty().asObject());
+
+            tabview.getColumns().add(id_planning);
+
+            if(isDocteur) {
+                TableColumn<planning,Integer> id_docteur = new TableColumn<>("ID Docteur");
+                id_docteur.setCellValueFactory(cellData -> {
+                    planning p = cellData.getValue();
+                    if (p instanceof planning_doc) {
+                        return ((planning_doc) p).idDocProperty().asObject();
+                    }
+                    return null;
+                });
+                tabview.getColumns().add(id_docteur);
+            }
+            else {
+                TableColumn<planning, Integer> id_accompagnant = new TableColumn<>("ID Accompagnant");
+                id_accompagnant.setCellValueFactory(cellData -> {
+                    planning p = cellData.getValue();
+                    if (p instanceof planning_acc) {
+                        return ((planning_acc) p).idAccProperty().asObject();
+                    }
+                    return null; // Return null for other subclasses
+                });
+                tabview.getColumns().add(id_accompagnant);
+            }
+
+            TableColumn<planning,String> date_jour = new TableColumn<>("Date Jour");
+            date_jour.setCellValueFactory(cellData -> cellData.getValue().dateProperty().asString());
+
+            TableColumn<planning,String> heure_debut = new TableColumn<>("Heure Debut");
+            heure_debut.setCellValueFactory(cellData -> cellData.getValue().h_debProperty().asString());
+
+            TableColumn<planning,String> heure_fin = new TableColumn<>("Heure Fin");
+            heure_fin.setCellValueFactory(cellData -> cellData.getValue().h_finProperty().asString());
+
+            tabview.getColumns().addAll(date_jour,heure_debut,heure_fin);
+            tabview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        }
+
+
+        if(isDocteur)
+        {
+            if(timeMatcher.matches())
+            {
+                    results = docteurs.filtered(planning ->{
+                    planning_doc p = (planning_doc) planning;
+                    int l = p.getH_deb().toString().length();
+                    return p.getH_deb().toString().substring(0, l-3)
+                            .equals(keyword);
+                    });
+            }
+            else if(dateMatcher.matches())
+                {
+                    results = docteurs.filtered(planning ->{
+                        planning_doc p = (planning_doc) planning;
+                        return p.getDate_j().toString().equals(keyword);
+                    });
+                }
+                else if(numberMatcher.matches())
+                    {
+                        results = docteurs.filtered(planning ->{
+                            planning_doc p = (planning_doc) planning;
+                            return p.getId_doc() == Integer.parseInt(keyword);
+                        });
+                    }
+                else
+                    {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("FAIL");
+                        alert.setContentText("Enter valid keyword");
+                        alert.showAndWait();
+                    }
+            tabview.setItems(results);
+
+        }
+        else
+        {
+
+            if(timeMatcher.matches())
+            {
+                results = accompagnants.filtered(planning ->{
+                    planning_acc p = (planning_acc) planning;
+                    int l = p.getH_deb().toString().length();
+                    return p.getH_deb().toString().substring(0, l-3)
+                            .equals(keyword);
+                });
+            }
+            else if(dateMatcher.matches())
+            {
+                results = accompagnants.filtered(planning ->{
+                    planning_acc p = (planning_acc) planning;
+                    return p.getDate_j().toString().equals(keyword);
+                });
+            }
+            else if(numberMatcher.matches())
+            {
+                results = accompagnants.filtered(planning ->{
+                    planning_acc p = (planning_acc) planning;
+                    return p.getId_acc() == Integer.parseInt(keyword);
+                });
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("FAIL");
+                alert.setContentText("Enter valid keyword");
+                alert.showAndWait();
+            }
+
+            tabview.setItems(results);
+        }
     }
 
 
