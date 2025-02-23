@@ -100,4 +100,46 @@ public class ServiceDocteur implements IService<Docteur> {
             return docteurs;
         }
     }
+    //
+    public List<Integer> recupererCliniqueIdsParSpecialite(int specialiteId) throws SQLException {
+        List<Integer> cliniqueIds = new ArrayList<>();
+        String query = "SELECT id_clinique FROM docteur WHERE id_specialite = ?";
+
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setInt(1, specialiteId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                cliniqueIds.add(rs.getInt("id_clinique"));
+            }
+        }
+
+        return cliniqueIds;
+    }
+
+    public List<Docteur> recupererDocteursParCliniqueEtSpecialite(int cliniqueId, int specialiteId) throws SQLException {
+        List<Docteur> docteurs = new ArrayList<>();
+        String query = "SELECT * FROM docteur WHERE id_clinique = ? AND id_specialite = ?";
+
+        try (
+             PreparedStatement pst = cnx.prepareStatement(query)) {
+            pst.setInt(1, cliniqueId);
+            pst.setInt(2, specialiteId);
+
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Docteur docteur = new Docteur(
+                        rs.getInt("id_docteur"),
+                        rs.getInt("id_clinique"),
+                        rs.getInt("id_specialite"),
+                        rs.getString("nom"),
+                        rs.getString("prenom"),
+                        rs.getString("email"),
+                        rs.getString("telephone")
+                );
+                docteurs.add(docteur);
+            }
+        }
+        return docteurs;
+    }
 }

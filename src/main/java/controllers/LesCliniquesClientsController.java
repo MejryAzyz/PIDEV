@@ -1,15 +1,20 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import models.Clinique;
 import services.ServiceClinique;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,9 +44,7 @@ public class LesCliniquesClientsController {
         for (Clinique clinique : cliniques) {
             HBox card = new HBox(15);
             card.setStyle("-fx-background-color: #f8f8f8; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
-
-
-            String imageUrl = "file:src/main/resources/clinique2.png";
+            String imageUrl = "clinique2.png";
             ImageView imageView = new ImageView(new Image(imageUrl));
             imageView.setFitHeight(100);
             imageView.setFitWidth(100);
@@ -58,6 +61,8 @@ public class LesCliniquesClientsController {
             infoBox.getChildren().addAll(nomLabel, adresseLabel, emailLabel, telLabel,prixLabel);
             card.getChildren().addAll(imageView, infoBox);
 
+
+
             cliniqueContainer.add(card, col, row);
             col++;
 
@@ -66,5 +71,10 @@ public class LesCliniquesClientsController {
                 row++;
             }
         }
+
+
+        }
     }
-}
+
+
+

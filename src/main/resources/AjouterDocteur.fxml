@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="464.0" prefWidth="657.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterDocteurController">
+<AnchorPane prefHeight="464.0" prefWidth="657.0" style="-fx-background-image: url('image.PNG'); -fx-background-size: cover; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterDocteurController">
    <children>
       <AnchorPane layoutX="-1.0" prefHeight="45.0" prefWidth="710.0" style="-fx-background-color: #0dae6f;" />
       <Text layoutX="255.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter docteur" textAlignment="CENTER" wrappingWidth="185.6148681640625">

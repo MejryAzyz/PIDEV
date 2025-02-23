@@ -1,0 +1,184 @@
+package controllers;
+
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+import models.Clinique;
+import models.Specialite;
+import services.ServiceClinique;
+import services.ServiceDocteur;
+import services.ServiceSpecialite;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+public class AfficherSpecialiteClientController {
+    @FXML
+    private GridPane specialiteContainer;
+
+    private ServiceClinique serviceClinique;
+    private ServiceDocteur serviceDocteur;
+
+    public AfficherSpecialiteClientController() {
+        this.serviceClinique = new ServiceClinique();
+        this.serviceDocteur = new ServiceDocteur();
+    }
+
+    public void initialize() {
+        try {
+            afficherSpecialites();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void afficherSpecialites() throws SQLException {
+        ServiceSpecialite service = new ServiceSpecialite();
+        List<Specialite> specialites = service.recuperer();
+
+        specialiteContainer.getChildren().clear();
+
+        int row = 0;
+        int col = 0;
+
+        for (Specialite spec : specialites) {
+            StackPane card = createSpecialiteCard(spec);
+            specialiteContainer.add(card, col, row);
+            col++;
+
+            if (col == 3) {  // 3 spécialités par ligne
+                col = 0;
+                row++;
+            }
+
+            // Ajouter un clic pour afficher les cliniques de la spécialité
+            card.setOnMouseClicked(event -> {
+                try {
+                    afficherCliniquesParSpecialite(spec.getId_specialite());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
+
+    private void afficherCliniquesParSpecialite(int specialiteId) throws SQLException {
+        // Étape 1 : Récupérer les ID de cliniques des docteurs dans la spécialité
+        List<Integer> cliniqueIds = serviceDocteur.recupererCliniqueIdsParSpecialite(specialiteId);
+
+        // Étape 2 : Récupérer les cliniques à partir des ID
+        List<Clinique> cliniques = serviceClinique.recupererCliniquesParIds(cliniqueIds);
+
+        // Afficher les cliniques récupérées (même logique que pour l'affichage initial)
+        afficherCliniques(cliniques);
+    }
+
+    private void afficherCliniques(List<Clinique> cliniques) {
+        specialiteContainer.getChildren().clear();
+
+        int row = 0;
+        int col = 0;
+
+        for (Clinique clinique : cliniques) {
+            HBox card = new HBox(15);
+            card.setStyle("-fx-background-color: #f8f8f8; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
+
+            String imageUrl = "clinique2.png";
+            ImageView imageView = new ImageView(new Image(imageUrl));
+            imageView.setFitHeight(100);
+            imageView.setFitWidth(100);
+
+            VBox infoBox = new VBox(5);
+            Label nomLabel = new Label(clinique.getNom());
+            nomLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+            Label adresseLabel = new Label("Adresse: " + clinique.getAdresse());
+            Label emailLabel = new Label("Email: " + clinique.getEmail());
+            Label telLabel = new Label("Téléphone: " + clinique.getTelephone());
+            Label prixLabel = new Label("Prix: " + clinique.getPrix() + " €");
+            prixLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0dae6f;");
+
+            infoBox.getChildren().addAll(nomLabel, adresseLabel, emailLabel, telLabel, prixLabel );
+            card.getChildren().addAll(imageView, infoBox);
+
+            // Ajouter un événement de clic sur la carte
+            card.setOnMouseClicked(event -> {
+                ouvrirDetailsClinique(clinique);  // Ouvrir la fenêtre de détails
+            });
+
+            specialiteContainer.add(card, col, row);
+            col++;
+
+            if (col > 1) {
+                col = 0;
+                row++;
+            }
+        }
+    }
+
+    private StackPane createSpecialiteCard(Specialite spec) {
+        StackPane card = new StackPane();
+        card.setPrefSize(220, 140);
+
+        // Fond avec dégradé et ombre
+        Rectangle rect = new Rectangle(220, 140);
+        rect.setArcWidth(20);
+        rect.setArcHeight(20);
+        rect.setFill(createGradient());  // Dégradé
+        rect.setEffect(new DropShadow(10, Color.LIGHTGRAY));
+
+        // Texte de la spécialité centré à l'intérieur du rectangle
+        Label label = new Label(spec.getNom());
+        label.setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Arial Rounded MT Bold';");
+        label.setAlignment(javafx.geometry.Pos.CENTER);
+
+        // Ajout du rectangle et du texte à la carte dans un StackPane (superposition)
+        card.getChildren().addAll(rect, label);
+
+
+
+        return card;
+    }
+
+    private LinearGradient createGradient() {
+        // Dégradé allant du bleu clair au vert pastel
+        return new LinearGradient(0, 0, 1, 1, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.web("#85C1E9")),  // Bleu clair
+                new Stop(1, Color.web("#A8E6CF")));  // Vert pastel
+    }
+
+    private void ouvrirDetailsClinique(Clinique clinique) {
+        try {
+            // Charger le fichier FXML pour afficher les détails de la clinique
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DetailCliniqueClient.fxml"));
+            Parent root = loader.load();
+
+            // Passer l'objet clinique au contrôleur de l'écran des détails
+            DetailCliniqueClientController controller = loader.getController();
+            controller.afficherDetails(clinique);
+
+            // Afficher la nouvelle fenêtre
+            Stage stage = new Stage();
+            stage.setTitle("Détails de la Clinique");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+}

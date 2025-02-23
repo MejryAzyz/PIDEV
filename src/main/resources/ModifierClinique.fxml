@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="470.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierCliniqueController">
+<AnchorPane prefHeight="470.0" prefWidth="704.0" style="-fx-background-image: url('image.PNG'); -fx-background-size: cover; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierCliniqueController">
    <children>
       <Text layoutX="35.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom:" wrappingWidth="37.14178466796875">
          <font>

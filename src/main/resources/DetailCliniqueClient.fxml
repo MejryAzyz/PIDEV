@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.DetailCliniqueClientController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <VBox alignment="TOP_LEFT" spacing="15" style="-fx-padding: 30;" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+        <!-- Image de la clinique -->
+        <ImageView fx:id="cliniqueImageView" fitHeight="250" fitWidth="400"
+                   style="-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);" />
+
+        <!-- Section pour le nom de la clinique -->
+        <Label fx:id="nomLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #4CAF50;" />
+
+        <!-- Section pour la description de la clinique -->
+        <Label text="Description :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+        <Label fx:id="descriptionLabel" wrapText="true" style="-fx-font-size: 16px; -fx-text-fill: #666666;" />
+
+        <!-- Section pour l'adresse de la clinique -->
+        <Label text="Adresse :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+        <Label fx:id="adresseLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+
+        <!-- Section pour l'email de la clinique -->
+        <Label text="Email :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+        <Label fx:id="emailLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+
+        <!-- Section pour le téléphone de la clinique -->
+        <Label text="Téléphone :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
+        <Label fx:id="telLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
+        <VBox fx:id="docteurContainer" spacing="10" style="-fx-padding: 10;">
+            <!-- Les docteurs seront affichés ici dynamiquement -->
+        </VBox>
+    </VBox>
+        <!-- Section pour le prix de la clinique -->
+    <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 10 30;" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+
+        <!-- Prix à gauche -->
+
+        <Label fx:id="prixLabel" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #35733e;" />
+
+        <!-- Espacement flexible pour séparer Prix et Bouton -->
+        <Region HBox.hgrow="ALWAYS" />
+
+        <!-- Bouton Réserver à droite -->
+        <Button fx:id="reserverButton" text="Réserver"
+                style="-fx-font-size: 18px; -fx-background-color: #4CAF50; -fx-text-fill: white;
+                       -fx-pref-width: 200; -fx-background-radius: 30; -fx-border-radius: 30; -fx-padding: 10 20;"
+                 />
+    </HBox>
+
+</AnchorPane>

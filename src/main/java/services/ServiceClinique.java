@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ServiceClinique implements IService<Clinique>{
 
@@ -116,5 +117,33 @@ public class ServiceClinique implements IService<Clinique>{
             return rs.getString("nom");
         }
         return "pas dipsonible";
+    }
+
+    //
+    public List<Clinique> recupererCliniquesParIds(List<Integer> cliniqueIds) throws SQLException {
+        List<Clinique> cliniques = new ArrayList<>();
+
+        // Créer une chaîne de 'id_clinique' pour l'instruction IN
+        String ids = String.join(",", cliniqueIds.stream().map(String::valueOf).collect(Collectors.toList()));
+
+        String query = "SELECT * FROM clinique WHERE id_clinique IN (" + ids + ")";
+
+        try (Statement stmt = cnx.createStatement()) {
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                Clinique clinique = new Clinique();
+                clinique.setIdClinique(rs.getInt("id_clinique"));
+                clinique.setNom(rs.getString("nom"));
+                clinique.setDescription(rs.getString("description"));
+                clinique.setAdresse(rs.getString("adresse"));
+                clinique.setTelephone(rs.getString("telephone"));
+                clinique.setEmail(rs.getString("email"));
+                clinique.setPrix(rs.getDouble("prix"));
+                cliniques.add(clinique);
+            }
+        }
+
+        return cliniques;
     }
 }
