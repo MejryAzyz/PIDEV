@@ -24,6 +24,14 @@ public class Utilisateur {
         this.image_url = image_url;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Utilisateur(){}
 
     public Utilisateur(  String nom, String prenom, String email, String motDePasse, String telephone, Date dateNaissance, String adresse,String image_url) {
@@ -36,7 +44,7 @@ public class Utilisateur {
         this.dateNaissance = dateNaissance;
         this.adresse = adresse;
         this.image_url =image_url;
-        this.status=0;
+        this.status=1;
     }
 
     public int getIdUtilisateur() {

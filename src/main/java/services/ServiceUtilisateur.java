@@ -1,11 +1,14 @@
 package services;
 
 import models.Utilisateur;
+import org.mindrot.jbcrypt.BCrypt;
 import tools.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceUtilisateur implements IService<Utilisateur> {
     Connection cnx;
@@ -15,18 +18,23 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
     }
     @Override
     public void ajouter(Utilisateur u) throws SQLException  {
-        String sql = "INSERT INTO utilisateur (id_role, nom, prenom, email, mot_de_passe, telephone, date_naissance, adresse,image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO utilisateur (id_role, nom, prenom, email, mot_de_passe, telephone, date_naissance, adresse,image_url,status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = cnx.prepareStatement(sql);
         stmt.setInt(1, u.getIdRole());
         stmt.setString(2, u.getNom());
         stmt.setString(3, u.getPrenom());
         stmt.setString(4, u.getEmail());
-        stmt.setString(5, u.getMotDePasse());
+        //methode loula securité hachage de password
+        String hashedPassword = BCrypt.hashpw(u.getMotDePasse(), BCrypt.gensalt());
+        stmt.setString(5, hashedPassword);
+
         stmt.setString(6, u.getTelephone());
         stmt.setDate(7, new java.sql.Date(u.getDateNaissance().getTime()));
         stmt.setString(8, u.getAdresse());
         stmt.setString(9, u.getImage_url());
+        stmt.setInt(10, u.getStatus());
+
         stmt.executeUpdate();
         System.out.println("user added");
 
@@ -51,10 +59,10 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
             stmt.setString(1, u.getNom());
             stmt.setString(2, u.getPrenom());
             stmt.setString(3, u.getEmail());
-            stmt.setString(4, u.getMotDePasse());  // Ensure you set all placeholders, including mot_de_passe
+            stmt.setString(4, u.getMotDePasse());
             stmt.setString(5, u.getTelephone());
             stmt.setString(6, u.getAdresse());
-            stmt.setInt(7, u.getIdUtilisateur()); // Set the ID at the end, after all other fields
+            stmt.setInt(7, u.getIdUtilisateur());
             stmt.executeUpdate();
             System.out.println("User modified successfully.");
         } catch (SQLException e) {
@@ -89,36 +97,44 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
 
         return utilisateurs;
     }
+
     public Utilisateur login(String email, String motDePasse) throws SQLException {
-        String sql = "SELECT * FROM utilisateur WHERE email = ? AND mot_de_passe = ?";
-        PreparedStatement stmt = cnx.prepareStatement(sql);
-        stmt.setString(1, email);
-        stmt.setString(2, motDePasse);
-        ResultSet rs = stmt.executeQuery();
+        String sql = "SELECT * FROM utilisateur WHERE email = ? LIMIT 1";
 
-        if (rs.next()) {
+        try (PreparedStatement stmt = cnx.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
 
-            String updateStatusSql = "UPDATE utilisateur SET status = 1 WHERE email = ?";
-            PreparedStatement updateStmt = cnx.prepareStatement(updateStatusSql);
-            updateStmt.setString(1, email);
-            updateStmt.executeUpdate();
+            if (rs.next()) {
+                String storedHashedPassword = rs.getString("mot_de_passe");
 
-            Utilisateur utilisateur = new Utilisateur(
-                    rs.getString("nom"),
-                    rs.getString("prenom"),
-                    rs.getString("email"),
-                    rs.getString("mot_de_passe"),
-                    rs.getString("telephone"),
-                    rs.getDate("date_naissance"),
-                    rs.getString("adresse"),
-                    rs.getString("image_url")
-            );
-            utilisateur.setIdUtilisateur(rs.getInt("id_utilisateur"));
-            utilisateur.setIdRole(rs.getInt("id_role"));
-            return utilisateur;
+                // Compare the input password with the stored hash
+                if (BCrypt.checkpw(motDePasse, storedHashedPassword)) {
+                    // Login success, return user object
+                    Utilisateur utilisateur = new Utilisateur(
+                            rs.getString("nom"),
+                            rs.getString("prenom"),
+                            rs.getString("email"),
+                            storedHashedPassword,  // Keep hashed password
+                            rs.getString("telephone"),
+                            rs.getDate("date_naissance"),
+                            rs.getString("adresse"),
+                            rs.getString("image_url")
+                    );
+                    utilisateur.setIdUtilisateur(rs.getInt("id_utilisateur"));
+                    utilisateur.setIdRole(rs.getInt("id_role"));
+
+                    System.out.println("welcome "+utilisateur.getNom()+" "+utilisateur.getPrenom());
+
+                    return utilisateur;
+                } else {
+                    System.out.println("Incorrect password.");
+                }
+            }
         }
         return null;
     }
+
 
     public int countRegisteredUsers() throws SQLException {
         String sql = "SELECT COUNT(*) FROM utilisateur";
@@ -139,5 +155,19 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
             return rs.getInt(1);
         }
         return 0;
+    }
+
+    private Map<String, String> userVerificationTokens = new HashMap<>(); // email -> token
+
+    // This method would be called when the user clicks the verification link
+    public boolean verifyEmail(String token) {
+        for (Map.Entry<String, String> entry : userVerificationTokens.entrySet()) {
+            if (entry.getValue().equals(token)) {
+                // Token matches, mark the user as verified (e.g., update their record in DB)
+                System.out.println("User verified: " + entry.getKey());
+                return true;
+            }
+        }
+        return false;  // Token is invalid
     }
 }
