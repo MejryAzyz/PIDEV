@@ -37,6 +37,12 @@
     -fx-text-fill: #e6f0ff;
 }
 
+.table-view .table-row-cell:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-background-color: #cee1ff;
+}
+
 .table-view .table-row-cell .table-cell {
     -fx-border-width: 0;
     -fx-alignment: center;
@@ -126,6 +132,18 @@
 
 .choice-box .menu-item .label {
     -fx-text-fill: #000a1a;
+}
+
+.hover-element:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, #80b3ff, 10, 0.3, 0, 0);
+}
+
+.button:hover{
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, #002966, 10, 0.3, 0, 0);
 }
 
 
