@@ -76,7 +76,7 @@ public class Transport {
             case "van":
                 return "https://i.ytimg.com/vi/sbyR9yBOPZA/hqdefault.jpg";
             default:
-                return "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg";
+                return "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"; // Image par défaut
         }
     }
 }

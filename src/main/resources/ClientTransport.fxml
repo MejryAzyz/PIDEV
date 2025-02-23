@@ -27,7 +27,7 @@
          <VBox prefHeight="158.0" prefWidth="110.0">
             <children>
                <Line endX="100.0" startX="-100.0" stroke="WHITE" />
-               <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="172.0" style="-fx-background-color: #0ba84a;" text="Liste Hebergement" textFill="WHITE">
+               <Button mnemonicParsing="false" onAction="#navH" prefHeight="38.0" prefWidth="172.0" style="-fx-background-color: #0ba84a;" text="Liste Hebergement" textFill="WHITE">
                   <font>
                      <Font size="16.0" />
                   </font>

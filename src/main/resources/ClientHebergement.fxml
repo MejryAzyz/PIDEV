@@ -35,7 +35,7 @@
                   </VBox.margin>
                </Button>
                <Line endX="100.0" startX="-100.0" stroke="WHITE" />
-               <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="172.0" style="-fx-background-color: #0ba84a;" text="Liste Transport" textFill="WHITE">
+               <Button mnemonicParsing="false" onAction="#navT" prefHeight="38.0" prefWidth="172.0" style="-fx-background-color: #0ba84a;" text="Liste Transport" textFill="WHITE">
                   <font>
                      <Font size="16.0" />
                   </font>

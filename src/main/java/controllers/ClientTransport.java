@@ -1,6 +1,11 @@
 package controllers;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -8,8 +13,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import Models.Transport;
+import javafx.stage.Stage;
 import service.ServiceTransport;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -39,7 +46,7 @@ public class ClientTransport {
         ImageView imageView = new ImageView();
         imageView.setFitHeight(100);
         imageView.setFitWidth(150);
-        imageView.setImage(new Image(transport.getPhotoUrl())); // 🔥 Image correcte selon le type de transport
+        imageView.setImage(new Image(transport.getPhotoUrl()));
 
 
         VBox details = new VBox(5);
@@ -62,4 +69,23 @@ public class ClientTransport {
         return card;
     }
 
+    public void navH(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ClientHebergement.fxml"));
+            Parent root = loader.load();
+
+            System.out.println("FXML chargé avec succès.");
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            System.out.println("Navigation réussie !");
+        } catch (IOException e) {
+            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
