@@ -61,16 +61,6 @@ public class ServiceTransport implements IService<Transport> {
 
         return 0;  // Si aucun transport trouvé
     }
-    public double getTarifMoyenTransport() throws SQLException {
-        String sql = "SELECT AVG(tarif) AS tarif_moyen FROM transport";
-        PreparedStatement ste = cnx.prepareStatement(sql);
-        ResultSet rs = ste.executeQuery();
-
-        if (rs.next()) {
-            return rs.getDouble("tarif_moyen");
-        }
-        return 0.0;
-    }
 
 
     @Override

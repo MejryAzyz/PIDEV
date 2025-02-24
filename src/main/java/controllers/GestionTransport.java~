@@ -117,8 +117,8 @@ public class GestionTransport implements Initializable {
         try {
             transports.addAll(serviceTransport.recuperer());
             System.out.println("Loaded " + transports.size() + " transports");
-
-            refreshCard();
+            int totalTransport = serviceTransport.getNombreTotalTransport();
+            card1Value.setText(String.valueOf(totalTransport));
         } catch (SQLException ex) {
             Logger.getLogger(GestionTransport.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,7 +141,6 @@ public class GestionTransport implements Initializable {
                     Button modifyButton = new Button();
                     modifyButton.getStyleClass().add("button-action");  // Apply custom style
                     modifyButton.setOnAction(e -> openModifierTransport(transport));
-
 
                     Button deleteButton = new Button();
                     deleteButton.getStyleClass().add("button-delete");  // Apply custom style

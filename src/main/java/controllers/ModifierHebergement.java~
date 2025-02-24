@@ -60,7 +60,6 @@ public class ModifierHebergement {
             ServiceHebergement serviceHebergement = new ServiceHebergement();
             serviceHebergement.modifier(hebergement);
 
-
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Modification réussie");
             successAlert.setHeaderText(null);

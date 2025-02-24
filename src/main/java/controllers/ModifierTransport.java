@@ -53,7 +53,7 @@ public class ModifierTransport{
 
             ServiceTransport serviceTransport = new ServiceTransport();
             serviceTransport.modifier(transport);
-
+            parentController.refreshCard();
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Modification réussie");
             successAlert.setHeaderText(null);
