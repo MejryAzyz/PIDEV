@@ -66,7 +66,8 @@ public class GestionHebergement implements Initializable {
     @FXML
     private TableColumn<Hebergement, String> colActions;  // Add this line
 
-    // List of all the icon elements
+    @FXML
+    private TextField searchBar;
     @FXML
     private Text iconDashboard;
     @FXML
@@ -305,7 +306,7 @@ public class GestionHebergement implements Initializable {
     @FXML
     private void goToGestionTransport() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHebergement.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionTransport.fxml"));
             Parent root = loader.load();
 
             // Get the current stage and replace the scene
@@ -313,7 +314,7 @@ public class GestionHebergement implements Initializable {
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Erreur lors du chargement de GestionHebergement.fxml");
+            System.out.println("Erreur lors du chargement de GestionTransport.fxml");
         }
     }
 

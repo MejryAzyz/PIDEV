@@ -66,7 +66,8 @@ public class GestionHebergement implements Initializable {
     @FXML
     private TableColumn<Hebergement, String> colActions;  // Add this line
 
-    // List of all the icon elements
+    @FXML
+    private TextField searchBar;
     @FXML
     private Text iconDashboard;
     @FXML
@@ -111,14 +112,12 @@ public class GestionHebergement implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            // Fetch the data from the service and populate the list
             hebergements.addAll(serviceHebergement.recuperer());
             System.out.println("Loaded " + hebergements.size() + " accommodations");
         } catch (SQLException ex) {
             Logger.getLogger(GestionHebergement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // Set up columns with PropertyValueFactory to bind them to the corresponding fields in Hebergement
         colId.setCellValueFactory(new PropertyValueFactory<>("id_hebergement"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
@@ -127,35 +126,31 @@ public class GestionHebergement implements Initializable {
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colTarif.setCellValueFactory(new PropertyValueFactory<>("tarif_nuit"));
 
-        // Set the cellFactory for the "Actions" column with styled buttons
-        colActions.setCellFactory(param -> new TableCell<Hebergement, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    // Create buttons for actions
-                    Hebergement hebergement = getTableView().getItems().get(getIndex());
-                    Button modifyButton = new Button();
-                    modifyButton.getStyleClass().add("button-action");  // Apply custom style
-                    modifyButton.setOnAction(e -> openModifierHebergement(hebergement));
-
-                    Button deleteButton = new Button();
-                    deleteButton.getStyleClass().add("button-delete");  // Apply custom style
-                    deleteButton.setOnAction(e -> handleDeleteButton(getTableRow().getItem()));
-
-                    // Layout the buttons in an HBox
-                    HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
-                    buttonsBox.setSpacing(10); // Space between buttons
-                    setGraphic(buttonsBox);
-                }
-            }
-        });
-
-        // Bind the data to the table
         tableHebergement.setItems(hebergements);
+
+        // Add listener for search bar
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterTable(newValue);
+        });
     }
+
+    private void filterTable(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            tableHebergement.setItems(hebergements);
+            return;
+        }
+
+        ObservableList<Hebergement> filteredList = FXCollections.observableArrayList();
+        for (Hebergement hebergement : hebergements) {
+            if (hebergement.getNom().toLowerCase().contains(keyword.toLowerCase()) ||
+                    hebergement.getAdresse().toLowerCase().contains(keyword.toLowerCase()) ||
+                    String.valueOf(hebergement.getTarif_nuit()).contains(keyword)) {
+                filteredList.add(hebergement);
+            }
+        }
+        tableHebergement.setItems(filteredList);
+    }
+
 
 
     private void handleModifyButton(Hebergement hebergement) {
