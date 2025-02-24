@@ -165,7 +165,7 @@
 
          <HBox spacing="10.0" style="-fx-padding: 0 0 0 300px;">
          <TextField fx:id="searchBar" promptText="Search..." style="-fx-background-radius: 30px; -fx-padding: 10px 20px; -fx-border-radius: 30px;  -fx-font-size: 14px;-fx-min-width: 500px; " />
-         <Button text="🔍" style="-fx-background-color: #2a5298; -fx-text-fill: white; -fx-background-radius: 30px; -fx-font-size: 14px; -fx-padding: 10px 15px;" />
+         <Button fx:id="searchButton"  text="🔍" style="-fx-background-color: #2a5298; -fx-text-fill: white; -fx-background-radius: 30px; -fx-font-size: 14px; -fx-padding: 10px 15px;" />
       </HBox>
 
 

@@ -24,6 +24,7 @@ import java.util.List;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class AfficherCliniqueController {
 
@@ -65,6 +66,15 @@ public class AfficherCliniqueController {
 
     @FXML
     private Text cliniqueMinPrix;
+
+    @FXML
+    private TextField searchBar;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private TableView<Clinique> cliniqueTable;
 
     @FXML
     private TextField descAF;
@@ -132,6 +142,12 @@ public class AfficherCliniqueController {
         table_clinique.setItems(cliniqueList);
 
         mettreAJourCartes();
+        // Charger les données initiales
+        afficherClinique();
+        // Recherche dynamique
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> rechercherClinique(newValue));
+        // Recherche sur clic du bouton
+        searchButton.setOnAction(event -> rechercherClinique(searchBar.getText()));
 
         try {
             afficherClinique();
@@ -390,6 +406,28 @@ public class AfficherCliniqueController {
         } else {
             cliniqueMinPrix.setText("Aucune clinique");
         }
+    }
+
+    private void rechercherClinique(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            table_clinique.setItems(cliniqueList); // Réinitialiser la liste
+            return;
+        }
+
+        String lowerKeyword = keyword.toLowerCase();
+
+        List<Clinique> filteredList = cliniqueList.stream()
+                .filter(clinique ->
+                        clinique.getNom().toLowerCase().contains(lowerKeyword) ||
+                                clinique.getTelephone().toLowerCase().contains(lowerKeyword) ||
+                                clinique.getEmail().toLowerCase().contains(lowerKeyword) ||
+                                String.valueOf(clinique.getRate()).contains(lowerKeyword) ||
+                                clinique.getDescription().toLowerCase().contains(lowerKeyword) ||
+                                String.valueOf(clinique.getPrix()).contains(lowerKeyword)
+                )
+                .collect(Collectors.toList());
+
+        table_clinique.setItems(FXCollections.observableArrayList(filteredList));
     }
 }
 
