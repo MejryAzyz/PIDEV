@@ -150,8 +150,8 @@
                 <!-- Card 3 -->
                 <StackPane styleClass="card">
                     <VBox spacing="10.0" styleClass="card-content">
-                        <Text text="Tarif moyen" styleClass="card-title" />
-                        <Text fx:id="tarifHebergementsText" styleClass="card-value" />
+                        <Text text="Revenu total" styleClass="card-title" />
+                        <Text text="€20,000" styleClass="card-value" />
                     </VBox>
                 </StackPane>
             </HBox>

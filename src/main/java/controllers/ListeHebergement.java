@@ -74,42 +74,6 @@ public class ListeHebergement implements Initializable{
     }
 
 
-    @FXML
-    private void btnModifierAction(ActionEvent event) {
-        Hebergement selectedHebergement = tableHebergement.getSelectionModel().getSelectedItem();
-        if (selectedHebergement != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierHebergement.fxml"));
-                Parent root = loader.load();
-
-                ModifierHebergement controller = loader.getController();
-                controller.setHebergement(selectedHebergement, this);
-
-                Stage stage = new Stage();
-                stage.setTitle("Modifier un Hébergement");
-                stage.setScene(new Scene(root));
-                stage.setOnHiding(events -> {
-                    try {
-                        afficherHebergements();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                });
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Sélection requise");
-            alert.setHeaderText(null);
-            alert.setContentText("Veuillez sélectionner un hébergement à modifier.");
-            alert.showAndWait();
-        }
-    }
-
-
-
 
     @FXML
     private void btnSupprimerAction(ActionEvent event) {

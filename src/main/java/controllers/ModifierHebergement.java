@@ -16,9 +16,9 @@ public class ModifierHebergement {
     private TextField nomheb, telheb, capaciteheb, adresseheb, emailheb, tarifheb;
 
     private Hebergement hebergement;
-    private ListeHebergement parentController;
+    private GestionHebergement parentController;
 
-    public void setHebergement(Hebergement hebergement, ListeHebergement parentController) {
+    public void setHebergement(Hebergement hebergement, GestionHebergement parentController) {
         this.hebergement = hebergement;
         this.parentController = parentController;
 

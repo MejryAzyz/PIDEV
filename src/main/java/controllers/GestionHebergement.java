@@ -107,6 +107,10 @@ public class GestionHebergement implements Initializable {
     private TextField searchField;
     @FXML
     private Text totalHebergementsText;
+    @FXML
+    private Text capacityHebergementsText;
+    @FXML
+    private Text tarifHebergementsText;
     private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
     private boolean isSidebarVisible = true;
@@ -175,12 +179,14 @@ public class GestionHebergement implements Initializable {
             filterTable(newValue);
         });
     }
-    private void updateStatistics() {
+    public void updateStatistics() {
         try {
             int totalHebergements = serviceHebergement.getNombreTotalHebergements();
+            int capacityHebergements = serviceHebergement.getCapaciteTotale();
+            double tarifHebergements = serviceHebergement.getTarifMoyenParNuit();
+            tarifHebergementsText.setText(String.format("%.2f TND",tarifHebergements));
+            capacityHebergementsText.setText(String.valueOf(capacityHebergements));
 
-
-            // Mettre à jour les labels des statistiques
             totalHebergementsText.setText(String.valueOf(totalHebergements));
 
         } catch (SQLException e) {
@@ -233,6 +239,7 @@ public class GestionHebergement implements Initializable {
                 try {
                     serviceHebergement.supprimer(hebergement.getId_hebergement()); // Suppression en base
                     hebergements.remove(hebergement); // Mise à jour de la TableView
+                    updateStatistics();
                 } catch (SQLException ex) {
                     Logger.getLogger(GestionHebergement.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -300,6 +307,7 @@ public class GestionHebergement implements Initializable {
             stage.setOnHiding(events -> {
                 try {
                     afficherHebergement();
+                    updateStatistics();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -337,7 +345,7 @@ public class GestionHebergement implements Initializable {
             ModifierHebergement controller = loader.getController();
 
             // Pass the hebergement object and the correct parent controller (ListeHebergement)
-            ListeHebergement parentController = new ListeHebergement(); // This should be the actual parent controller instance
+            GestionHebergement parentController = new GestionHebergement(); // This should be the actual parent controller instance
             controller.setHebergement(hebergement, parentController);
 
             Stage stage = new Stage();
@@ -347,6 +355,8 @@ public class GestionHebergement implements Initializable {
             stage.setOnHiding(events -> {
                 try {
                     afficherHebergement();
+                    updateStatistics();
+
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
