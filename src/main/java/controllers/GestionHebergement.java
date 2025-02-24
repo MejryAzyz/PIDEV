@@ -172,9 +172,10 @@ public class GestionHebergement implements Initializable {
             filterTable(newValue);
         });
     }
+
     private void filterTable(String searchText) {
         if (searchText == null || searchText.isEmpty()) {
-            tableHebergement.setItems(hebergements);
+            tableHebergement.setItems(hebergements); // Rétablir la liste complète
         } else {
             ObservableList<Hebergement> filteredList = FXCollections.observableArrayList();
             for (Hebergement hebergement : hebergements) {
@@ -184,7 +185,15 @@ public class GestionHebergement implements Initializable {
             }
             tableHebergement.setItems(filteredList);
         }
+
+        // Forcer la mise à jour pour éviter la disparition des boutons Modifier/Supprimer
+        tableHebergement.refresh();
+
+        // Forcer JavaFX à redessiner la colonne des actions si nécessaire
+        colActions.setVisible(false);
+        colActions.setVisible(true);
     }
+
 
 
     private void handleModifyButton(Hebergement hebergement) {
