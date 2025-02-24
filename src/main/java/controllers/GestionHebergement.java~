@@ -66,8 +66,7 @@ public class GestionHebergement implements Initializable {
     @FXML
     private TableColumn<Hebergement, String> colActions;  // Add this line
 
-    @FXML
-    private TextField searchBar;
+
     @FXML
     private Text iconDashboard;
     @FXML
@@ -104,7 +103,8 @@ public class GestionHebergement implements Initializable {
     private TextField txtPrix, txtAdresse;
     @FXML
     private Label panelTitle;
-
+    @FXML
+    private TextField searchField;
     private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
     private boolean isSidebarVisible = true;
@@ -156,6 +156,22 @@ public class GestionHebergement implements Initializable {
 
         // Bind the data to the table
         tableHebergement.setItems(hebergements);
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterTable(newValue);
+    }
+    );}
+    private void filterTable(String searchText) {
+        if (searchText == null || searchText.isEmpty()) {
+            tableHebergement.setItems(hebergements);
+        } else {
+            ObservableList<Hebergement> filteredList = FXCollections.observableArrayList();
+            for (Hebergement hebergement : hebergements) {
+                if (hebergement.getNom().toLowerCase().contains(searchText.toLowerCase())) {
+                    filteredList.add(hebergement);
+                }
+            }
+            tableHebergement.setItems(filteredList);
+        }
     }
 
 

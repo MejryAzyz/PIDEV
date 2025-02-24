@@ -123,29 +123,33 @@ public class GestionTransport implements Initializable {
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colPrix.setCellValueFactory(new PropertyValueFactory<>("tarif"));
 
-        tableTransport.setItems(transports);
+        // Set the cellFactory for the "Actions" column with styled buttons
+        colActions.setCellFactory(param -> new TableCell<Transport, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    // Create buttons for actions
+                    Transport transport = getTableView().getItems().get(getIndex());
+                    Button modifyButton = new Button();
+                    modifyButton.getStyleClass().add("button-action");  // Apply custom style
+                    modifyButton.setOnAction(e -> openModifierTransport(transport));
 
-        // Add listener for search bar
-        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterTable(newValue);
-        });
-    }
+                    Button deleteButton = new Button();
+                    deleteButton.getStyleClass().add("button-delete");  // Apply custom style
+                    deleteButton.setOnAction(e -> handleDeleteButton(getTableRow().getItem()));
 
-    private void filterTable(String keyword) {
-        if (keyword == null || keyword.trim().isEmpty()) {
-            tableTransport.setItems(transports);
-            return;
-        }
-
-        ObservableList<Transport> filteredList = FXCollections.observableArrayList();
-        for (Transport transport : transports) {
-            if (transport.getType().toLowerCase().contains(keyword.toLowerCase()) ||
-                    String.valueOf(transport.getCapacite()).contains(keyword) ||
-                    String.valueOf(transport.getTarif()).contains(keyword)) {
-                filteredList.add(transport);
+                    // Layout the buttons in an HBox
+                    HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
+                    buttonsBox.setSpacing(10); // Space between buttons
+                    setGraphic(buttonsBox);
+                }
             }
-        }
-        tableTransport.setItems(filteredList);
+        });
+
+        tableTransport.setItems(transports);
     }
 
 

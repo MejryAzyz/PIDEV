@@ -66,8 +66,7 @@ public class GestionHebergement implements Initializable {
     @FXML
     private TableColumn<Hebergement, String> colActions;  // Add this line
 
-    @FXML
-    private TextField searchBar;
+
     @FXML
     private Text iconDashboard;
     @FXML
@@ -104,7 +103,8 @@ public class GestionHebergement implements Initializable {
     private TextField txtPrix, txtAdresse;
     @FXML
     private Label panelTitle;
-
+    @FXML
+    private TextField searchField;
     private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
     private boolean isSidebarVisible = true;
@@ -112,12 +112,14 @@ public class GestionHebergement implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
+            // Fetch the data from the service and populate the list
             hebergements.addAll(serviceHebergement.recuperer());
             System.out.println("Loaded " + hebergements.size() + " accommodations");
         } catch (SQLException ex) {
             Logger.getLogger(GestionHebergement.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        // Set up columns with PropertyValueFactory to bind them to the corresponding fields in Hebergement
         colId.setCellValueFactory(new PropertyValueFactory<>("id_hebergement"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
@@ -126,31 +128,63 @@ public class GestionHebergement implements Initializable {
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colTarif.setCellValueFactory(new PropertyValueFactory<>("tarif_nuit"));
 
+        // Set the cellFactory for the "Actions" column with styled buttons
+        colActions.setCellFactory(param -> new TableCell<Hebergement, String>() {
+            private final Button modifyButton = new Button();
+            private final Button deleteButton = new Button();
+            private final HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
+
+            {
+                // Initialize buttons and their styles
+                modifyButton.getStyleClass().add("button-action");
+                deleteButton.getStyleClass().add("button-delete");
+
+                // Set button actions
+                modifyButton.setOnAction(e -> {
+                    Hebergement hebergement = getTableView().getItems().get(getIndex());
+                    openModifierHebergement(hebergement);
+                });
+
+                deleteButton.setOnAction(e -> {
+                    Hebergement hebergement = getTableView().getItems().get(getIndex());
+                    handleDeleteButton(hebergement);
+                });
+
+                buttonsBox.setSpacing(10); // Space between buttons
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(buttonsBox);
+                }
+            }
+        });
+
+        // Bind the data to the table
         tableHebergement.setItems(hebergements);
 
-        // Add listener for search bar
-        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+        // Add a listener to the search field
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
             filterTable(newValue);
         });
     }
-
-    private void filterTable(String keyword) {
-        if (keyword == null || keyword.trim().isEmpty()) {
+    private void filterTable(String searchText) {
+        if (searchText == null || searchText.isEmpty()) {
             tableHebergement.setItems(hebergements);
-            return;
-        }
-
-        ObservableList<Hebergement> filteredList = FXCollections.observableArrayList();
-        for (Hebergement hebergement : hebergements) {
-            if (hebergement.getNom().toLowerCase().contains(keyword.toLowerCase()) ||
-                    hebergement.getAdresse().toLowerCase().contains(keyword.toLowerCase()) ||
-                    String.valueOf(hebergement.getTarif_nuit()).contains(keyword)) {
-                filteredList.add(hebergement);
+        } else {
+            ObservableList<Hebergement> filteredList = FXCollections.observableArrayList();
+            for (Hebergement hebergement : hebergements) {
+                if (hebergement.getNom().toLowerCase().contains(searchText.toLowerCase())) {
+                    filteredList.add(hebergement);
+                }
             }
+            tableHebergement.setItems(filteredList);
         }
-        tableHebergement.setItems(filteredList);
     }
-
 
 
     private void handleModifyButton(Hebergement hebergement) {
