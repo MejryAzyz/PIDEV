@@ -81,7 +81,7 @@
                         </HBox>
                         <HBox styleClass="sidebar-btn" spacing="10.0">
                             <Text fx:id="iconAccommodationManagement" text="🏨" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
-                            <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                            <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;" onMouseClicked="#goToGestionHebergement">
                                 <font>
                                     <Font name="Arial" size="14.0" />
                                 </font>
