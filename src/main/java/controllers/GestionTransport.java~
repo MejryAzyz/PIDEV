@@ -89,7 +89,8 @@ public class GestionTransport implements Initializable {
     private Text iconLogout;
     @FXML
     private VBox contentBox;
-
+    @FXML
+    private TextField searchBar;
     // Transport-related elements
     @FXML
     private TableColumn<Transport, String> colId, colCapacite, colPrix, colType;
@@ -283,5 +284,20 @@ public class GestionTransport implements Initializable {
             e.printStackTrace();
         }
 
-}}
+}
+    @FXML
+    private void goToGestionHebergement() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHebergement.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage and replace the scene
+            Stage stage = (Stage) labelAccommodationManagement.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de GestionHebergement.fxml");
+        }
+    }
+}
 

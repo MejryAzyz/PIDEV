@@ -89,7 +89,8 @@ public class GestionTransport implements Initializable {
     private Text iconLogout;
     @FXML
     private VBox contentBox;
-
+    @FXML
+    private TextField searchBar;
     // Transport-related elements
     @FXML
     private TableColumn<Transport, String> colId, colCapacite, colPrix, colType;
@@ -122,33 +123,29 @@ public class GestionTransport implements Initializable {
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colPrix.setCellValueFactory(new PropertyValueFactory<>("tarif"));
 
-        // Set the cellFactory for the "Actions" column with styled buttons
-        colActions.setCellFactory(param -> new TableCell<Transport, String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    // Create buttons for actions
-                    Transport transport = getTableView().getItems().get(getIndex());
-                    Button modifyButton = new Button();
-                    modifyButton.getStyleClass().add("button-action");  // Apply custom style
-                    modifyButton.setOnAction(e -> openModifierTransport(transport));
-
-                    Button deleteButton = new Button();
-                    deleteButton.getStyleClass().add("button-delete");  // Apply custom style
-                    deleteButton.setOnAction(e -> handleDeleteButton(getTableRow().getItem()));
-
-                    // Layout the buttons in an HBox
-                    HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
-                    buttonsBox.setSpacing(10); // Space between buttons
-                    setGraphic(buttonsBox);
-                }
-            }
-        });
-
         tableTransport.setItems(transports);
+
+        // Add listener for search bar
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterTable(newValue);
+        });
+    }
+
+    private void filterTable(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            tableTransport.setItems(transports);
+            return;
+        }
+
+        ObservableList<Transport> filteredList = FXCollections.observableArrayList();
+        for (Transport transport : transports) {
+            if (transport.getType().toLowerCase().contains(keyword.toLowerCase()) ||
+                    String.valueOf(transport.getCapacite()).contains(keyword) ||
+                    String.valueOf(transport.getTarif()).contains(keyword)) {
+                filteredList.add(transport);
+            }
+        }
+        tableTransport.setItems(filteredList);
     }
 
 
