@@ -71,6 +71,16 @@ public class ServiceTransport implements IService<Transport> {
         }
         return 0.0;
     }
+    public int getTotalCapacity() throws SQLException {
+        String sql = "SELECT SUM(capacite) AS total_capacity FROM transport";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+
+        if (rs.next()) {
+            return rs.getInt("total_capacity");
+        }
+        return 0;
+    }
 
 
     @Override

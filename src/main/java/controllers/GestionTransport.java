@@ -108,6 +108,9 @@ public class GestionTransport implements Initializable {
     private Text card1Value;
     @FXML
     private Text card2Value;
+    @FXML
+    private Text cardTotalCapacity;
+
     private ObservableList<Transport> transports = FXCollections.observableArrayList();
     private ServiceTransport serviceTransport = new ServiceTransport();
     private boolean isSidebarVisible = true;
@@ -117,7 +120,6 @@ public class GestionTransport implements Initializable {
         try {
             transports.addAll(serviceTransport.recuperer());
             System.out.println("Loaded " + transports.size() + " transports");
-
             refreshCard();
         } catch (SQLException ex) {
             Logger.getLogger(GestionTransport.class.getName()).log(Level.SEVERE, null, ex);
@@ -175,7 +177,6 @@ public class GestionTransport implements Initializable {
             tableTransport.setItems(filteredList);
         }
 
-        // Rafraîchir la colonne des actions pour que les boutons réapparaissent
         tableTransport.refresh();
     }
 
@@ -287,6 +288,8 @@ public class GestionTransport implements Initializable {
             card1Value.setText(String.valueOf(totalTransport));
             double tarifMoyen = serviceTransport.getTarifMoyenTransport();
             card2Value.setText(String.format("%.2f TND", tarifMoyen));
+            int totalCapacity = serviceTransport.getTotalCapacity();
+            cardTotalCapacity.setText(String.valueOf(totalCapacity) + " places");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -336,5 +339,6 @@ public class GestionTransport implements Initializable {
             System.out.println("Erreur lors du chargement de GestionHebergement.fxml");
         }
     }
+
 }
 

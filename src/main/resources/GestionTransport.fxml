@@ -79,9 +79,9 @@
                                 </font>
                             </Label>
                         </HBox>
-                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                        <HBox styleClass="sidebar-btn" spacing="10.0" onMouseClicked="#goToGestionHebergement">
                             <Text fx:id="iconAccommodationManagement" text="🏨" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
-                            <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;" onMouseClicked="#goToGestionHebergement">
+                            <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;" >
                                 <font>
                                     <Font name="Arial" size="14.0" />
                                 </font>
@@ -141,15 +141,15 @@
                 <!-- Card 2 -->
                 <StackPane styleClass="card">
                     <VBox spacing="10.0" styleClass="card-content">
-                        <Text text="Transport plus obtenu" styleClass="card-title" />
+                        <Text text=" Moyenne Prix " styleClass="card-title" />
                         <Text fx:id="card2Value" styleClass="card-value" />
                     </VBox>
                 </StackPane>
                 <!-- Card 3 -->
                 <StackPane styleClass="card">
                     <VBox spacing="10.0" styleClass="card-content">
-                        <Text text="Total Revenue" styleClass="card-title" />
-                        <Text text="€50,000" styleClass="card-value" />
+                        <Text text="Capacité totale" styleClass="card-title" />
+                        <Text fx:id="cardTotalCapacity" styleClass="card-value" />
                     </VBox>
                 </StackPane>
             </HBox>
