@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="493.0" prefWidth="754.0" style="-fx-background-image: url('image.PNG'); -fx-background-size: cover; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierDocteurController">
+<AnchorPane prefHeight="493.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierDocteurController">
    <children>
-      <AnchorPane layoutX="-10.0" layoutY="-7.0" prefHeight="79.0" prefWidth="766.0" style="-fx-background-color: #0dae6f;" />
+      <AnchorPane layoutX="-10.0" layoutY="-7.0" prefHeight="79.0" prefWidth="766.0" style="-fx-background-color: #1e3c72;" />
       <Text layoutX="290.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modifier Docteur ">
          <font>
             <Font name="System Bold" size="21.0" />

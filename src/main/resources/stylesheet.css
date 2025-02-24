@@ -1,0 +1,242 @@
+/* Sidebar background with gradient */
+
+.sidebar {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);
+    -fx-padding: 15px;
+}
+
+/* Sidebar button container */
+.sidebar-btn {
+    -fx-padding: 10px;
+    -fx-alignment: center-left;
+    -fx-background-color: transparent;
+    -fx-border-radius: 5px;
+    -fx-spacing: 10px;
+    -fx-cursor: hand;
+    -fx-transition: background-color 0.3s ease, -fx-text-fill 0.3s ease, -fx-fill 0.3s ease;
+}
+
+/* Sidebar button hover effect */
+.sidebar-btn:hover {
+    -fx-background-color: #5e7d8a; /* Soft blue-gray background on hover */
+    -fx-border-width: 0px 3px 0px 0px;
+    -fx-border-color: #ffffff;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+/* Change icon color on hover */
+.sidebar-btn:hover .sidebar-btn-icon {
+    -fx-fill: #ffffff; /* White icon color on hover */
+}
+
+/* Change text color on hover */
+.sidebar-btn:hover .sidebar-btn-text,
+.sidebar-btn:hover Label {
+    -fx-text-fill: #ffffff; /* White text color on hover */
+}
+
+/* Logout button style */
+.logout-btn {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+    -fx-transition: background-color 0.3s ease, -fx-text-fill 0.3s ease, -fx-fill 0.3s ease;
+}
+
+/* Logout button hover effect */
+.logout-btn:hover {
+    -fx-background-color: #c0392b; /* Red background for logout on hover */
+    -fx-border-width: 0px 3px 0px 0px;
+    -fx-border-color: #ffffff;
+    -fx-border-style: solid;
+    -fx-border-radius: 5px;
+}
+
+/* Logout button text and icon */
+.logout-btn Label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Logout button icon */
+.logout-btn .sidebar-btn-icon {
+    -fx-fill: #ffffff;
+}
+
+/* Hover effect for the logout button */
+.logout-btn:hover Label {
+    -fx-text-fill: #ffffff; /* White text color */
+}
+/* Toggle Button Styling */
+.toggle-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10px;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+    -fx-border-radius: 5px;
+    -fx-spacing: 10px;
+    -fx-transition: background-color 0.3s ease, -fx-text-fill 0.3s ease;
+}
+
+/* Toggle Button Hover Effect */
+.toggle-button:hover {
+    -fx-background-color: #5e7d8a; /* Soft blue-gray on hover */
+    -fx-border-radius: 5px;
+}
+
+/* Toggle Button Active Effect */
+.toggle-button:selected {
+    -fx-background-color: #3498db; /* Blue background when active */
+    -fx-border-radius: 5px;
+}
+
+/* Toggle Button Icon */
+.toggle-button .toggle-button-icon {
+    -fx-fill: #ffffff;
+}
+/* Table Styling */
+.table-view {
+    -fx-background-color: #ffffff; /* Soft white background for the table */
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+    -fx-background-insets: 0;
+    -fx-border-color: #e0e0e0; /* Soft gray border */
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #333333; /* Dark gray text */
+}
+
+/* Table Column Header Styling */
+.table-view .column-header {
+    -fx-background-color: #f4f4f4; /* Light gray background for headers */
+    -fx-text-fill: #555555; /* Medium gray text for the headers */
+    -fx-font-size: 12px; /* Smaller font size for titles */
+    -fx-font-weight: normal; /* Normal weight for the titles */
+    -fx-alignment: center;
+    -fx-border-color: #f4f4f4; /* Remove separation between column headers */
+    -fx-border-width: 0px; /* No border between headers */
+}
+
+/* Table Row Styling */
+.table-view .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-alignment: center;
+}
+
+/* Hover effect for table rows */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f2f2f2; /* Light gray background on hover */
+}
+
+/* Selected Row Styling */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #d1e7fd; /* Soft light blue for selected rows */
+    -fx-text-fill: #333333;
+}
+
+/* Table Cell Styling */
+.table-view .table-cell {
+    -fx-padding: 10px;
+}
+.table-view:hover {
+    -fx-effect: dropshadow(gaussian, #b0c7e3, 8, 0.2, 0, 0); /* Soft blue shadow effect on hover */
+}
+/* Card Styling */
+/* Modern Card Styling with Black Text */
+.card {
+    -fx-background-color: linear-gradient(to bottom right,
+        /* Gris clair */
+    #F5F5F5, /* Gris plus clair */
+    #FFFFFF  /* Presque blanc */
+    );
+
+    -fx-background-radius: 20px;
+    -fx-padding: 30px;
+    -fx-pref-width: 350px;
+    -fx-pref-height: 200px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0.5, 0, 5); /* Ombre subtile */
+    -fx-border-width: 0px;
+    -fx-transition: all 0.3s ease; /* Transition douce pour les effets au survol */
+}
+
+/* Effet de survol avec un dégradé inversé */
+.card:hover {
+    -fx-background-color: linear-gradient(to bottom right,
+    #FFFFFF, /* Presque blanc */
+    #F5F5F5
+    );
+
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 15, 0.7, 0, 10); /* Ombre plus marquée au survol */
+    -fx-cursor: hand;
+    -fx-scale-x: 1.05; /* Augmentation légère de la taille */
+    -fx-scale-y: 1.05;
+}
+
+
+
+/* Card Title Styling with Black Text */
+.card .card-title {
+    -fx-text-fill: white; /* Black text for the title */
+    -fx-font-size: 20px; /* Larger font size for better visibility */
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-wrap-text: true; /* Allow wrapping of text if needed */
+}
+
+/* Card Value Styling with Black Text */
+.card .card-value {
+    -fx-text-fill: white; /* Black text for the values */
+    -fx-font-size: 36px; /* Larger font size for emphasis */
+    -fx-font-weight: bold;
+    -fx-alignment: center; /* Center the value text */
+    -fx-padding: 12px;
+}
+
+/* Hover Effect for Card */
+
+
+/* Card Content Container */
+.card .card-content {
+    -fx-alignment: center; /* Center the content horizontally and vertically */
+    -fx-spacing: 15px; /* Spacing between title and value */
+}
+
+.button-action, .button-delete {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;  /* Add padding to the sides */
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+    -fx-min-width: 40px; /* Ensure button doesn't shrink */
+    -fx-min-height: 40px; /* Ensure button has a minimum height */
+    -fx-max-width: 50px;  /* Optional: set max width if you want to limit it */
+    -fx-max-height: 50px; /* Optional: set max height */
+}
+
+.button-action {
+    -fx-background-image: url("stylo.png"); /* Icon path */
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 33px 33px; /* Increase icon size */
+    -fx-background-position: center;
+}
+
+.button-action:hover {
+    -fx-background-image: url("stylo.png"); /* Optional: Change icon on hover */
+}
+
+.button-delete {
+    -fx-background-image: url("supprimer.png"); /* Icon path */
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 33px 33px; /* Increase icon size */
+    -fx-background-position: center;
+}
+
+.button-delete:hover {
+    -fx-background-image: url("supprimer.png"); /* Optional: Change icon on hover */
+}

@@ -126,6 +126,22 @@ public class ModifierCliniqueController {
 
     private boolean isValidPhone(String phone) {
         return phone.matches("\\d{8,15}");
-    }}
+    }
+
+
+    public void setClinique(Clinique clinique, AfficherCliniqueController afficherCliniqueController) {
+        this.clinique = clinique;
+        this.afficherCliniqueController = afficherCliniqueController;
+
+        // Initialisation des champs avec les valeurs de la clinique
+        nomTF.setText(clinique.getNom());
+        adresseTF.setText(clinique.getAdresse());
+        telephoneTF.setText(clinique.getTelephone());
+        emailTF.setText(clinique.getEmail());
+        descriptionTF.setText(clinique.getDescription());
+        prixTF.setText(String.valueOf(clinique.getPrix()));
+    }
+
+}
 
 

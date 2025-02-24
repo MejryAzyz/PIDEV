@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import models.Clinique;
 import services.ServiceClinique;
@@ -20,6 +21,8 @@ import java.util.List;
 
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AfficherCliniqueController {
 
@@ -49,6 +52,9 @@ public class AfficherCliniqueController {
 
     @FXML
     private TableColumn<Clinique, String> col_tel;
+
+    @FXML
+    private TableColumn<Clinique, String> colActions;
 
     @FXML
     private TextField descAF;
@@ -86,6 +92,34 @@ public class AfficherCliniqueController {
         col_rate.setCellValueFactory(new PropertyValueFactory<Clinique, Integer>("rate"));
         col_desc.setCellValueFactory(new PropertyValueFactory<Clinique, String>("description"));
         col_prix.setCellValueFactory(new PropertyValueFactory<Clinique, Double>("prix"));
+// Set the cellFactory for the "Actions" column with styled buttons
+        colActions.setCellFactory(param -> new TableCell<Clinique, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    // Create buttons for actions
+                    Clinique clinique = getTableView().getItems().get(getIndex());
+                    Button modifyButton = new Button();
+                    modifyButton.getStyleClass().add("button-action");  // Apply custom style
+                    modifyButton.setOnAction(e -> openModifierClinique(clinique));
+
+                    Button deleteButton = new Button();
+                    deleteButton.getStyleClass().add("button-delete");  // Apply custom style
+                    deleteButton.setOnAction(e -> handleDeleteButton(getTableRow().getItem()));
+
+
+                    // Layout the buttons in an HBox
+                    HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
+                    buttonsBox.setSpacing(10); // Space between buttons
+                    setGraphic(buttonsBox);
+                }
+            }
+        });
+
+        table_clinique.setItems(cliniqueList);
 
         try {
             afficherClinique();
@@ -183,6 +217,8 @@ public class AfficherCliniqueController {
             showAlert(Alert.AlertType.WARNING, "Sélection requise", "Veuillez sélectionner une clinique à modifier.");
         }
     }
+
+
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
@@ -280,10 +316,47 @@ public class AfficherCliniqueController {
             e.printStackTrace();
         }
     }
+    private void openModifierClinique(Clinique clinique) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierClinique.fxml"));
+            Parent root = loader.load();
 
+            ModifierCliniqueController controller = loader.getController();
+            controller.setClinique(clinique,this);
 
+            Stage stage = new Stage();
+            stage.setTitle("Modifier Transport");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
+
+    private void handleDeleteButton(Clinique clinique) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Supprimer cette clinique");
+        alert.setContentText("Êtes-vous sûr de vouloir supprimer cette clinique ?");
+
+        ButtonType buttonTypeYes = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonTypeNo = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == buttonTypeYes) {
+                try {
+                    sc.supprimer(clinique.getIdClinique()); // Suppression en base
+                    cliniqueList.remove(clinique); // Mise à jour de la TableView
+                } catch (SQLException ex) {
+                    Logger.getLogger(AfficherCliniqueController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+}
 
 
 

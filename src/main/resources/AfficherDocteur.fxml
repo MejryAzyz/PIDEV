@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="477.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherDocteurController">
    <children>
-      <AnchorPane layoutX="-3.0" prefHeight="95.0" prefWidth="738.0" style="-fx-background-color: #0dae6f;">
+      <AnchorPane layoutX="-3.0" prefHeight="95.0" prefWidth="738.0" style="-fx-background-color: #1e3c72;">
          <children>
             <Text fill="WHITE" layoutX="260.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des docteurs" textAlignment="CENTER">
                <font>

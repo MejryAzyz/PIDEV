@@ -6,10 +6,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="436.0" prefWidth="692.0" style="-fx-background-image: url('image.PNG'); -fx-background-size: cover; -fx-background-position: center center;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierSpecialiteController">
    <children>
-      <AnchorPane prefHeight="56.0" prefWidth="698.0" style="-fx-background-color: #0dae6f;" />
+      <AnchorPane prefHeight="56.0" prefWidth="698.0" style="-fx-background-color: #1e3c72;" />
       <Text fill="#2980b9" layoutX="85.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom de la spécialité:" wrappingWidth="146.29095458984375">
          <font>
             <Font name="System Bold Italic" size="14.0" />

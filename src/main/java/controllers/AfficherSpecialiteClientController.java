@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -164,6 +165,12 @@ public class AfficherSpecialiteClientController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void retourSpecialites(MouseEvent event) {
+        // Logique pour revenir à la liste des spécialités
+        specialiteContainer.setVisible(true); // Réafficher les spécialités
     }
 
 
