@@ -29,7 +29,34 @@ public ServiceHebergement() {
         pst.executeUpdate();
         System.out.println("Hebergement supprimée");
     }
+    public int getNombreTotalHebergements() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM hebergement";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return 0;
+    }
+    public int getCapaciteTotale() throws SQLException {
+        String sql = "SELECT SUM(capacite) FROM hebergement";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getInt(1);
+        }
+        return 0;
+    }
 
+    public double getTarifMoyenParNuit() throws SQLException {
+        String sql = "SELECT AVG(tarif_nuit) FROM hebergement";
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        if (rs.next()) {
+            return rs.getDouble(1);
+        }
+        return 0.0;
+    }
     @Override
     public void modifier(Hebergement hebergement) throws SQLException {
         String sql = "UPDATE hebergement SET nom = ?, telephone = ?, capacite = ?, adresse = ?, email = ?, tarif_nuit = ? WHERE id_hebergement = ?";

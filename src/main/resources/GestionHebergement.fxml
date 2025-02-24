@@ -137,7 +137,7 @@
                 <StackPane styleClass="card">
                     <VBox spacing="10.0" styleClass="card-content">
                         <Text text="Nombre total des hébergements" styleClass="card-title" />
-                        <Text text="12" styleClass="card-value" />
+                        <Text fx:id="totalHebergementsText" styleClass="card-value" />
                     </VBox>
                 </StackPane>
                 <!-- Card 2 -->

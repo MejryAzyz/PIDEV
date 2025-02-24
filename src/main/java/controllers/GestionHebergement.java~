@@ -105,8 +105,6 @@ public class GestionHebergement implements Initializable {
     private Label panelTitle;
     @FXML
     private TextField searchField;
-    @FXML
-    private Text totalHebergementsText;
     private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
     private boolean isSidebarVisible = true;
@@ -182,7 +180,7 @@ public class GestionHebergement implements Initializable {
 
             // Mettre à jour les labels des statistiques
             totalHebergementsText.setText(String.valueOf(totalHebergements));
-
+          
         } catch (SQLException e) {
             e.printStackTrace();
         }
