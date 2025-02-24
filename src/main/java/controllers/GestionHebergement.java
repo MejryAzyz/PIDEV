@@ -302,5 +302,19 @@ public class GestionHebergement implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void goToGestionTransport() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionTransport.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage and replace the scene
+            Stage stage = (Stage) labelAccommodationManagement.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de GestionTransport.fxml");
+        }
+    }
 
 }

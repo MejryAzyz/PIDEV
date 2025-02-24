@@ -291,8 +291,29 @@ public class GestionHebergement implements Initializable {
             stage.setTitle("Modifier Hébergement");
             stage.setScene(new Scene(root));
             stage.show();
+            stage.setOnHiding(events -> {
+                try {
+                    afficherHebergement();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    @FXML
+    private void goToGestionTransport() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GestionHebergement.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage and replace the scene
+            Stage stage = (Stage) labelAccommodationManagement.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Erreur lors du chargement de GestionHebergement.fxml");
         }
     }
 

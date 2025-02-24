@@ -172,7 +172,7 @@
                     <TableColumn fx:id="colId" prefWidth="100" text="ID" />
                     <TableColumn fx:id="colNom" prefWidth="150" text="Nom" />
                     <TableColumn fx:id="colAdresse" prefWidth="150" text="Adresse" />
-                    <TableColumn fx:id="colTelephone" prefWidth="120" text="Téléphone" />
+                    <TableColumn fx:id="colTelephone" prefWidth="125" text="Téléphone" />
                     <TableColumn fx:id="colEmail" prefWidth="200" text="Email" />
                     <TableColumn fx:id="colCapacite" prefWidth="100" text="Capacité" />
                     <TableColumn fx:id="colTarif" prefWidth="100" text="Tarif Nuit" />
