@@ -104,7 +104,8 @@ public class GestionTransport implements Initializable {
     private TextField txtCapacite, txtPrix;
     @FXML
     private Label panelTitle;
-
+    @FXML
+    private Text card1Value;
     private ObservableList<Transport> transports = FXCollections.observableArrayList();
     private ServiceTransport serviceTransport = new ServiceTransport();
     private boolean isSidebarVisible = true;
@@ -114,6 +115,8 @@ public class GestionTransport implements Initializable {
         try {
             transports.addAll(serviceTransport.recuperer());
             System.out.println("Loaded " + transports.size() + " transports");
+            int totalTransport = serviceTransport.getNombreTotalTransport();
+            card1Value.setText(String.valueOf(totalTransport));
         } catch (SQLException ex) {
             Logger.getLogger(GestionTransport.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,7 +144,7 @@ public class GestionTransport implements Initializable {
                     deleteButton.getStyleClass().add("button-delete");  // Apply custom style
                     deleteButton.setOnAction(e -> handleDeleteButton(getTableRow().getItem()));
 
-                    // Layout the buttons in an HBox
+                    // Layout the buttons in ane HBox
                     HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
                     buttonsBox.setSpacing(10); // Space between buttons
                     setGraphic(buttonsBox);
@@ -196,6 +199,7 @@ public class GestionTransport implements Initializable {
                 try {
                     serviceTransport.supprimer(transport.getId_transport()); // Suppression en base
                     transports.remove(transport); // Mise à jour de la TableView
+                    refreshCard();
                 } catch (SQLException ex) {
                     Logger.getLogger(GestionTransport.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -264,15 +268,27 @@ public class GestionTransport implements Initializable {
             stage.setOnHiding(events -> {
                 try {
                     afficherTransport();
+                    refreshCard();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             });
 
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Erreur lors de l'ouverture de la fenêtre d'ajout");
+        }
+    }
+    @FXML
+    public void refreshCard() {
+        // Rafraîchir le nombre de transports
+        try {
+            int totalTransport = serviceTransport.getNombreTotalTransport();
+            card1Value.setText(String.valueOf(totalTransport));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     @FXML

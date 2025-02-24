@@ -50,6 +50,17 @@ public class ServiceTransport implements IService<Transport> {
         }
     }
 
+    public int getNombreTotalTransport() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM transport";
+        Statement stmt = cnx.createStatement();
+        ResultSet rs = stmt.executeQuery(sql);
+
+        if (rs.next()) {
+            return rs.getInt(1);  // Retourne le nombre de transports
+        }
+
+        return 0;  // Si aucun transport trouvé
+    }
 
 
     @Override

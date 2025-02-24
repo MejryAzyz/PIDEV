@@ -135,7 +135,7 @@
                 <StackPane styleClass="card">
                     <VBox spacing="10.0" styleClass="card-content">
                         <Text text="Nombre totale des transports" styleClass="card-title" />
-                        <Text fx:id="card1Value" styleClass="card-value" />
+                        <Text text="5" styleClass="card-value" />
                     </VBox>
                 </StackPane>
                 <!-- Card 2 -->
