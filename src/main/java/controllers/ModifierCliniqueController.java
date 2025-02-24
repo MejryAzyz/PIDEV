@@ -100,6 +100,7 @@ public class ModifierCliniqueController {
 
         try {
             sc.modifier(clinique);
+            afficherCliniqueController.mettreAJourCartes();
             showAlert(Alert.AlertType.INFORMATION, "Modification réussie", "Clinique modifiée avec succès !");
             Stage stage = (Stage) nomTF.getScene().getWindow();
             stage.close();

@@ -14,6 +14,7 @@
                 onMouseClicked="#retourSpecialites"/>
     </AnchorPane>
      <Label layoutX="485.0" layoutY="85.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Les spécialités et les cliniques" />
+
     <VBox alignment="CENTER" layoutX="61.0" layoutY="154.0" prefHeight="40.0" prefWidth="1186.0" spacing="15" style="-fx-background-color: #f0f0f0; -fx-padding: 20;">
         <GridPane fx:id="specialiteContainer" alignment="CENTER" hgap="100" prefHeight="0.0" prefWidth="1262.0" vgap="20" />
     </VBox>

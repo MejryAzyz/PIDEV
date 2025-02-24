@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -47,6 +48,7 @@ public class AfficherSpecialiteClientController {
         }
     }
 
+    //
     private void afficherSpecialites() throws SQLException {
         ServiceSpecialite service = new ServiceSpecialite();
         List<Specialite> specialites = service.recuperer();
@@ -81,7 +83,24 @@ public class AfficherSpecialiteClientController {
         afficherCliniques(cliniques, spec);
     }
 
+    //
     private void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
+
+        Button retourButton = new Button("Retour");
+        retourButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5 15; -fx-border-radius: 10;");
+        retourButton.setOnAction(e -> {
+            try {
+                afficherSpecialites(); // Revenir à la liste des spécialités
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        VBox vbox = new VBox(10);
+        vbox.getChildren().add(retourButton);
+
+
+
         specialiteContainer.getChildren().clear();
 
         int row = 0;

@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Clinique;
 import services.ServiceClinique;
@@ -57,6 +58,15 @@ public class AfficherCliniqueController {
     private TableColumn<Clinique, String> colActions;
 
     @FXML
+    private Text totalCliniques;
+
+    @FXML
+    private Text cliniqueMaxPrix;
+
+    @FXML
+    private Text cliniqueMinPrix;
+
+    @FXML
     private TextField descAF;
 
     @FXML
@@ -83,7 +93,7 @@ public class AfficherCliniqueController {
     private Button btnModifier;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws SQLException {
         col_id.setCellValueFactory(new PropertyValueFactory<Clinique, Integer>("idClinique"));
         col_nom.setCellValueFactory(new PropertyValueFactory<Clinique, String>("nom"));
         col_adesse.setCellValueFactory(new PropertyValueFactory<Clinique, String>("adresse"));
@@ -120,6 +130,8 @@ public class AfficherCliniqueController {
         });
 
         table_clinique.setItems(cliniqueList);
+
+        mettreAJourCartes();
 
         try {
             afficherClinique();
@@ -182,7 +194,8 @@ public class AfficherCliniqueController {
             stage.setScene(new Scene(root));
             stage.setOnHiding(events -> {
                 try {
-                    afficherClinique(); // Rafraîchir les spécialités
+                    afficherClinique();
+                    mettreAJourCartes();// Rafraîchir les spécialités
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -192,6 +205,7 @@ public class AfficherCliniqueController {
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Erreur de chargement", "Impossible d'ouvrir l'interface d'ajout : " + e.getMessage());
         }
+
     }
 
 
@@ -348,6 +362,7 @@ public class AfficherCliniqueController {
         alert.showAndWait().ifPresent(response -> {
             if (response == buttonTypeYes) {
                 try {
+                    mettreAJourCartes();
                     sc.supprimer(clinique.getIdClinique()); // Suppression en base
                     cliniqueList.remove(clinique); // Mise à jour de la TableView
                 } catch (SQLException ex) {
@@ -355,6 +370,26 @@ public class AfficherCliniqueController {
                 }
             }
         });
+    }
+
+    public void mettreAJourCartes() throws SQLException {
+
+        List<Clinique> cliniques = sc.recuperer();
+        totalCliniques.setText(String.valueOf(cliniques.size()));
+
+        Clinique maxClinique = cliniques.stream().max((c1, c2) -> Double.compare(c1.getPrix(), c2.getPrix())).orElse(null);
+        if (maxClinique != null) {
+            cliniqueMaxPrix.setText(maxClinique.getNom() + " - " + maxClinique.getPrix() + "€");
+        } else {
+            cliniqueMaxPrix.setText("Aucune clinique");
+        }
+
+        Clinique minClinique = cliniques.stream().min((c1, c2) -> Double.compare(c1.getPrix(), c2.getPrix())).orElse(null);
+        if (minClinique != null) {
+            cliniqueMinPrix.setText(minClinique.getNom() + " - " + minClinique.getPrix() + "€");
+        } else {
+            cliniqueMinPrix.setText("Aucune clinique");
+        }
     }
 }
 
