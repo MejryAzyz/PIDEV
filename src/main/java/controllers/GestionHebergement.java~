@@ -344,6 +344,7 @@ public class GestionHebergement implements Initializable {
             // Get the controller of ModifierHebergement
             ModifierHebergement controller = loader.getController();
 
+            // Pass the hebergement object and the correct parent controller (ListeHebergement)
             GestionHebergement parentController = new GestionHebergement(); // This should be the actual parent controller instance
             controller.setHebergement(hebergement, parentController);
 

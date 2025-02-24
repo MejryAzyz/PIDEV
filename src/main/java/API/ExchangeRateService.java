@@ -1,0 +1,34 @@
+package API;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONObject;
+import java.io.IOException;
+
+public class ExchangeRateService {
+    private static final String API_KEY = "973a9ff7ac02f9537b9c9949"; // Remplace avec TA CLÉ API
+    private static final String BASE_URL = "https://v6.exchangerate-api.com/v6/";
+
+    public static double getExchangeRate(String baseCurrency, String targetCurrency) throws IOException {
+        String url = BASE_URL + API_KEY + "/latest/" + baseCurrency;
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(url).build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Erreur API: " + response);
+            }
+
+            String responseBody = response.body().string();
+            JSONObject json = new JSONObject(responseBody);
+
+            if (!json.has("conversion_rates")) {
+                throw new IOException("Réponse invalide de l'API.");
+            }
+
+            JSONObject rates = json.getJSONObject("conversion_rates");
+            return rates.getDouble(targetCurrency);
+        }
+    }
+}
