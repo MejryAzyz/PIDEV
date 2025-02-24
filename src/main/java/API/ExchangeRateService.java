@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class ExchangeRateService {
-    private static final String API_KEY = "973a9ff7ac02f9537b9c9949"; // Remplace avec TA CLÉ API
+    private static final String API_KEY = "973a9ff7ac02f9537b9c9949";
     private static final String BASE_URL = "https://v6.exchangerate-api.com/v6/";
 
     public static double getExchangeRate(String baseCurrency, String targetCurrency) throws IOException {
