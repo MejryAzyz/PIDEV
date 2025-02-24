@@ -150,6 +150,27 @@ public class GestionTransport implements Initializable {
         });
 
         tableTransport.setItems(transports);
+        searchBar.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterTransportList(newValue);
+        });
+    }
+    private void filterTransportList(String searchText) {
+        if (searchText.isEmpty()) {
+            tableTransport.setItems(transports); // Rétablir la liste complète
+        } else {
+            ObservableList<Transport> filteredList = FXCollections.observableArrayList();
+            for (Transport t : transports) {
+                if (t.getType().toLowerCase().contains(searchText.toLowerCase()) ||
+                        String.valueOf(t.getCapacite()).contains(searchText) ||
+                        String.valueOf(t.getTarif()).contains(searchText)) {
+                    filteredList.add(t);
+                }
+            }
+            tableTransport.setItems(filteredList);
+        }
+
+        // Rafraîchir la colonne des actions pour que les boutons réapparaissent
+        tableTransport.refresh();
     }
 
 
