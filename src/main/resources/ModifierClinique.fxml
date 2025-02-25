@@ -40,6 +40,7 @@
       <TextField fx:id="emailTF" layoutX="454.0" layoutY="208.0" />
       <TextField fx:id="prixTF" layoutX="454.0" layoutY="282.0" />
       <Button layoutX="575.0" layoutY="406.0" mnemonicParsing="false" onAction="#modifierClinique" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
+      <Button layoutX="429.0" layoutY="383.0" mnemonicParsing="false" onAction="#modifierPhoto" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 5px 10px;" text="📸 Upload Photo" />
       <AnchorPane layoutX="-8.0" layoutY="-5.0" prefHeight="62.0" prefWidth="714.0" style="-fx-background-color: #1e3c72;" />
       <Text layoutX="364.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:">
          <font>

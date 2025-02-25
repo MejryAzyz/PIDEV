@@ -77,4 +77,23 @@ public class ServicePhoto implements IService<Photo> {
         ps.executeUpdate();
         System.out.println("Photo ajoutée pour la clinique ID : " + photo.getId_clinique());
     }
+
+    public void modifierPhoto(int idClinique, String nouveauPath) {
+        String query = "UPDATE clinique_photos SET photo_url = ? WHERE clinique_id = ?";
+
+        try (PreparedStatement pst = cnx.prepareStatement(query)) {
+            pst.setString(1, nouveauPath);
+            pst.setInt(2, idClinique);
+
+            int rowsUpdated = pst.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Photo mise à jour avec succès !");
+            } else {
+                System.out.println("Aucune photo trouvée pour cette clinique.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
