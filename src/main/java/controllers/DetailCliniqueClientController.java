@@ -7,10 +7,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import models.Clinique;
 import models.Docteur;
+import services.GeocodingService;
+import services.MapService;
 import services.ServiceDocteur;
-
 import java.sql.SQLException;
 import java.util.List;
+
 
 public class DetailCliniqueClientController {
 
@@ -31,11 +33,16 @@ public class DetailCliniqueClientController {
     @FXML
     private VBox docteursContainer;
 
+    @FXML
+    private ImageView mapView;  // Ajout de la carte
+
+
     private ServiceDocteur serviceDocteur;
 
     public DetailCliniqueClientController() {
         this.serviceDocteur = new ServiceDocteur();
     }
+
 
 
     public void afficherDetails(Clinique clinique, int specialiteId) throws SQLException {
@@ -48,6 +55,17 @@ public class DetailCliniqueClientController {
         emailLabel.setText("Email: " + clinique.getEmail());
         telLabel.setText("Téléphone: " + clinique.getTelephone());
         prixLabel.setText("Prix: " + clinique.getPrix() + " €");
+
+        // Récupération des coordonnées de la clinique
+        double[] coords = GeocodingService.getCoordinates(clinique.getAdresse());
+        if (coords != null) {
+            System.out.println("Latitude: " + coords[0] + ", Longitude: " + coords[1]);
+            MapService.afficherCarte(mapView, coords[0], coords[1]);
+        } else {
+            System.out.println("Adresse non trouvée !");
+        }
+
+
 
         afficherDocteurs(clinique.getIdClinique(), specialiteId);
     }

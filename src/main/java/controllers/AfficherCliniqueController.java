@@ -410,7 +410,7 @@ public class AfficherCliniqueController {
 
     private void rechercherClinique(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {
-            table_clinique.setItems(cliniqueList); // Réinitialiser la liste
+            table_clinique.setItems(cliniqueList);
             return;
         }
 

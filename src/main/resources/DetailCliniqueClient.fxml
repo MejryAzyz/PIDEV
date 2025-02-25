@@ -67,8 +67,16 @@
                     <Label text="Téléphone :" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #000000;" />
                     <Label fx:id="telLabel" style="-fx-font-size: 14px; -fx-text-fill: #666;" />
                 </HBox>
+                <!-- Section pour afficher la carte -->
+
             </VBox>
         </HBox>
+
+        <VBox>
+            <ImageView fx:id="mapView" fitWidth="600" fitHeight="400" preserveRatio="true"/>
+        </VBox>
+
+
 
         <!-- Section pour la liste des docteurs (sur toute la largeur) -->
         <VBox style="-fx-padding: 20 30 10 30;">
