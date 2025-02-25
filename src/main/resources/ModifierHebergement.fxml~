@@ -10,73 +10,78 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="617.0" prefWidth="693.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ModifierHebergement">
+<AnchorPane prefHeight="650.0" prefWidth="700.0" style="-fx-background-color: #f4f4f4;"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.ModifierHebergement">
 
     <children>
-        <VBox layoutX="50.0" layoutY="50.0" spacing="20" alignment="CENTER"
+        <VBox layoutX="50.0" layoutY="30.0" spacing="20" alignment="CENTER"
               style="-fx-background-color: white; -fx-padding: 30;
       -fx-border-radius: 10; -fx-background-radius: 10;
       -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0, 4);"
               prefWidth="600.0">
 
             <Label text="Modifier un Hébergement"
-                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-alignment: center;"/>
-            <GridPane alignment="CENTER" hgap="5" vgap="15">
-                <!-- Ajouter un champ pour l'image -->
-                <Label text="Image : " GridPane.columnIndex="0" GridPane.rowIndex="6" />
-                <ImageView fx:id="imageView" fitHeight="100" fitWidth="100" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <Button fx:id="imageBtn" onAction="#changerImage" text="Changer l'image" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <columnConstraints>
-               <ColumnConstraints />
-               <ColumnConstraints />
-            </columnConstraints>
-            <rowConstraints>
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-            </rowConstraints>
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #333; -fx-alignment: center;"/>
+
+            <GridPane alignment="CENTER" hgap="10" vgap="15">
+                <!-- Section pour l'image -->
+                <Label text="Image : " GridPane.columnIndex="0" GridPane.rowIndex="0"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                <ImageView fx:id="imageView" fitHeight="250" fitWidth="250" preserveRatio="true"
+                           style="-fx-border-color: #ccc; -fx-border-width: 2px; -fx-border-radius: 5px;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Button fx:id="imageBtn" onAction="#changePhoto" text="Changer l'image"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white;
+               -fx-font-size: 14px; -fx-font-weight: bold; -fx-border-radius: 5;
+               -fx-background-radius: 5; -fx-padding: 8 15;"
+                        GridPane.columnIndex="1" GridPane.rowIndex="1">
+                   
+                </Button>
             </GridPane>
 
-            <GridPane alignment="CENTER" hgap="5" vgap="15">
+            <GridPane alignment="CENTER" hgap="10" vgap="15">
                 <columnConstraints>
                     <ColumnConstraints halignment="LEFT" />
                     <ColumnConstraints halignment="LEFT" />
-               <ColumnConstraints />
-               <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
                 </columnConstraints>
 
-                <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                       style="-fx-font-weight: bold;"/>
                 <TextField fx:id="nomheb" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                <Label text="Téléphone :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <Label text="Téléphone :" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                       style="-fx-font-weight: bold;"/>
                 <TextField fx:id="telheb" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                <Label text="Capacité :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <Label text="Capacité :" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                       style="-fx-font-weight: bold;"/>
                 <TextField fx:id="capaciteheb" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-                <Label text="Adresse :" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <Label text="Adresse :" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                       style="-fx-font-weight: bold;"/>
                 <TextField fx:id="adresseheb" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                <Label text="Email :" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Label text="Email :" GridPane.columnIndex="2" GridPane.rowIndex="1"
+                       style="-fx-font-weight: bold;"/>
                 <TextField fx:id="emailheb" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
-                <Label text="Tarif :" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <Label text="Tarif :" GridPane.columnIndex="2" GridPane.rowIndex="2"
+                       style="-fx-font-weight: bold;"/>
                 <TextField fx:id="tarifheb" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <rowConstraints>
-               <RowConstraints />
-               <RowConstraints />
-               <RowConstraints />
-            </rowConstraints>
             </GridPane>
 
             <Button text="Modifier" onAction="#ModifierHebergement"
                     style="-fx-background-color: #e67e22; -fx-text-fill: white;
             -fx-font-weight: bold; -fx-border-radius: 5; -fx-background-radius: 5;
-            -fx-padding: 10 20; -fx-font-size: 14px;"/>        </VBox>
+            -fx-padding: 12 25; -fx-font-size: 16px;">
+
+            </Button>
+        </VBox>
     </children>
 </AnchorPane>
