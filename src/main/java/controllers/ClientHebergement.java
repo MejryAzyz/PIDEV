@@ -49,7 +49,15 @@ public class ClientHebergement {
         imageView.setFitHeight(120);
         imageView.setFitWidth(180);
         imageView.setPreserveRatio(true);
-        imageView.setImage(new Image(hebergement.getPhotoUrl()));
+
+        // Use the photo URL from Hebergement object
+        String photoUrl = hebergement.getPhotoUrl();
+        if (photoUrl != null && !photoUrl.isEmpty()) {
+            imageView.setImage(new Image(photoUrl)); // Load the image from the URL
+        } else {
+            // If no photo URL, you can set a default image or leave it blank
+            imageView.setImage(new Image("/logo.png"));
+        }
 
         VBox details = new VBox(8);
         details.setStyle("-fx-padding: 10px; -fx-background-color: #ffffff; -fx-border-radius: 5px;");
@@ -72,6 +80,7 @@ public class ClientHebergement {
 
         return card;
     }
+
 
     private void afficherDetailsHebergement(Hebergement hebergement) {
         try {

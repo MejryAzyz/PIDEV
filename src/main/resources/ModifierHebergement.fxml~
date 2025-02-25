@@ -25,7 +25,7 @@
                 <!-- Ajouter un champ pour l'image -->
                 <Label text="Image : " GridPane.columnIndex="0" GridPane.rowIndex="6" />
                 <ImageView fx:id="imageView" fitHeight="100" fitWidth="100" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                <Button fx:id="imageBtn" onAction="#changePhoto" text="Changer l'image" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                <Button fx:id="imageBtn" onAction="#changerImage" text="Changer l'image" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <columnConstraints>
                <ColumnConstraints />
                <ColumnConstraints />
