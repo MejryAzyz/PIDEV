@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +28,7 @@ import services.ServiceSpecialite;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AfficherSpecialiteClientController {
     @FXML
@@ -84,7 +86,7 @@ public class AfficherSpecialiteClientController {
     }
 
     //
-    private void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
+    /*private void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
 
         Button retourButton = new Button("Retour");
         retourButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 5 15; -fx-border-radius: 10;");
@@ -141,7 +143,40 @@ public class AfficherSpecialiteClientController {
                 row++;
             }
         }
+    }*/
+    /*private void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
+        // Créez une nouvelle fenêtre pour afficher les cliniques
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CliniquesParSpecialite.fxml"));
+            Parent root = loader.load();
+            CliniquesParSpecialiteController controller = loader.getController();
+            controller.afficherCliniques(cliniques, spec); // Passez les cliniques et la spécialité à la nouvelle interface
+
+            Stage stage = new Stage();
+            stage.setTitle("Cliniques pour la spécialité: " + spec.getNom());
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
+    @FXML
+    private void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/CliniquesParSpecialite.fxml"));
+            Parent root = loader.load();
+            CliniquesParSpecialiteController controller = loader.getController();
+            controller.afficherCliniques(cliniques, spec);
+
+            Stage stage = (Stage) specialiteContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
 
     private StackPane createSpecialiteCard(Specialite spec) {
         StackPane card = new StackPane();
