@@ -23,6 +23,10 @@
       <TextField fx:id="prixTF" layoutX="429.0" layoutY="316.0" prefWidth="150.0" style="-fx-background-radius: 10;" />
 
       <Button layoutX="580.0" layoutY="383.0" mnemonicParsing="false" onAction="#ajouterClinique" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 5px 10px;" text="➕ Ajouter" />
+
+      <!-- Upload Photo Button -->
+      <Button layoutX="429.0" layoutY="383.0" mnemonicParsing="false" onAction="#uploadPhoto" style="-fx-background-color: #2980b9; -fx-text-fill: white; -fx-background-radius: 10; -fx-font-size: 14px; -fx-padding: 5px 10px;" text="📸 Upload Photo" />
+
       <AnchorPane layoutX="-13.0" prefHeight="53.0" prefWidth="702.0" style="-fx-background-color: #1e3c72;" />
       <Text layoutX="266.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter clinique">
          <font>
@@ -30,5 +34,5 @@
          </font>
       </Text>
    </children>
-   
 </AnchorPane>
+

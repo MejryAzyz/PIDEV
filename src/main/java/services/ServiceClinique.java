@@ -19,7 +19,7 @@ public class ServiceClinique implements IService<Clinique>{
 
 
     @Override
-    public void ajouter(Clinique c) throws SQLException {
+    public  void ajouter(Clinique c) throws SQLException {
         /*String sql = "INSERT INTO clinique (nom, adresse, telephone, email, rate, description, prix)" +
                 "VALUES ('"+c.getNom()+"','"+c.getAdresse()+"' , '"+c.getTelephone()+"', '"+c.getEmail()+"', "+c.getRate()+", '"+c.getDescription()+"', "+c.getPrix()+")";
         Statement st = cnx.createStatement();
@@ -146,4 +146,27 @@ public class ServiceClinique implements IService<Clinique>{
 
         return cliniques;
     }
+
+    public void ajouterAvecId(Clinique c) throws SQLException {
+        String sql = "INSERT INTO clinique (nom, adresse, telephone, email, rate, description, prix) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement ste = cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); // Permet de récupérer l'ID généré
+        ste.setString(1, c.getNom());
+        ste.setString(2, c.getAdresse());
+        ste.setString(3, c.getTelephone());
+        ste.setString(4, c.getEmail());
+        ste.setDouble(5, c.getRate());
+        ste.setString(6, c.getDescription());
+        ste.setDouble(7, c.getPrix());
+
+        ste.executeUpdate();
+
+        // Récupérer l'ID généré
+        ResultSet generatedKeys = ste.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            c.setIdClinique(generatedKeys.getInt(1)); // Affecter l'ID généré à l'objet clinique
+        }
+
+        System.out.println("Clinique ajoutée avec l'ID : " + c.getIdClinique());
+    }
+
 }
