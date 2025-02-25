@@ -57,6 +57,7 @@ public class DetailCliniqueClientController {
         prixLabel.setText("Prix: " + clinique.getPrix() + " €");
 
         // Récupération des coordonnées de la clinique
+        //double[] coords = GeocodingService.getCoordinatesByNameAndAddress(clinique.getAdresse());
         double[] coords = GeocodingService.getCoordinates(clinique.getAdresse());
         if (coords != null) {
             System.out.println("Latitude: " + coords[0] + ", Longitude: " + coords[1]);
