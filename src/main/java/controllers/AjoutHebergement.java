@@ -1,19 +1,26 @@
 package controllers;
 
 import Models.Hebergement;
+import Models.Photo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import service.ServiceHebergement;
+import javafx.stage.FileChooser;
+import service.ServicePhoto;
+import tools.MyDataBase;
 
+import java.io.File;
+
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class AjoutHebergement {
     ServiceHebergement sh = new ServiceHebergement();
-
+    private File selectedFile;
     @FXML
     private TextField adresseheb;
 
@@ -31,25 +38,42 @@ public class AjoutHebergement {
 
     @FXML
     private TextField telheb;
+    @FXML
+    void uploadPhoto(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
+        selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            showAlert(Alert.AlertType.INFORMATION, "Photo sélectionnée", "Fichier: " + selectedFile.getName());
+        } else {
+            showAlert(Alert.AlertType.WARNING, "Aucune sélection", "Veuillez choisir une image.");
+        }
+    }
 
     @FXML
     void AjouterHebergement(ActionEvent event) {
-        if (!validateInputs()) {
-            return; // Stop execution if validation fails
-        }
+        if (!validateInputs()) return;
 
-        try {
+        try (Connection conn =  MyDataBase.getInstance().getCnx() ) { // Connexion unique pour toutes les opérations
+            conn.setAutoCommit(false); // Désactiver l'auto-commit pour éviter la fermeture prématurée
+
+            // 1. Insérer l'hébergement et récupérer l'ID
             Hebergement hebergement = new Hebergement(
-                    nomheb.getText(),
-                    adresseheb.getText(),
-                    Integer.parseInt(telheb.getText()),
-                    emailheb.getText(),
-                    Integer.parseInt(capaciteheb.getText()),
-                    Integer.parseInt(tarifheb.getText())
+                    nomheb.getText(), adresseheb.getText(), Integer.parseInt(telheb.getText()),
+                    emailheb.getText(), Integer.parseInt(capaciteheb.getText()),
+                    Double.parseDouble(tarifheb.getText())
             );
 
-            sh.ajouter(hebergement);
+            int hebergementId = sh.ajouterEtRetournerId(hebergement, conn);
 
+            // 2. Insérer la photo si un fichier a été sélectionné
+            if (selectedFile != null) {
+                ServicePhoto sp = new ServicePhoto();
+                sp.ajouterPhoto(new Photo(hebergementId, selectedFile.getAbsolutePath()), conn);
+            }
+
+            conn.commit(); // Valider toutes les opérations
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Hébergement ajouté avec succès !");
             clearFields();
             Stage stage = (Stage) emailheb.getScene().getWindow();
@@ -58,6 +82,9 @@ public class AjoutHebergement {
             showAlert(Alert.AlertType.ERROR, "Erreur SQL", "Une erreur est survenue : " + e.getMessage());
         }
     }
+
+
+
 
 
     private boolean validateInputs() {

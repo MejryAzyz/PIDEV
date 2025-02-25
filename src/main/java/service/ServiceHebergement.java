@@ -20,6 +20,29 @@ public ServiceHebergement() {
         Statement st = cnx.createStatement();
         st.executeUpdate(sql);
 }
+    public int ajouterEtRetournerId(Hebergement hebergement, Connection conn) throws SQLException {
+        String query = "INSERT INTO hebergement (nom, adresse, telephone, email, capacite, tarif_nuit) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1, hebergement.getNom());
+            pstmt.setString(2, hebergement.getAdresse());
+            pstmt.setInt(3, hebergement.getTelephone());
+            pstmt.setString(4, hebergement.getEmail());
+            pstmt.setInt(5, hebergement.getCapacite());
+            pstmt.setDouble(6, hebergement.getTarif_nuit());
+
+            pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                throw new SQLException("Impossible de récupérer l'ID de l'hébergement.");
+            }
+        }
+    }
+
+
 
     @Override
     public void supprimer(int id) throws SQLException {
