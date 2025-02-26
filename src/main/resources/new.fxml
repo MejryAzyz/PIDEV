@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.DatePicker?>
+<AnchorPane id="AnchorPane" prefHeight="485.0" prefWidth="896.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.newController">
+    <children>
+        <AnchorPane fx:id="login1" layoutX="450.0" layoutY="43.0" prefHeight="442.0" prefWidth="448.0" style="-fx-background-color: #e03939 #e03939 #e03939 #e03939;">
+            <children>
+                <JFXTextField fx:id="emailField" focusColor="#d34141" layoutX="106.0" layoutY="173.0" prefHeight="25.0" prefWidth="236.0" promptText="Email Address" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXPasswordField fx:id="passwordField" focusColor="#d34141" layoutX="106.0" layoutY="245.0" prefHeight="25.0" prefWidth="236.0" promptText="Password" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXPasswordField>
+                <JFXButton fx:id="Login" layoutX="225.0" layoutY="315.0" onAction="#handleLoginAction" prefHeight="31.0" prefWidth="117.0" style="-fx-background-color: #f45c48;" text="Login" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXButton>
+                <Label fx:id="forgot" layoutX="106.0" layoutY="322.0" text="Forgot Password" textFill="WHITE" underline="true">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Label>
+                <Label layoutX="198.0" layoutY="64.0" text="Sign In" textFill="WHITE">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="signup2" layoutY="43.0" prefHeight="442.0" prefWidth="450.0" style="-fx-background-color: #fff;">
+            <children>
+                <Label layoutX="89.0" layoutY="105.0" prefHeight="31.0" prefWidth="254.0" text="Welcome to MedTravel">
+                    <font>
+                        <Font name="Agency FB Bold" size="25.0" />
+                    </font>
+                </Label>
+                <Label layoutX="120.0" layoutY="138.0" text="Best Travel Experience ">
+                    <font>
+                        <Font name="System Bold" size="16.0" />
+                    </font>
+                </Label>
+                <JFXButton fx:id="Enter_signup" layoutX="166.0" layoutY="206.0" onAction="#handleChangeAction" prefHeight="30.0" prefWidth="117.0" ripplerFill="WHITE" style="-fx-background-color: #e03939 #e03939;" text="Sign up" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXButton>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="login2" layoutX="449.0" layoutY="42.0" prefHeight="442.0" prefWidth="448.0" style="-fx-background-color: #fff;" visible="false">
+            <children>
+                <Label layoutX="161.0" layoutY="169.0" text="I have an Account">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <JFXButton fx:id="Enter_signin" layoutX="172.0" layoutY="206.0" onAction="#handleChangeAction" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #e03939 #e03939;" text="Sign In" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXButton>
+                <Label layoutX="130.0" layoutY="105.0" text="Sign In to MedTravel">
+                    <font>
+                        <Font name="Agency FB Bold" size="23.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="signup1" layoutY="43.0" prefHeight="442.0" prefWidth="450.0" style="-fx-background-color: #e03939 #e03939 #e03939 #e03939;" visible="false">
+            <children>
+                <JFXTextField fx:id="SignUpUserName" focusColor="#d31919" layoutX="131.0" layoutY="50.0" prefHeight="28.0" prefWidth="189.0" promptText="Firstname" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="SignUpUserLastName" focusColor="#d31919" layoutX="131.0" layoutY="90.0" prefHeight="28.0" prefWidth="189.0" promptText="Lastname" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+                <DatePicker  fx:id="SignUpUserDate" layoutX="131.0" layoutY="130.0" prefHeight="28.0" prefWidth="189.0" promptText="DD/MM/YYYY" style="-fx-text-fill: #fff;" />
+
+                <JFXTextField fx:id="SignUpUserPhone" focusColor="#d31919" layoutX="131.0" layoutY="170.0" prefHeight="28.0" prefWidth="189.0" promptText="PhoneNumber" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="SignUpUserAddress" focusColor="#d31919" layoutX="131.0" layoutY="210.0" prefHeight="28.0" prefWidth="189.0" promptText="Address" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXTextField fx:id="SignUpEmail" focusColor="#d31919" layoutX="131.0" layoutY="250.0" prefHeight="28.0" prefWidth="189.0" promptText="Email" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </JFXTextField>
+                <JFXPasswordField fx:id="SignUpPassword"  focusColor="#c51414" layoutX="131.0" layoutY="290.0" prefHeight="28.0" prefWidth="189.0" promptText="Password" style="-fx-text-fill: #fff;" unFocusColor="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXPasswordField>
+                <JFXPasswordField fx:id="ConfirmPassword" layoutX="131.0" layoutY="330.0" prefHeight="25.0" prefWidth="189.0" promptText="Confirm Password" style="-fx-text-fill: #fff;" unFocusColor="#ffffffde">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXPasswordField>
+                <JFXButton onAction="#ActionSignUp" layoutX=" 131.0" layoutY="370.0" prefHeight="31.0" prefWidth="189.0" ripplerFill="#e03939de" style="-fx-background-color: #f45c48;" text="Sign Up" textFill="WHITE">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXButton>
+                <Label layoutX="190.0" layoutY="20.0" text="Sign Up" textFill="WHITE">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <JFXButton fx:id="close" layoutX="843.0" prefHeight="45.0" prefWidth="55.0" text=" ">
+            <graphic>
+            </graphic>
+            <padding>
+                <Insets left="10.0" />
+            </padding>
+        </JFXButton>
+    </children>
+</AnchorPane>
