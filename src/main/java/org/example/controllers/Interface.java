@@ -424,6 +424,52 @@ public class Interface {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    private void displaypm() {
+        ResultSet resultSet = ps.Getallm();
+        int column = 0;
+        int row = 2;
+        try {
+            while (resultSet.next()) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Paiement.fxml"));
+                try {
+                    AnchorPane anchorPane = fxmlLoader.load();
+                    PaiementC itemController = fxmlLoader.getController();
+                    int idPaiement = resultSet.getInt("id_paiement");
+                    int idReservation = resultSet.getInt("id_reservation");
+                    double montant = resultSet.getDouble("montant");
+                    Timestamp datePaiement = resultSet.getTimestamp("date_paiement");
+                    String methode = resultSet.getString("methode");
+                    String type = resultSet.getString("type");
+                    Paiement paiement = new Paiement(idPaiement, idReservation, montant, datePaiement, methode);
+                    if(paiement.getMethode()!=null)
+                    {
+                        itemController.setData(paiement,type);
+                        if (column == 1) {
+                            column = 0;
+                            row++;
+                        }
+                        gridpai.add(anchorPane, column++, row); //(child,column,row)
+                        //set grid width
+                        gridpai.setMinWidth(Region.USE_COMPUTED_SIZE);
+                        gridpai.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                        gridpai.setMaxWidth(Region.USE_PREF_SIZE);
+                        //set grid height
+                        gridpai.setMinHeight(Region.USE_COMPUTED_SIZE);
+                        gridpai.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                        gridpai.setMaxHeight(Region.USE_PREF_SIZE);
+                        GridPane.setMargin(anchorPane, new Insets(10));
+                    }
+
+                } catch (IOException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
 
     @FXML
@@ -441,9 +487,22 @@ public class Interface {
         gridres.getChildren().clear();
         filter("a");
     }
-//
+
     @FXML
     void f3(ActionEvent event) {
+        f1.setSelected(false);
+        f2.setSelected(false);
+        gridres.getChildren().clear();
+        filter("c");
+    }
+    @FXML
+    void trim(ActionEvent event) {
+        gridres.getChildren().clear();
+        displaypm();
+
+    }
+    @FXML
+    void trid(ActionEvent event) {
         f1.setSelected(false);
         f2.setSelected(false);
         gridres.getChildren().clear();
