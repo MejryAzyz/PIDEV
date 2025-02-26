@@ -1,5 +1,6 @@
 package services;
 
+import models.Clinique;
 import models.Photo;
 import tools.MyDataBase;
 
@@ -69,6 +70,9 @@ public class ServicePhoto implements IService<Photo> {
         return photos;
     }
 
+
+
+
     public void ajouterPhoto(Photo photo) throws SQLException {
         String sql = "INSERT INTO clinique_photos (clinique_id, photo_url) VALUES (?, ?)";
         PreparedStatement ps = cnx.prepareStatement(sql);
@@ -95,5 +99,54 @@ public class ServicePhoto implements IService<Photo> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    // Récupère l'URL de l'image de la clinique à partir de la table clinique_photos
+    public String getPhotoUrlByCliniqueId(int cliniqueId) throws SQLException {
+        String photoUrl = null;
+        String sql = "SELECT photo_url FROM clinique_photos WHERE clinique_id = ? LIMIT 1";
+
+        PreparedStatement pst = cnx.prepareStatement(sql);
+        pst.setInt(1, cliniqueId);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            photoUrl = rs.getString("photo_url");
+        }
+
+        return photoUrl;  // Renvoie l'URL de l'image
+    }
+
+    public List<Photo> recupererPhotosParClinique(int idClinique) throws SQLException {
+        String sqlPhotos = "SELECT * FROM clinique_photos WHERE clinique_id = ?";
+        PreparedStatement ps = cnx.prepareStatement(sqlPhotos);
+        ps.setInt(1, idClinique);
+        ResultSet rsPhotos = ps.executeQuery();
+
+        List<Photo> photos = new ArrayList<>();
+
+        while (rsPhotos.next()) {
+            Photo photo = new Photo();
+            photo.setId_photo(rsPhotos.getInt("id_photo"));
+            photo.setId_clinique(rsPhotos.getInt("clinique_id"));
+            photo.setPhotoUrl(rsPhotos.getString("photo_url"));
+            photos.add(photo);
+        }
+
+        return photos;
+    }
+
+    public String getPhotoUrlByClinique(int idClinique) throws SQLException {
+        String url = null;  // Initialiser la variable url
+        String query = "SELECT photo_url FROM clinique_photos WHERE clinique_id = ?";
+
+        try (PreparedStatement stmt = cnx.prepareStatement(query)) {
+            stmt.setInt(1, idClinique);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                url = rs.getString("photo_url");
+            }
+        }
+        return url;  // Retourner l'URL de l'image sous forme de String
     }
 }

@@ -81,6 +81,10 @@ public class ServiceClinique implements IService<Clinique>{
             c.setDescription(rs.getString("description"));
             c.setPrix(rs.getDouble("prix"));
             c.setRate(rs.getInt("Rate"));
+
+            /*String imagePath = getImagePathByCliniqueId(c.getIdClinique());
+            c.setImagePath(imagePath);*/
+
             cliniques.add(c);
         }
         return cliniques;
@@ -169,4 +173,43 @@ public class ServiceClinique implements IService<Clinique>{
         System.out.println("Clinique ajoutée avec l'ID : " + c.getIdClinique());
     }
 
+   /* public String getImagePathByCliniqueId(int idClinique) throws SQLException {
+        String sql = "SELECT photo_url FROM clinique_photos WHERE clinique_id = ?";
+        PreparedStatement ps = cnx.prepareStatement(sql);
+        ps.setInt(1, idClinique);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getString("photo_url");  // Retourne le chemin de l'image
+        }
+        return null; // Si aucune image n'est trouvée pour cette clinique
+    }*/
+
+    public List<Clinique> recupererCliniques() throws SQLException {
+        String sql = "SELECT c.*, cp.photo_url " +
+                "FROM clinique c " +
+                "LEFT JOIN clinique_photos cp ON c.id_clinique = cp.clinique_id " +
+                "WHERE cp.id_photo = (SELECT MIN(id_photo) FROM clinique_photos WHERE clinique_id = c.id_clinique)";
+
+        Statement st = cnx.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+
+        List<Clinique> cliniques = new ArrayList<>();
+
+        while (rs.next()) {
+            Clinique clinique = new Clinique();
+            clinique.setIdClinique(rs.getInt("id_clinique"));
+            clinique.setNom(rs.getString("nom"));
+            clinique.setAdresse(rs.getString("adresse"));
+            clinique.setEmail(rs.getString("email"));
+            clinique.setTelephone(rs.getString("telephone"));
+            clinique.setPrix(rs.getDouble("prix"));
+            clinique.setPhotoUrl(rs.getString("photo_url")); // Store the photo URL
+
+            cliniques.add(clinique);
+            System.out.println("Clinique: " + clinique.getNom() + ", Photo URL: " + clinique.getPhotoUrl());
+
+        }
+
+        return cliniques;
+    }
 }

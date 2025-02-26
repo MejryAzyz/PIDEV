@@ -9,6 +9,7 @@ public class Clinique {
     private double prix;
     private List<Docteur> docteurs = new ArrayList<>();
     private List<Specialite> specialites = new ArrayList<>();
+    private String photoUrl;
 
     public Clinique(int rate, String nom, String adresse, String telephone, String email, String description, double prix) {
         this.rate = rate;
@@ -105,6 +106,15 @@ public class Clinique {
 
     public void setPrix(double prix) {
         this.prix = prix;
+    }
+
+    // Getters et Setters
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     @Override

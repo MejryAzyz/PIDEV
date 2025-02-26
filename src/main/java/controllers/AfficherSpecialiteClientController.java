@@ -51,7 +51,7 @@ public class AfficherSpecialiteClientController {
     }
 
     //
-    private void afficherSpecialites() throws SQLException {
+    public void afficherSpecialites() throws SQLException {
         ServiceSpecialite service = new ServiceSpecialite();
         List<Specialite> specialites = service.recuperer();
 
@@ -167,6 +167,7 @@ public class AfficherSpecialiteClientController {
             Parent root = loader.load();
             CliniquesParSpecialiteController controller = loader.getController();
             controller.afficherCliniques(cliniques, spec);
+            controller.initialize(spec);
 
             Stage stage = (Stage) specialiteContainer.getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -181,6 +182,10 @@ public class AfficherSpecialiteClientController {
     private StackPane createSpecialiteCard(Specialite spec) {
         StackPane card = new StackPane();
         card.setPrefSize(220, 140);
+
+        // Ajouter l'image de fond
+        /*String imagePath = "/image.PNG"; // Remplacez par le chemin de votre image
+        ImageView backgroundImage = new ImageView(new Image(getClass().getResource(imagePath).toExternalForm()));*/
 
         Rectangle rect = new Rectangle(220, 140);
         rect.setArcWidth(20);
@@ -221,11 +226,11 @@ public class AfficherSpecialiteClientController {
         }
     }
 
-    @FXML
+    /*@FXML
     private void retourSpecialites(MouseEvent event) {
         // Logique pour revenir à la liste des spécialités
         specialiteContainer.setVisible(true); // Réafficher les spécialités
-    }
+    }*/
 
 
 }

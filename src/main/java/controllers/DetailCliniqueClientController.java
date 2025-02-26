@@ -7,9 +7,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import models.Clinique;
 import models.Docteur;
+import models.Photo;
 import services.GeocodingService;
 import services.MapService;
 import services.ServiceDocteur;
+import services.ServicePhoto;
+import services.ServiceClinique;
+
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -36,18 +43,59 @@ public class DetailCliniqueClientController {
     @FXML
     private ImageView mapView;  // Ajout de la carte
 
+    @FXML
+    private ImageView imageView;
+
+
 
     private ServiceDocteur serviceDocteur;
+    private ServiceClinique serviceClinique;
 
     public DetailCliniqueClientController() {
         this.serviceDocteur = new ServiceDocteur();
+        this.serviceClinique = new ServiceClinique();
     }
 
 
 
     public void afficherDetails(Clinique clinique, int specialiteId) throws SQLException {
-        String imageUrl = "clinique2.png";
+        /*String imageUrl = "clinique2.png";
+        cliniqueImageView.setImage(new Image(imageUrl));*/
+        /*ServicePhoto servicePhoto = new ServicePhoto();
+        Photo photo = servicePhoto.getPhotoByClinique(clinique.getIdClinique());
+
+        if (photo != null && photo.getPhotoUrl() != null) {
+            String imageUrl = photo.getPhotoUrl(); // Récupère l'URL de l'image
+
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                // Si l'URL contient 'file://', on la traite correctement
+                if (imageUrl.startsWith("file://")) {
+                    imageUrl = imageUrl.substring(7); // Retire 'file://' du début de l'URL
+                }
+
+                // Corriger le chemin pour éviter la combinaison incorrecte de 'file:' et du chemin absolu
+                if (imageUrl.startsWith("file:/")) {
+                    // Si le chemin commence par 'file:/', nous l'utilisons directement
+                    try {
+                        // Utilisation de "file://" pour le chemin correct
+                        String imagePath = "file:///" + imageUrl.replace("\\", "/");  // Remplacer les backslashes par des slashes
+                        Image image = new Image(imagePath);  // Charger l'image
+                        imageView.setImage(image);  // Afficher l'image dans l'ImageView
+                    } catch (Exception e) {
+                        e.printStackTrace();  // Affiche les erreurs dans la console
+                        System.out.println("Erreur de chargement de l'image : " + e.getMessage());
+                    }
+                } else {
+                    System.out.println("URL d'image non valide.");
+                }
+            } else {
+                System.out.println("Aucune image disponible pour cette clinique.");
+            }
+        }*/
+
+        String imageUrl = clinique.getPhotoUrl() != null ? clinique.getPhotoUrl() : "clinique2.png";  // Fallback if no photo
         cliniqueImageView.setImage(new Image(imageUrl));
+
 
         nomLabel.setText(clinique.getNom());
         descriptionLabel.setText("Description: " + clinique.getDescription());
