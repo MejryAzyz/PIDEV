@@ -120,6 +120,31 @@ public class PaiementService implements ICrud<Paiement>{
         }
         return rs;    }
 
+    public ResultSet Getalld() {
+        ResultSet rs = null;
+        try {
+            String req = "SELECT \n" +
+                    "    p.id_paiement, \n" +
+                    "    p.id_reservation, \n" +
+                    "    p.montant, \n" +
+                    "    p.date_paiement, \n" +
+                    "    p.methode, \n" +
+                    "    CASE \n" +
+                    "        WHEN r.id_clinique != 0 THEN 'clinic' \n" +
+                    "        WHEN r.id_hebergement != 0 THEN 'hebergement' \n" +
+                    "        WHEN r.id_transport != 0 THEN 'transport'\n" +
+                    "        ELSE 'unknown'  -- You can replace 'unknown' with any default value if needed\n" +
+                    "    END AS type\n" +
+                    "FROM \n" +
+                    "    paiement p\n" +
+                    "JOIN \n" +
+                    "    reservation r ON p.id_reservation = r.id_reservation order by p.date_paiement;\n" ;
+            PreparedStatement st = cnx2.prepareStatement(req);
+            rs = st.executeQuery(req);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+        return rs;    }
     public ResultSet Getallm() {
         ResultSet rs = null;
         try {
