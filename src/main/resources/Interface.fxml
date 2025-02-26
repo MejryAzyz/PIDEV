@@ -20,7 +20,7 @@
    <children>
       <Pane fx:id="pn_pai" layoutY="-1.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: rgba(13,174,98,255);">
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: #012869;">
                <children>
                   <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
                   <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
@@ -28,7 +28,7 @@
                   <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: rgba(13,174,98,255);" />
+            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: #012869;" />
             <Label layoutX="400.0" layoutY="112.0" prefHeight="40.0" prefWidth="163.0" text="My purchases history">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
@@ -57,7 +57,7 @@
       </Pane>
       <Pane fx:id="pn_res" layoutY="-1.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: rgba(13,174,98,255);">
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: #012869;">
                <children>
                   <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
                   <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
@@ -65,7 +65,7 @@
                   <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: rgba(13,174,98,255);" />
+            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: #012869;" />
             <Label layoutX="424.0" layoutY="107.0" prefHeight="40.0" prefWidth="126.0" text="My reservations">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
@@ -101,7 +101,7 @@
       </Pane>
       <Pane fx:id="pn_home" layoutX="-1.0" layoutY="-2.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: rgba(13,174,98,255);">
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: #012869;">
                <children>
                   <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
                   <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
@@ -114,7 +114,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: rgba(13,174,98,255);" />
+            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: #012869;" />
          </children>
       </Pane>
       <Pane fx:id="pn_addres" layoutY="-1.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;">
@@ -191,7 +191,7 @@
                   <DatePicker fx:id="tf_date" layoutX="182.0" layoutY="137.0" prefHeight="25.0" prefWidth="149.0" />
                </children>
             </Pane>
-            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: rgba(13,174,98,255);">
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: #012869;">
                <children>
                   <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
                   <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
@@ -199,7 +199,7 @@
                   <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: rgba(13,174,98,255);" />
+            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: #012869;" />
             <Label layoutX="149.0" layoutY="140.0" prefHeight="40.0" prefWidth="224.0" text="Make a reservation :">
                <font>
                   <Font name="Segoe UI" size="13.0" />
