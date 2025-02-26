@@ -37,114 +37,13 @@ public class CliniquesParSpecialiteController {
     @FXML
     private Pane specialiteContainer;
 
-    /*public void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
-        //cliniqueContainer.getChildren().clear();
-        GridPane cliniqueGrid = new GridPane();
-        cliniqueGrid.setVgap(10); // Espacement vertical
-        cliniqueGrid.setHgap(10); // Espacement horizontal
-        cliniqueGrid.setStyle("-fx-padding: 20px;");
 
-        int row = 0;
-        int col = 0;
-
-        // Affichage des cliniques dans la nouvelle fenêtre
-        for (Clinique clinique : cliniques) {
-            HBox card = new HBox(15);
-            card.setStyle("-fx-background-color: #f8f8f8; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
-            String imageUrl = "clinique2.png";
-            ImageView imageView = new ImageView(new Image(imageUrl));
-            imageView.setFitHeight(100);
-            imageView.setFitWidth(100);
-
-            VBox infoBox = new VBox(5);
-            Label nomLabel = new Label(clinique.getNom());
-            nomLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-            Label adresseLabel = new Label("Adresse: " + clinique.getAdresse());
-            Label emailLabel = new Label("Email: " + clinique.getEmail());
-            Label telLabel = new Label("Téléphone: " + clinique.getTelephone());
-            Label prixLabel = new Label("Prix: " + clinique.getPrix() + " €");
-            prixLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0dae6f;");
-
-            infoBox.getChildren().addAll(nomLabel, adresseLabel, emailLabel, telLabel, prixLabel);
-            card.getChildren().addAll(imageView, infoBox);
-
-            card.setOnMouseClicked(event -> {
-                try {
-                    ouvrirDetailsClinique(clinique, spec.getId_specialite());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-            cliniqueContainer.getChildren().add(card);
-
-
-
-        }
-    }*/
 
     public CliniquesParSpecialiteController() {
         this.servicePhoto = new ServicePhoto();
     }
 
-    /*public void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
-        // Vider le GridPane avant d'ajouter les nouvelles cliniques
-        cliniqueContainer.getChildren().clear();
 
-        // Configuration du GridPane (espacement entre les éléments)
-        cliniqueContainer.setVgap(10);  // Espacement vertical
-        cliniqueContainer.setHgap(10);  // Espacement horizontal
-        cliniqueContainer.setStyle("-fx-padding: 20px;");
-
-        int row = 0;
-        int col = 0;
-
-        // Affichage des cliniques
-        for (Clinique clinique : cliniques) {
-            // Créer un HBox pour chaque clinique (carte de la clinique)
-            HBox card = new HBox(15);
-            card.setStyle("-fx-background-color: #f8f8f8; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
-
-            // Image de la clinique
-            String imageUrl = "clinique2.png";  // Remplacez par votre propre image
-            ImageView imageView = new ImageView(new Image(imageUrl));
-            imageView.setFitHeight(100);
-            imageView.setFitWidth(100);
-
-            // Informations de la clinique
-            VBox infoBox = new VBox(5);
-            Label nomLabel = new Label(clinique.getNom());
-            nomLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-            Label adresseLabel = new Label("Adresse: " + clinique.getAdresse());
-            Label emailLabel = new Label("Email: " + clinique.getEmail());
-            Label telLabel = new Label("Téléphone: " + clinique.getTelephone());
-            Label prixLabel = new Label("Prix: " + clinique.getPrix() + " €");
-            prixLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #0dae6f;");
-
-            infoBox.getChildren().addAll(nomLabel, adresseLabel, emailLabel, telLabel, prixLabel);
-            card.getChildren().addAll(imageView, infoBox);
-
-            // Ajouter la carte dans le GridPane à la position (col, row)
-            cliniqueContainer.add(card, col, row);
-
-            // Passer à la colonne suivante
-            col++;
-
-            // Si le nombre de colonnes atteint 3, passez à la ligne suivante
-            if (col == 3) {
-                col = 0;
-                row++;
-            }
-
-            // Gérer le clic sur la carte pour afficher les détails de la clinique
-            card.setOnMouseClicked(event -> {
-                try {
-                    ouvrirDetailsClinique(clinique, spec.getId_specialite());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    }*/
 
     //2
     /*public void afficherCliniques(List<Clinique> cliniques, Specialite spec) {
@@ -191,7 +90,7 @@ public class CliniquesParSpecialiteController {
 
 
 
-// Ajouter l'image à la carte
+         // Ajouter l'image à la carte
             card.getChildren().add(imageView);
 
             // Informations de la clinique
@@ -263,20 +162,13 @@ public class CliniquesParSpecialiteController {
 
             infoBox.getChildren().addAll(nomLabel, adresseLabel, emailLabel, telLabel, prixLabel);
             card.getChildren().addAll(imageView, infoBox);
-
-            // Add the card to the GridPane at (col, row)
             cliniqueContainer.add(card, col, row);
 
-            // Move to the next column
             col++;
-
-            // If the number of columns reaches 3, move to the next row
             if (col == 3) {
                 col = 0;
                 row++;
             }
-
-            // Handle the click on the card to show clinic details
             card.setOnMouseClicked(event -> {
                 try {
                     ouvrirDetailsClinique(clinique, spec.getId_specialite());
@@ -304,28 +196,9 @@ public class CliniquesParSpecialiteController {
         }
     }
 
-    /*@FXML
-    public void retourSpecialites() throws SQLException {
-        try {
-            // Charger la scène des spécialités à nouveau
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSpecialiteClient.fxml"));
-            Parent root = loader.load();
 
-            // Récupérer le contrôleur pour afficher les spécialités à nouveau
-            AfficherSpecialiteClientController controller = loader.getController();
-            controller.afficherSpecialites(); // Appel pour ré-afficher les spécialités
-
-            // Changer la scène de la fenêtre actuelle
-            Stage stage = (Stage) cliniqueContainer.getScene().getWindow();
-            stage.setScene(new Scene(root)); // Réinitialiser la scène
-            stage.show(); // Afficher la nouvelle scène
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
     @FXML
     private void handleRetourButton() throws IOException {
-        // Charger la vue des spécialités (ou la page précédente)
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSpecialiteClient.fxml"));
         AnchorPane root = loader.load();
 
@@ -338,30 +211,24 @@ public class CliniquesParSpecialiteController {
 
     public void initialize(Specialite spec) {
         ServiceClinique serviceClinique = new ServiceClinique();
-        ServiceDocteur serviceDocteur = new ServiceDocteur(); // Service pour récupérer les docteurs
+        ServiceDocteur serviceDocteur = new ServiceDocteur();
 
         try {
-            // Récupérer la liste de toutes les cliniques et docteurs
             List<Clinique> cliniques = serviceClinique.recupererCliniques();
             List<Docteur> docteurs = serviceDocteur.recuperer();
 
-            // Filtrer les docteurs qui ont la spécialité donnée
             List<Docteur> docteursSpec = docteurs.stream()
-                    .filter(docteur -> docteur.getId_specialite() == (spec.getId_specialite())) // On suppose que chaque Docteur a une méthode getSpecialite()
+                    .filter(docteur -> docteur.getId_specialite() == (spec.getId_specialite()))
                     .collect(Collectors.toList());
 
-            // Extraire les IDs des cliniques associées à ces docteurs
             Set<Integer> cliniqueIds = new HashSet<>();
             for (Docteur docteur : docteursSpec) {
-                cliniqueIds.add(docteur.getId_clinique()); // On suppose que chaque Docteur a une méthode getCliniqueId()
+                cliniqueIds.add(docteur.getId_clinique());
             }
 
-            // Filtrer les cliniques qui sont associées à l'une des cliniques des docteurs filtrés
             List<Clinique> cliniquesSpec = cliniques.stream()
-                    .filter(clinique -> cliniqueIds.contains(clinique.getIdClinique())) // On suppose que chaque Clinique a une méthode getId()
+                    .filter(clinique -> cliniqueIds.contains(clinique.getIdClinique()))
                     .collect(Collectors.toList());
-
-            // Afficher les cliniques filtrées
             afficherCliniques(cliniquesSpec, spec);
 
         } catch (SQLException e) {
