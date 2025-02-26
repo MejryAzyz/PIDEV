@@ -59,12 +59,12 @@ public class AjouterPersonneController {
     private String imageUrl;
 
     @FXML
-    private void addUser(ActionEvent event) {
+    public void addUser(ActionEvent event) {
         try {
             if (userName.getText().trim().isEmpty() || userLastName.getText().trim().isEmpty() ||
                     userMail.getText().trim().isEmpty() || userPassword.getText().trim().isEmpty() ||
                     userPhone.getText().trim().isEmpty() || userAdd.getText().trim().isEmpty() ||
-                    userDate.getValue() == null || imageUrl == null) {
+                    userDate.getValue() == null ) {
                 showAlert(Alert.AlertType.WARNING, "Champs vides", "Tous les champs doivent être remplis.");
                 return;
             }

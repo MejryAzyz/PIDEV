@@ -36,7 +36,7 @@ private Button signupButton;
     }
 
     @FXML
-    private void handleLoginAction() {
+    public void handleLoginAction() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
@@ -96,5 +96,6 @@ private Button signupButton;
         alert.setContentText(message);
         alert.showAndWait();
     }
+
 }
 

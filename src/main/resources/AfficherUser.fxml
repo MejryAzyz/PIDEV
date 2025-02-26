@@ -9,35 +9,156 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="580.0" prefWidth="1032.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherUserController">
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane prefHeight="750.0" prefWidth="1280.0" stylesheets="stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherUserController">
     <children>
-        <HBox layoutX="186.0" layoutY="14.0" prefHeight="118.0" prefWidth="1032.0" style="-fx-background-color: #0dae62;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <!-- Sidebar -->
+        <StackPane fx:id="sidebarBackground" prefWidth="230.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
             <children>
-                <AnchorPane prefHeight="118.0" prefWidth="1041.0">
-                    <children>
-                        <Label layoutX="457.0" layoutY="36.0" prefHeight="51.0" prefWidth="394.0" text="LISTE UTILISATEURS" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="35.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </AnchorPane>
+                <Pane fx:id="sidebar" prefWidth="230.0" styleClass="sidebar">
+                    <!-- Logo -->
+                    <ImageView fx:id="logo" fitHeight="150.0" fitWidth="150.0" layoutX="40.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="images/logo.PNG" />
+                        </image>
+                    </ImageView>
+
+                    <!-- Toggle Button to collapse sidebar -->
+                    <ToggleButton id="toggleSidebar" layoutX="185.0" layoutY="15.0" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px;" fx:id="toggleSidebarBtn" onAction="#toggleSidebarAction" />
+
+                    <!-- Sidebar Buttons -->
+                    <VBox layoutY="150.0" spacing="15.0" maxHeight="Infinity" alignment="TOP_CENTER" id="sidebarButtons">
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconDashboard" text="📊" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelDashboard" text="Dashboard" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconUserManagement" text="👤" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelUserManagement" text="Gestion Utilisateur" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconClinicalManagement" text="⚕️" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelClinicalManagement" text="Gestion Clinique" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconSpecialtyManagement" text="🎓" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelSpecialtyManagement" text="Gestion Spécialité" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconTransportManagement" text="🚍" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelTransportManagement" text="Gestion Transport" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0" >
+                            <Text fx:id="iconAccommodationManagement" text="🏨" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;" >
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconReservationManagement" text="📅" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelReservationManagement" text="Gestion Réservation" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconPaymentManagement" text="💳" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelPaymentManagement" text="Gestion Paiement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                        <HBox styleClass="sidebar-btn" spacing="10.0">
+                            <Text fx:id="iconSupportManagement" text="👨‍⚕️" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelSupportManagement" text="Gestion Accompagnement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+
+                        <Region VBox.vgrow="ALWAYS" />
+
+                        <HBox fx:id="Logout" styleClass="logout-btn" spacing="10.0" onMouseClicked="#logout">
+                            <Text  fx:id="iconLogout" text="🚪" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                            <Label fx:id="labelLogout" text="Logout" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                <font>
+                                    <Font name="Arial" size="14.0" />
+                                </font>
+                            </Label>
+                        </HBox>
+                    </VBox>
+                </Pane>
             </children>
-        </HBox>
-        <HBox layoutY="117.0" prefHeight="463.0" prefWidth="1032.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="117.0">
-            <children>
-                <VBox prefHeight="463.0" prefWidth="205.0" spacing="10.0" style="-fx-background-color: #0dae62;">
-                    <children>
-                        <Label prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: transparent transparent white transparent;" text="Gestion utilisateurs" textFill="WHITE" VBox.vgrow="ALWAYS">
-                            <font>
-                                <Font name="System Bold" size="15.0" />
-                            </font>
-                        </Label>
-                    </children>
+        </StackPane>
+        <!-- Main Content Area -->
+        <VBox fx:id="contentBox" layoutX="250.0" layoutY="30.0" spacing="20.0">
+        <Label text="Gestion des Utilisateurs" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #333333; -fx-alignment: center; -fx-padding: 10px;"/>
+        <HBox spacing="20.0">
+            <!-- Card 1 -->
+            <StackPane styleClass="card">
+                <VBox spacing="10.0" styleClass="card-content">
+                    <Text text="Nombre totale des Utilisateurs" styleClass="card-title" />
+                    <Text fx:id="card1Value" styleClass="card-value" />
                 </VBox>
-                <AnchorPane prefHeight="463.0" prefWidth="836.0">
-                    <children>
-                        <TableView fx:id="table_utilisateur" layoutX="67.0" layoutY="102.0" prefHeight="261.0" prefWidth="700.0">
+            </StackPane>
+            <!-- Card 2 -->
+            <StackPane styleClass="card">
+                <VBox spacing="10.0" styleClass="card-content">
+                    <Text text=" Nombre des Utilisateurs actifs " styleClass="card-title" />
+                    <Text fx:id="card2Value" styleClass="card-value" />
+                </VBox>
+            </StackPane>
+            <!-- Card 3 -->
+            <StackPane styleClass="card">
+                <VBox spacing="10.0" styleClass="card-content">
+                    <Text text="Capacité totale" styleClass="card-title" />
+                    <Text fx:id="cardTotalCapacity" styleClass="card-value" />
+                </VBox>
+            </StackPane>
+        </HBox>
+
+
+        <HBox spacing="10.0" style="-fx-padding: 0 0 0 300px;">
+            <TextField   fx:id="searchBar" promptText="Search..." style="-fx-background-radius: 30px; -fx-padding: 10px 20px; -fx-border-radius: 30px;  -fx-font-size: 14px;-fx-min-width: 500px; " />
+            <Button  text="🔍" style="-fx-background-color: #2a5298; -fx-text-fill: white; -fx-background-radius: 30px; -fx-font-size: 14px; -fx-padding: 10px 15px;" />
+        </HBox>
+
+
+
+                        <TableView fx:id="table_utilisateur"  prefWidth="1250.0">
                             <columns>
                                 <TableColumn fx:id="col_id" minWidth="100.0" text="ID" />
                                 <TableColumn fx:id="col_nom" minWidth="140.0" text="Nom" />
@@ -46,21 +167,13 @@
                                 <TableColumn fx:id="col_telephone" minWidth="140.0" text="Téléphone" />
                                 <TableColumn fx:id="col_adresse" minWidth="200.0" text="Adresse" />
                                 <TableColumn fx:id="col_date_naissance" minWidth="140.0" text="Date Naissance" />
+
+                            <TableColumn fx:id="colActions" prefWidth="250" text="Actions">
+
+
+                            </TableColumn>
                             </columns>
                         </TableView>
-                        <Button fx:id="delete" layoutX="508.0" layoutY="385.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #cc243f; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌ SUPPRIMER" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="update" layoutX="354.0" layoutY="385.0" mnemonicParsing="false" onAction="#modifierUtilisateur" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #fbc101; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄 MODIFIER" textFill="WHITE">
-                            <font>
-                                <Font name="System Bold" size="13.0" />
-                            </font>
-                        </Button>
-                    </children>
-                </AnchorPane>
-            </children>
-        </HBox>
+        </VBox>
     </children>
 </AnchorPane>

@@ -152,6 +152,10 @@ public class Utilisateur {
                 ", telephone='" + telephone + '\'' +
                 ", dateNaissance=" + dateNaissance +
                 ", adresse='" + adresse + '\'' +
+                ", image_url='" + image_url + '\'' +
+                ", status=" + status +
+                ", verif=" + verif +
+                ", verification_token='" + verification_token + '\'' +
                 '}';
     }
 }

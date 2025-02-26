@@ -1,5 +1,6 @@
 package services;
 
+import Session.SessionManager;
 import models.Utilisateur;
 import org.mindrot.jbcrypt.BCrypt;
 import tools.MyDataBase;
@@ -115,11 +116,7 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
 
             if (rs.next()) {
 
-                int verif = rs.getInt("verif"); // Check verification status
-                if (verif == 0) {
-                    System.out.println("You need to verify your email before logging in.");
-                    return null; // Prevent login
-                }
+
 
                 String storedHashedPassword = rs.getString("mot_de_passe");
 
@@ -138,6 +135,7 @@ public class ServiceUtilisateur implements IService<Utilisateur> {
                     );
                     utilisateur.setIdUtilisateur(rs.getInt("id_utilisateur"));
                     utilisateur.setIdRole(rs.getInt("id_role"));
+                    utilisateur.setVerif(rs.getInt("verif"));
 
                     System.out.println("welcome "+utilisateur.getNom()+" "+utilisateur.getPrenom());
 
