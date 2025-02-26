@@ -601,5 +601,14 @@ public class Interface {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+//ajouter button dora
+    /*public void butt(int id) {
+        ReservationService reservationService = new ReservationService();
+        Reservation r=new Reservation(1,id,"in progress");// 1 id user
+        reservationService.ajouterEntite(r);
+
+
+
+    }*/
 
 }
