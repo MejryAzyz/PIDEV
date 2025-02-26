@@ -173,7 +173,7 @@ public class MailSenderReservation {
                 + "																			style=\"margin: 0; font-size: 14px; text-align: center;\">\n"
                 + "																			<span\n"
                 + "																				style=\"font-size:18px;color:#000000;\"><br>\n"
-                + "																				"+"<br>Purchase Date : "+Date.valueOf(LocalDate.now())+"<br>Expiration Date : "+Date.valueOf(java.time.LocalDate.now().plusYears(1))+"<br> </span></p>\n"
+                + "																				"+"<br>Reservation Date : "+Date.valueOf(LocalDate.now())+" </span></p>\n"
                 + "																		<p\n"
                 + "																			style=\"margin: 0; font-size: 14px; text-align: center;\">\n"
                 + "																			<span\n"

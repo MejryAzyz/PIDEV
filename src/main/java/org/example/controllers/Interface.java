@@ -441,7 +441,7 @@ public class Interface {
         gridres.getChildren().clear();
         filter("a");
     }
-
+//
     @FXML
     void f3(ActionEvent event) {
         f1.setSelected(false);
