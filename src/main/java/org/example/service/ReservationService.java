@@ -5,6 +5,8 @@ import org.example.tools.DBconnexion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import org.example.entities.*;
 
 public class ReservationService implements ICrud<Reservation>{
@@ -95,6 +97,34 @@ public class ReservationService implements ICrud<Reservation>{
             rs = st.executeQuery(req);
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
+        }
+        return rs;    }
+
+    public ResultSet GetallFilter(String s) {
+        ResultSet rs = null;
+        if(Objects.equals(s, "c")){
+        try {
+            String req = "SELECT * FROM `reservation` WHERE `id_clinique` != 0";
+            PreparedStatement st = cnx2.prepareStatement(req);
+            rs = st.executeQuery(req);
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }} else if (Objects.equals(s, "a")) {
+            try {
+                String req = "SELECT * FROM `reservation` WHERE `id_hebergement` != 0";
+                PreparedStatement st = cnx2.prepareStatement(req);
+                rs = st.executeQuery(req);
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }else {
+            try {
+                String req = "SELECT * FROM `reservation` WHERE `id_transport` != 0 ";
+                PreparedStatement st = cnx2.prepareStatement(req);
+                rs = st.executeQuery(req);
+            } catch (SQLException ex) {
+                System.err.println(ex.getMessage());
+            }
         }
         return rs;    }
 }

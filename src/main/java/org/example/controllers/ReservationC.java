@@ -4,11 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import org.example.entities.MailSender;
 import org.example.entities.Paiement;
 import org.example.entities.Reservation;
 import org.example.service.PaiementService;
 import org.example.service.ReservationService;
-
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Properties;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -226,6 +229,12 @@ public class ReservationC {
         {
             p.setMethode("virement");
             ps.modifierEntite(p);
+            MailSender ms = new MailSender();
+            try {
+                ms.sendMail("beyaabid876@gmail.com");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Valider");
             alert.setHeaderText(null);
@@ -238,6 +247,12 @@ public class ReservationC {
         } else if (espece.isSelected()) {
             p.setMethode("espece");
             ps.modifierEntite(p);
+            MailSender ms = new MailSender();
+            try {
+                ms.sendMail("beyaabid876@gmail.com");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Valider");
             alert.setHeaderText(null);
@@ -250,6 +265,12 @@ public class ReservationC {
         }else if (paypal.isSelected()){
             p.setMethode("paypal");
             ps.modifierEntite(p);
+            MailSender ms = new MailSender();
+            try {
+                ms.sendMail("beyaabid876@gmail.com");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Valider");
             alert.setHeaderText(null);
@@ -285,6 +306,46 @@ public class ReservationC {
     void onRadioVirementSelected(ActionEvent event) {
         paypal.setSelected(false);
         espece.setSelected(false);
+    }
+
+    public void sendConfirmationEmail() {
+        // Set up mail properties
+        String host = "smtp.google.com"; // Replace with your SMTP host
+        String from = "abdoubahouri123@gmail.com";  // Replace with your email
+        String to = "abdoubahouri123@gmail.com";     // Replace with recipient's email
+        String password = "bmrweoalpfbmygjs"; // Replace with your email password
+
+        // Set up properties for the mail session
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "587"); // Port for SMTP
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+
+        // Create a new session with authentication
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+
+        try {
+            // Create the email content
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(from));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Payment Confirmation");
+            message.setText("Your payment has been successfully processed. Thank you for your reservation!");
+
+            // Send the email
+            Transport.send(message);
+            System.out.println("Email sent successfully.");
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            System.out.println("Failed to send email.");
+        }
     }
 
 }

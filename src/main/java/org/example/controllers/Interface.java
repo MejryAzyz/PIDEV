@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import org.example.entities.MailSenderReservation;
 import org.example.entities.Paiement;
 import org.example.entities.Reservation;
 import org.example.service.PaiementService;
@@ -26,6 +27,15 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 public class Interface {
+
+    @FXML
+    private RadioButton f1;
+
+    @FXML
+    private RadioButton f2;
+
+    @FXML
+    private RadioButton f3;
 
     @FXML
     private Pane pn_pai;
@@ -115,6 +125,14 @@ public class Interface {
             alert.showAndWait();
             return;
         }
+        if (!tf_accomodation.getText().matches("\\d+")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Format invalide");
+            alert.setHeaderText(null);
+            alert.setContentText("Le champ hébergement doit être un nombre !");
+            alert.showAndWait();
+            return;
+        }
         int accomodation =Integer.valueOf(tf_accomodation.getText());
         LocalDate localDateDebut = tf_checkin.getValue();
         LocalDate localDateFin = tf_checkout.getValue();
@@ -123,6 +141,12 @@ public class Interface {
         Date datefin = Date.valueOf(localDateFin);
         Reservation r = new Reservation(idu,accomodation,datedebut,datefin,"in progress");
         rs.ajouterEntite(r);
+        MailSenderReservation ms = new MailSenderReservation();
+        try {
+            ms.sendMail("beyaabid876@gmail.com");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         tf_accomodation.clear();
         tf_checkin.setValue(null);  // Clears the selected date in tf_checkin
         tf_checkout.setValue(null); // Clears the selected date in tf_checkout
@@ -149,9 +173,23 @@ public class Interface {
             alert.showAndWait();
             return;
         }
+        if (!tf_clinic.getText().matches("\\d+")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Format invalide");
+            alert.setHeaderText(null);
+            alert.setContentText("Le champ hébergement doit être un nombre !");
+            alert.showAndWait();
+            return;
+        }
         int clinic =Integer.valueOf(tf_clinic.getText());
         Reservation r = new Reservation(idu,clinic,"in progress");
         rs.ajouterEntite(r);
+        MailSenderReservation ms = new MailSenderReservation();
+        try {
+            ms.sendMail("beyaabid876@gmail.com");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         tf_clinic.clear();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Valider");
@@ -176,6 +214,14 @@ public class Interface {
             alert.showAndWait();
             return;
         }
+        if (!tf_transport.getText().matches("\\d+")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Format invalide");
+            alert.setHeaderText(null);
+            alert.setContentText("Le champ hébergement doit être un nombre !");
+            alert.showAndWait();
+            return;
+        }
         int transport =Integer.valueOf(tf_transport.getText());
         String time =tf_time.getText();
         LocalDate localDate = tf_date.getValue();
@@ -183,6 +229,12 @@ public class Interface {
         Date date = Date.valueOf(localDate);
         Reservation r = new Reservation(idu,transport,date,time,"in progress");
         rs.ajouterEntite(r);
+        MailSenderReservation ms = new MailSenderReservation();
+        try {
+            ms.sendMail("beyaabid876@gmail.com");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         tf_time.clear();
         tf_transport.clear();
         tf_date.setValue(null);  //
@@ -364,6 +416,80 @@ public class Interface {
                         GridPane.setMargin(anchorPane, new Insets(10));
                     }
 
+                } catch (IOException ex) {
+                    Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    @FXML
+    void f1(ActionEvent event) {
+        f2.setSelected(false);
+        f3.setSelected(false);
+        gridres.getChildren().clear();
+        filter("t");
+    }
+
+    @FXML
+    void f2(ActionEvent event) {
+        f1.setSelected(false);
+        f3.setSelected(false);
+        gridres.getChildren().clear();
+        filter("a");
+    }
+
+    @FXML
+    void f3(ActionEvent event) {
+        f1.setSelected(false);
+        f2.setSelected(false);
+        gridres.getChildren().clear();
+        filter("c");
+    }
+
+    private void filter(String s) {
+        ResultSet resultSet = rs.GetallFilter(s);
+        int column = 0;
+        int row = 2;
+        try {
+            while (resultSet.next()) {
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/Reservation.fxml"));
+                try {
+                    AnchorPane anchorPane = fxmlLoader.load();
+                    ReservationC itemController = fxmlLoader.getController();
+                    int idReservation = resultSet.getInt("id_reservation");
+                    int idPatient = resultSet.getInt("id_patient");
+                    int idClinique = resultSet.getInt("id_clinique");
+                    int idTransport = resultSet.getInt("id_transport");
+                    Date dateDepart = resultSet.getDate("date_depart");
+                    String heureDepart = resultSet.getString("heure_depart");
+                    int idHebergement = resultSet.getInt("id_hebergement");
+                    Date dateDebut = resultSet.getDate("date_debut");
+                    Date dateFin = resultSet.getDate("date_fin");
+                    String statut = resultSet.getString("statut");
+                    Reservation reservation = new Reservation(
+                            idReservation, idPatient, idClinique, idTransport,
+                            dateDepart, heureDepart, idHebergement, dateDebut, dateFin, statut
+                    );
+                    itemController.setData(reservation);
+                    if (column == 1) {
+                        column = 0;
+                        row++;
+                    }
+                    gridres.add(anchorPane, column++, row); //(child,column,row)
+                    //set grid width
+                    gridres.setMinWidth(Region.USE_COMPUTED_SIZE);
+                    gridres.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                    gridres.setMaxWidth(Region.USE_PREF_SIZE);
+                    //set grid height
+                    gridres.setMinHeight(Region.USE_COMPUTED_SIZE);
+                    gridres.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                    gridres.setMaxHeight(Region.USE_PREF_SIZE);
+                    GridPane.setMargin(anchorPane, new Insets(10));
                 } catch (IOException ex) {
                     Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
                 }

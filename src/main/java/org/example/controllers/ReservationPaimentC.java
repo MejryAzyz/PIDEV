@@ -169,6 +169,7 @@ public class ReservationPaimentC {
     public void setData(Reservation r) {
         id = r.getIdReservation();
         res = r ;
+        System.out.println(r.getStatut());
         if(Objects.equals(r.getStatut(), "in progress"))
         {
             btnpayment.setText("");
