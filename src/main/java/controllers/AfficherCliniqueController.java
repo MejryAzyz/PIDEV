@@ -355,7 +355,7 @@ public class AfficherCliniqueController {
             controller.setClinique(clinique,this);
 
             Stage stage = new Stage();
-            stage.setTitle("Modifier Transport");
+            stage.setTitle("Modifier Clinique");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {

@@ -11,51 +11,140 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="506.0" prefWidth="793.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherSpecialiteController">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane prefHeight="478.0" prefWidth="891.0" stylesheets="stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherSpecialiteController">
    <children>
-      <AnchorPane prefHeight="520.0" prefWidth="161.0" style="-fx-background-color: #0dae6f;">
-         <children>
-            <VBox layoutX="5.0" layoutY="122.0" prefHeight="255.0" prefWidth="150.0">
-               <children>
-                  <Line endX="82.29289245605469" endY="0.8928993344306946" startX="-60.20001220703125" stroke="WHITE" />
-                  <Button mnemonicParsing="false" onAction="#afficherLesCliniques" prefHeight="39.0" prefWidth="143.0" style="-fx-background-color: #0dae6f;" text="Gestion cliniques" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Line endX="82.5" endY="-0.500012218952179" startX="-60.20001220703125" stroke="WHITE" />
-                  <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #0dae6f;" text="Gestion spécialité" textFill="#fffbfb">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Button>
-                  <Line endX="81.89999389648438" startX="-60.20001220703125" stroke="WHITE" />
-               </children>
-            </VBox>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="-2.0" layoutY="-10.0" prefHeight="110.0" prefWidth="829.0" style="-fx-background-color: #0dae6f;">
-         <children>
-            <Text fill="WHITE" layoutX="341.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Liste des spécialités" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="23.0" />
-               </font>
-            </Text>
-            <ImageView fitHeight="87.0" fitWidth="103.0" layoutX="32.0" layoutY="27.0">
+   <!-- Sidebar -->
+   <StackPane fx:id="sidebarBackground" prefWidth="230.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
+      <children>
+         <Pane fx:id="sidebar" prefWidth="230.0" styleClass="sidebar">
+            <!-- Logo -->
+            <ImageView fx:id="logo" fitHeight="150.0" fitWidth="150.0" layoutX="40.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="logo.PNG" />
                </image>
             </ImageView>
-         </children>
-      </AnchorPane>
-      <TableView fx:id="table_specialite" layoutX="162.0" layoutY="100.0" prefHeight="329.0" prefWidth="663.0">
-        <columns>
-          <TableColumn fx:id="idSpecCol" prefWidth="156.0" text="id_spécialité" />
-          <TableColumn fx:id="nomSpecCol" minWidth="0.0" prefWidth="506.39996337890625" text="Nom" />
-        </columns>
+
+            <!-- Toggle Button to collapse sidebar -->
+            <ToggleButton id="toggleSidebar" layoutX="185.0" layoutY="15.0" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px;" fx:id="toggleSidebarBtn"  />
+
+            <!-- Sidebar Buttons -->
+            <VBox layoutY="150.0" spacing="15.0" maxHeight="Infinity" alignment="TOP_CENTER" id="sidebarButtons">
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconDashboard" text="📊" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelDashboard" text="Dashboard" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconUserManagement" text="👤" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelUserManagement" text="Gestion Utilisateur" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconClinicalManagement" text="⚕️" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelClinicalManagement" text="Gestion Clinique" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconSpecialtyManagement" text="🎓" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelSpecialtyManagement" text="Gestion Spécialité" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconTransportManagement" text="🚍" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelTransportManagement" text="Gestion Transport" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconAccommodationManagement" text="🏨" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconReservationManagement" text="📅" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelReservationManagement" text="Gestion Réservation" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconPaymentManagement" text="💳" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelPaymentManagement" text="Gestion Paiement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+               <HBox styleClass="sidebar-btn" spacing="10.0">
+                  <Text fx:id="iconSupportManagement" text="👨‍⚕️" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelSupportManagement" text="Gestion Accompagnement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+
+               <Region VBox.vgrow="ALWAYS" />
+
+               <HBox styleClass="logout-btn" spacing="10.0">
+                  <Text fx:id="iconLogout" text="🚪" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                  <Label fx:id="labelLogout" text="Logout" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                     <font>
+                        <Font name="Arial" size="14.0" />
+                     </font>
+                  </Label>
+               </HBox>
+            </VBox>
+         </Pane>
+      </children>
+   </StackPane>
+
+
+      <VBox  layoutX="250.0" layoutY="30.0" spacing="20.0">
+         <HBox spacing="10">
+            <Button text="+ Ajouter une spécialité" onAction="#ajouterSpecialite"
+                    style="-fx-background-color: rgba(65,65,71,0.38); -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10px 20px;"/>
+
+         </HBox>
+      <TableView fx:id="table_specialite" layoutX="222.0" layoutY="54.0" prefHeight="700.0" prefWidth="1000.0">
+         <columns>
+            <TableColumn fx:id="idSpecCol" prefWidth="150.0" text="ID Spécialité" />
+            <TableColumn fx:id="nomSpecCol" prefWidth="500.0" text="Nom" />
+            <TableColumn fx:id="colActions" prefWidth="170" text="Actions">
+            <cellValueFactory>
+               <PropertyValueFactory property="actions" />
+            </cellValueFactory>
+            </TableColumn>
+         </columns>
       </TableView>
-      <Button layoutX="237.0" layoutY="445.0" mnemonicParsing="false" onAction="#ajouterSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #27ae60;" text="➕ Ajouter" textFill="WHITE" />
-      <Button layoutX="414.0" layoutY="445.0" mnemonicParsing="false" onAction="#modifierSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
-      <Button layoutX="595.0" layoutY="445.0" mnemonicParsing="false" onAction="#supprimerSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />
+      </VBox>
+      <!--<Button layoutX="237.0" layoutY="445.0" mnemonicParsing="false" onAction="#ajouterSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #27ae60;" text="➕ Ajouter" textFill="WHITE" />-->
+      <!--<Button layoutX="414.0" layoutY="445.0" mnemonicParsing="false" onAction="#modifierSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />-->
+      <!--<Button layoutX="595.0" layoutY="445.0" mnemonicParsing="false" onAction="#supprimerSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />-->
    </children>
 </AnchorPane>

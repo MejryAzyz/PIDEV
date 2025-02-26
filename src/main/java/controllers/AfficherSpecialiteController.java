@@ -2,27 +2,31 @@ package controllers;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import models.Clinique;
 import models.Specialite;
+import services.ServiceClinique;
 import services.ServiceSpecialite;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AfficherSpecialiteController {
 
@@ -34,15 +38,52 @@ public class AfficherSpecialiteController {
 
     @FXML
     private TableView<Specialite> table_specialite;
+
+    @FXML
+    private TableColumn<Specialite, String> colActions;
+
+    private final ServiceSpecialite sc = new ServiceSpecialite();
+    private ObservableList<Specialite> specialiteList = FXCollections.observableArrayList();
+
     public void initialize() {
         idSpecCol.setCellValueFactory(new PropertyValueFactory<>("id_specialite"));
         nomSpecCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
+        colActions.setCellFactory(param -> new TableCell<Specialite, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    // Create buttons for actions
+                    Specialite specialite = getTableView().getItems().get(getIndex());
+                    Button modifyButton = new Button();
+                    modifyButton.getStyleClass().add("button-action");  // Apply custom style
+                    modifyButton.setOnAction(e -> openModifierSpecialite(specialite));
+
+                    Button deleteButton = new Button();
+                    deleteButton.getStyleClass().add("button-delete");  // Apply custom style
+                    deleteButton.setOnAction(e -> handleDeleteButton(getTableRow().getItem()));
+
+
+                    // Layout the buttons in an HBox
+                    HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
+                    buttonsBox.setSpacing(10); // Space between buttons
+                    setGraphic(buttonsBox);
+                }
+            }
+        });
+
+        table_specialite.setItems(specialiteList);
+
         try {
             afficherSpecialites();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
+
 
     private void afficherSpecialites() throws SQLException {
         ServiceSpecialite service = new ServiceSpecialite();
@@ -171,4 +212,45 @@ public class AfficherSpecialiteController {
             e.printStackTrace();
         }
     }
+    private void openModifierSpecialite(Specialite specialite) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierSpecialite.fxml"));
+            Parent root = loader.load();
+
+            ModifierSpecialiteController controller = loader.getController();
+            controller.setSpecialite(specialite,this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Modifier Clinique");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void handleDeleteButton(Specialite specialite) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Supprimer cette clinique");
+        alert.setContentText("Êtes-vous sûr de vouloir supprimer cette clinique ?");
+
+        ButtonType buttonTypeYes = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+        ButtonType buttonTypeNo = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(buttonTypeYes, buttonTypeNo);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == buttonTypeYes) {
+                try {
+                    sc.supprimer(specialite.getId_specialite()); // Suppression en base
+                    specialiteList.remove(specialite); // Mise à jour de la TableView
+                } catch (SQLException ex) {
+                    Logger.getLogger(AfficherCliniqueController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
+
 }
