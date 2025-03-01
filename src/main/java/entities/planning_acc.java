@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Objects;
 
 public class planning_acc extends planning{
@@ -78,11 +79,22 @@ public class planning_acc extends planning{
                 " }" ;
     }
 
+    public boolean timeOverlap(planning_acc p)
+    {
+        LocalTime start1 = this.getH_deb().toLocalTime();
+        LocalTime end1 = this.getH_fin().toLocalTime();
+        LocalTime start2 = p.getH_deb().toLocalTime();
+        LocalTime end2 = p.getH_fin().toLocalTime();
+
+        return start1.isBefore(end2) && start2.isBefore(end1);
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         planning_acc p = (planning_acc) o;
-        return this.id_acc.get()==p.id_acc.get() && this.date_j.get().equals(p.date_j.get()) && (this.h_deb.get().equals(p.h_deb.get()) || this.h_fin.get().equals(p.h_fin.get()));
+        return this.id_acc.get()==p.id_acc.get() && this.date_j.get().equals(p.date_j.get()) && timeOverlap(p);
     }
 
     @Override

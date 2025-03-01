@@ -7,7 +7,7 @@
 
 
 .table-view .column-header {
-    -fx-background-color: #e6f0ff;
+    -fx-background-color: #cee1ff;
     -fx-max-width: 100%;
     -fx-border-color: transparent; /*transparent #80b3ff transparent;*/
     -fx-border-width: 2px;
@@ -28,28 +28,30 @@
     -fx-background-color: white;
     -fx-alignment: center;
     -fx-padding: 10px 0;
-    -fx-border-color: transparent transparent #e6f0ff transparent ;
+    -fx-border-color: transparent transparent #cee1ff transparent ;
     -fx-border-width: 10px;
     -fx-border-style: solid;
 }
 
 .table-view .table-row-cell:selected {
     -fx-background-color: #002966;
-    -fx-text-fill: #e6f0ff;
+    -fx-text-fill: white;
 }
 
 .table-view .table-row-cell:hover{
+    -fx-text-fill: white;
+    -fx-background-color: radial-gradient(center 50% 50%, radius 45%, #5e9fff, #cee1ff);
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
-    -fx-background-color: #cee1ff;
     -fx-font-weight: bold;
+
 }
 
 .table-view .table-row-cell:hover:selected{
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
     -fx-background-color: #002966;
-    -fx-text-fill: #e6f0ff;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
@@ -59,11 +61,11 @@
 }
 
 #Hbar{
-    -fx-background-color: linear-gradient(from 40% 0% to 100% 0%, #001433, #002966  );
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #001433, #002966  );
 }
 
 #Vbar{
-    -fx-background-color: linear-gradient(from 0% 60% to 0% 100%,#001433, #002966  	);
+    -fx-background-color: linear-gradient(from 0% 0% to 0% 100%,#001433, #002966  	);
 }
 
 .table-view .scroll-bar:horizontal {
@@ -77,23 +79,23 @@
     -fx-border-radius: 13;
     -fx-background-radius: 13;
     -fx-background-color: transparent;
-    -fx-text-fill: #e6f0ff;
+    -fx-text-fill: white;
 }
 
 #accompagnant{
     -fx-border-radius: 13;
     -fx-background-radius: 13;
     -fx-background-color: transparent;
-    -fx-text-fill: #e6f0ff;
+    -fx-text-fill: white;
 }
 
 #docteur.selected{
-    -fx-background-color: #e6f0ff;
+    -fx-background-color: white;
     -fx-text-fill: #002966;
 }
 
 #accompagnant.selected{
-    -fx-background-color: #e6f0ff;
+    -fx-background-color: white;
     -fx-text-fill: #002966;
 }
 
@@ -155,6 +157,43 @@
     -fx-scale-y: 1.1;
     -fx-effect: dropshadow(gaussian, #002966, 10, 0.3, 0, 0);
 }
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: #cee1ff;
+}
+
+.table-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #80b3ff;
+    -fx-background-radius: 5px;
+}
+
+.table-view .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #5a9cff;
+}
+
+.table-view .scroll-bar:vertical .track {
+    -fx-background-color: #cee1ff;
+}
+
+.table-view .scroll-bar:vertical .increment-button,
+.table-view .scroll-bar:vertical .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.table-view .placeholder{
+    -fx-background-color: #cee1ff;
+    -fx-text-fill:#002966 ;
+    -fx-font-weight: bold;
+}
+
+.table-view .filler{
+    -fx-background-color: #cee1ff;
+}
+
+
+
 
 
 

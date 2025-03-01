@@ -12,15 +12,15 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1032.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.displayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1032.0" stylesheets="@../Styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.displayController">
    <children>
       <VBox fx:id="Vbar" prefHeight="582.0" prefWidth="202.0" spacing="8.0" style=";">
          <children>
             <AnchorPane prefHeight="184.0" prefWidth="202.0">
                <children>
-                  <ImageView fitHeight="135.0" fitWidth="133.0" layoutX="33.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="126.0" fitWidth="154.0" layoutX="24.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@/logo.PNG" />
+                        <Image url="@/logo2.png" />
                      </image>
                   </ImageView>
                </children>
@@ -157,7 +157,7 @@
          <children>
             <AnchorPane fx:id="Hbar" prefHeight="59.0" prefWidth="832.0" style=";">
                <children>
-                  <TextField fx:id="search_input" layoutX="12.0" layoutY="17.0" prefHeight="25.0" prefWidth="286.0" promptText="  search ..." style="-fx-font-size: 13; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
+                  <TextField fx:id="search_input" layoutX="12.0" layoutY="17.0" prefHeight="31.0" prefWidth="286.0" promptText="   search by ID, year(YYYY-mm-dd) or time(HH:mm)" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -177,29 +177,29 @@
                      </font>
                   </Button>
                </children></AnchorPane>
-            <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #e6f0ff;">
+            <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #cee1ff;">
                <children>
-                  <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="393.0" prefWidth="800.0">
+                  <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="448.0" prefWidth="757.0">
                      <columns>
 
                      </columns>
                   </TableView>
-                  <Button fx:id="delete" layoutX="512.0" layoutY="456.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌  SUPPRIMER" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="delete" layoutX="787.0" layoutY="188.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button id="update" fx:id="update" layoutX="356.0" layoutY="456.0" mnemonicParsing="false" onAction="#updateAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄  MODIFIER" textAlignment="CENTER" textFill="WHITE">
+                  <Button id="update" fx:id="update" layoutX="787.0" layoutY="144.0" mnemonicParsing="false" onAction="#updateAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button id="add" fx:id="add" layoutX="201.0" layoutY="456.0" mnemonicParsing="false" onAction="#addAction" prefHeight="43.0" prefWidth="127.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕  AJOUTER" textAlignment="CENTER" textFill="WHITE">
+                  <Button id="add" fx:id="add" layoutX="787.0" layoutY="100.0" mnemonicParsing="false" onAction="#addAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Rectangle arcHeight="5.0" fill="#001433" height="33.0" layoutX="17.0" layoutY="10.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 35;" width="174.5" />
+                  <Rectangle arcHeight="5.0" fill="#001d47" height="33.0" layoutX="17.0" layoutY="10.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 35;" width="174.5" />
                   <Button fx:id="accompagnant" layoutX="87.0" layoutY="14.0" mnemonicParsing="false" onAction="#showAcc" text="accompagnant">
                      <font>
                         <Font name="System Bold" size="12.0" />

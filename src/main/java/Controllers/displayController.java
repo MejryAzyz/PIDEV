@@ -126,37 +126,46 @@ public class displayController {
     @FXML
     private void deleteAction(ActionEvent event)
     {
+
         planning selectedItem = tabview.getSelectionModel().getSelectedItem();
-
-        if (isDocteur)
-        {
-            planning_docService ps = new planning_docService();
-            try
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("CONFIRMATION");
+        alert.setContentText("are you sure you want to delete?");
+        alert.showAndWait().ifPresent(response -> {
+            if(response == ButtonType.OK)
             {
-                ps.delete(selectedItem.getId_planning());
-                tabview.getItems().remove(selectedItem);
-            }
+                if (isDocteur)
+                {
+                    planning_docService ps = new planning_docService();
+                    try
+                    {
+                        ps.delete(selectedItem.getId_planning());
+                        tabview.getItems().remove(selectedItem);
+                    }
 
-            catch (SQLException e)
-            {
-                System.err.println(e.getMessage());
-            }
-        }
-        else
-        {
-            planning_accService ps = new planning_accService();
-            try
-            {
-                ps.delete(selectedItem.getId_planning());
-                tabview.getItems().remove(selectedItem);
-            }
+                    catch (SQLException e)
+                    {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                else
+                {
+                    planning_accService ps = new planning_accService();
+                    try
+                    {
+                        ps.delete(selectedItem.getId_planning());
+                        tabview.getItems().remove(selectedItem);
+                    }
 
-            catch (SQLException e)
-            {
-                System.err.println(e.getMessage());
-            }
+                    catch (SQLException e)
+                    {
+                        System.err.println(e.getMessage());
+                    }
 
-        }
+                }
+            }
+        });
+
     }
 
     @FXML
@@ -384,8 +393,9 @@ public class displayController {
                     results = docteurs.filtered(planning ->{
                     planning_doc p = (planning_doc) planning;
                     int l = p.getH_deb().toString().length();
-                    return p.getH_deb().toString().substring(0, l-3)
-                            .equals(keyword);
+                    return (p.getH_deb().toString().substring(0, l-3)
+                            .equals(keyword)) || (p.getH_fin().toString().substring(0, l-3)
+                            .equals(keyword));
                     });
             }
             else if(dateMatcher.matches())
@@ -420,8 +430,9 @@ public class displayController {
                 results = accompagnants.filtered(planning ->{
                     planning_acc p = (planning_acc) planning;
                     int l = p.getH_deb().toString().length();
-                    return p.getH_deb().toString().substring(0, l-3)
-                            .equals(keyword);
+                    return (p.getH_deb().toString().substring(0, l-3)
+                            .equals(keyword)) || (p.getH_fin().toString().substring(0, l-3)
+                            .equals(keyword));
                 });
             }
             else if(dateMatcher.matches())
