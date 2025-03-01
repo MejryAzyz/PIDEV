@@ -1,5 +1,6 @@
 package tests;
 import entities.planning_doc;
+import services.SMS_API;
 import services.planning_docService;
 
 import java.sql.Date;
@@ -11,7 +12,7 @@ public class Main {
         planning_docService ps = new planning_docService();
 
         planning_doc p = new planning_doc(1, Date.valueOf("2025-02-19"), Time.valueOf("8:00:00"), Time.valueOf("9:00:00"));
-        
+        SMS_API.sendSMS();
 
     }
 }
