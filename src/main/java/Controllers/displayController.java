@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import services.planning_accService;
 import services.planning_docService;
@@ -55,6 +56,9 @@ public class displayController {
     private Button accompagnant;
 
     @FXML
+    private Shape rectangle;
+
+    @FXML
     private Button search_button;
 
     @FXML
@@ -71,8 +75,7 @@ public class displayController {
 
 
 
-    @FXML
-    public void initialize() {
+    public void initializeAdmin() {
 
         docteur.getStyleClass().add("selected");
 
@@ -311,7 +314,7 @@ public class displayController {
         isDocteur = true;
         /*tabview.getItems().clear();*/
         tabview.getColumns().clear();
-        initialize();
+        initializeAdmin();
     }
 
     private void toggleSelection(Button selected, Button other) {
@@ -472,6 +475,90 @@ public class displayController {
         else
         {
             showAcc(new ActionEvent());
+        }
+    }
+
+
+
+
+
+
+
+
+    public void initializeResponsable() {
+
+        docteur.setVisible(false);
+        accompagnant.setVisible(false);
+        rectangle.setVisible(false);
+
+        isDocteur=true;
+
+        planning_docService ps = new planning_docService();
+
+        delete.disableProperty().bind(Bindings.isNull(tabview.getSelectionModel().selectedItemProperty()));
+        update.disableProperty().bind(Bindings.isNull(tabview.getSelectionModel().selectedItemProperty()));
+
+
+        TableColumn<planning,Integer> id_planning = new TableColumn<>("ID Planning");
+        id_planning.setCellValueFactory(cellData -> cellData.getValue().idPlanProperty().asObject());
+
+        TableColumn<planning,Integer> id_docteur = new TableColumn<>("ID Docteur");
+        id_docteur.setCellValueFactory(cellData -> {
+            planning p = cellData.getValue();
+            if (p instanceof planning_doc) {
+                return ((planning_doc) p).idDocProperty().asObject();
+            }
+            return null;
+        });
+
+        TableColumn<planning,String> date_jour = new TableColumn<>("Date Jour");
+        date_jour.setCellValueFactory(cellData -> cellData.getValue().dateProperty().asString());
+
+        TableColumn<planning,String> heure_debut = new TableColumn<>("Heure Debut");
+        heure_debut.setCellValueFactory(cellData -> cellData.getValue().h_debProperty().asString());
+
+        TableColumn<planning,String> heure_fin = new TableColumn<>("Heure Fin");
+        heure_fin.setCellValueFactory(cellData -> cellData.getValue().h_finProperty().asString());
+
+        tabview.getColumns().addAll(id_planning,id_docteur,date_jour,heure_debut,heure_fin);
+        tabview.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        try
+        {
+            List<planning_doc> list = ps.retrieve();
+            docteurs.clear();
+            docteurs.addAll(list);
+            tabview.setItems(docteurs);
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void start(int role,Stage stage,Parent root){
+
+        if(role == 1)
+        {
+            tabview.getColumns().clear();
+            initializeAdmin();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("display");
+            stage.show();
+        }
+        else if (role == 2)
+        {
+            tabview.getColumns().clear();
+            initializeResponsable();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("display");
+            stage.show();
+        }
+        else
+        {
+            System.out.println("access denied");
         }
     }
 

@@ -199,7 +199,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Rectangle arcHeight="5.0" fill="#001d47" height="33.0" layoutX="17.0" layoutY="10.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 35;" width="174.5" />
+                  <Rectangle fx:id="rectangle" arcHeight="5.0" fill="#001d47" height="33.0" layoutX="17.0" layoutY="10.3" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-height: 50; -fx-arc-width: 35;" width="174.5" />
                   <Button fx:id="accompagnant" layoutX="87.0" layoutY="14.0" mnemonicParsing="false" onAction="#showAcc" text="accompagnant">
                      <font>
                         <Font name="System Bold" size="12.0" />

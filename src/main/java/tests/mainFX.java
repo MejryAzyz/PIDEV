@@ -1,5 +1,6 @@
 package tests;
 import Controllers.calendarController;
+import Controllers.displayController;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
@@ -28,10 +29,8 @@ public class mainFX extends Application {
         try
         {
             Parent root = loader.load();
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("display");
-            primaryStage.show();
+            displayController dc = loader.getController();
+            dc.start(2,primaryStage,root);
         }
 
         catch (IOException e) {
@@ -39,5 +38,7 @@ public class mainFX extends Application {
         }
         /*calendarController cc = new calendarController();
         cc.start(1);*/
+
+
     }
 }
