@@ -14,6 +14,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -33,6 +34,8 @@ public class AfficherUserController {
 
 
     public TextField searchBar;
+    @FXML
+    public HBox profile;
     @FXML
     private TableView<Utilisateur> table_utilisateur;
 
@@ -314,4 +317,22 @@ public class AfficherUserController {
             e.printStackTrace();
         }
     }
+    public void ProfileDetail(MouseEvent mouseEvent){
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ProfileDetail.fxml"));
+        Parent root = loader.load();
+        ProfileDetailController controller = loader.getController();
+        controller.initData();
+        Stage stage = new Stage();
+        stage.setTitle("Modifier Utilisateur");
+        stage.setScene(new Scene(root));
+        stage.showAndWait();
+        afficherUtilisateur();
+    } catch (IOException e) {
+        showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir l'interface de modification.");
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+
+}
 }
