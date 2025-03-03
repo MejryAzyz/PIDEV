@@ -25,6 +25,9 @@ public class Docteur {
 
     public Docteur() {}
 
+    public Docteur(String nom, String prenom, String email, String telephone) {
+    }
+
     public int getId_docteur() {
         return id_docteur;
     }
