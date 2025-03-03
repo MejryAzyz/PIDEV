@@ -17,16 +17,16 @@
          <children>
             <AnchorPane fx:id="Hbar" style=";">
                <children>
-                  <TextField fx:id="search_input" layoutX="190.0" layoutY="24.0" prefHeight="31.0" prefWidth="286.0" promptText="   search by ID, year(YYYY-mm-dd) or time(HH:mm)" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
+                  <TextField fx:id="search_input" layoutX="190.0" layoutY="23.0" prefHeight="31.0" prefWidth="286.0" promptText="   search by ID, year(YYYY-mm-dd) or time(HH:mm)" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="search_button" layoutX="510.0" layoutY="24.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
+                  <Button fx:id="search_button" layoutX="510.0" layoutY="23.0" mnemonicParsing="false" onAction="#searchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font></Button>
-                  <Button fx:id="cancel_search" layoutX="475.0" layoutY="24.0" mnemonicParsing="false" onAction="#cancelSearchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff transparent #e6f0ff transparent; -fx-border-width: 2;" text="❌" textFill="WHITE">
+                  <Button fx:id="cancel_search" layoutX="475.0" layoutY="23.0" mnemonicParsing="false" onAction="#cancelSearchAction" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff transparent #e6f0ff transparent; -fx-border-width: 2;" text="❌" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -40,7 +40,7 @@
                         </ImageView>
                      </children>
                   </AnchorPane>
-                  <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="741.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="39.0" layoutX="756.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../avatar.png" />
                      </image>
@@ -51,27 +51,27 @@
                </VBox.margin></AnchorPane>
             <AnchorPane prefHeight="595.0" prefWidth="816.0" style="-fx-background-color: #cee1ff;">
                <children>
-                  <TableView fx:id="tabview" layoutX="31.0" layoutY="210.0" prefHeight="368.0" prefWidth="729.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="210.0">
+                  <TableView fx:id="tabview" layoutX="31.0" layoutY="210.0" prefHeight="328.0" prefWidth="757.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="210.0">
                      <columns>
 
                      </columns>
                   </TableView>
-                  <Button fx:id="delete" layoutX="771.0" layoutY="347.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌" textAlignment="CENTER" textFill="WHITE">
+                  <Button fx:id="delete" layoutX="764.0" layoutY="542.0" mnemonicParsing="false" onAction="#deleteAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="❌" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="29.0">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Button>
-                  <Button id="update" fx:id="update" layoutX="771.0" layoutY="306.0" mnemonicParsing="false" onAction="#updateAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄" textAlignment="CENTER" textFill="WHITE">
+                  <Button id="update" fx:id="update" layoutX="704.0" layoutY="552.0" mnemonicParsing="false" onAction="#updateAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="🔄" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <Button id="add" fx:id="add" layoutX="771.0" layoutY="265.0" mnemonicParsing="false" onAction="#addAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
+                  <Button id="add" fx:id="add" layoutX="657.0" layoutY="552.0" mnemonicParsing="false" onAction="#addAction" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="10.0">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
-                  <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="155.0" prefWidth="300.0" styleClass="card" AnchorPane.bottomAnchor="420.0" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="20.0">
+                  <AnchorPane layoutX="50.0" layoutY="20.0" prefHeight="155.0" prefWidth="300.0" styleClass="card" AnchorPane.bottomAnchor="420.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0">
                      <children>
                         <Label layoutX="56.0" layoutY="16.0" prefHeight="68.0" prefWidth="206.0" text="docteurs engagés" textAlignment="CENTER" textFill="#002966" wrapText="true" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="11.0">
                            <font>
@@ -83,7 +83,7 @@
                            </font></Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="416.0" layoutY="21.0" prefHeight="155.0" prefWidth="300.0" styleClass="card" AnchorPane.bottomAnchor="420.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="20.0">
+                  <AnchorPane layoutX="416.0" layoutY="21.0" prefHeight="155.0" prefWidth="300.0" styleClass="card" AnchorPane.bottomAnchor="420.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="20.0">
                      <children>
                         <Label layoutX="26.0" layoutY="11.0" prefHeight="72.0" prefWidth="253.0" text="Nombre de plannings" textAlignment="CENTER" textFill="#002966" wrapText="true" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="11.0">
                            <font>
