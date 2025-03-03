@@ -124,7 +124,7 @@
                </StackPane>
             </AnchorPane>
             <AnchorPane layoutX="230.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" />
-            <Label layoutX="400.0" layoutY="112.0" prefHeight="40.0" prefWidth="250.0" text="Historique de mes réservations">
+            <Label layoutX="400.0" layoutY="112.0" prefHeight="40.0" prefWidth="240.0" text="Historique de mes réservations">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
