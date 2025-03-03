@@ -1,6 +1,7 @@
 package tests;
 import Controllers.calendarController;
 import Controllers.displayController;
+import Controllers.displayRespController;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
@@ -25,20 +26,19 @@ public class mainFX extends Application {
     @Override
     public void start(Stage primaryStage){
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/display2.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/displayResp.fxml"));
         try
         {
             Parent root = loader.load();
-            displayController dc = loader.getController();
-            dc.start(2,primaryStage,root);
+            Scene scene = new Scene(root);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle("resp");
+            primaryStage.show();
         }
 
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-        /*calendarController cc = new calendarController();
-        cc.start(1);*/
-
 
     }
 }

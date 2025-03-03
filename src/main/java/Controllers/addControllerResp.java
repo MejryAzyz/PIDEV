@@ -1,12 +1,13 @@
 package Controllers;
+
 import entities.planning_acc;
 import entities.planning_doc;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 import services.planning_accService;
 import services.planning_docService;
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class addController {
+public class addControllerResp {
 
     @FXML
     private DatePicker date_input;
@@ -49,18 +50,13 @@ public class addController {
     @FXML
     public void initializeChoiceBox() {
         planning_docService ps = new planning_docService();
-        planning_accService ps2 = new planning_accService();
+
         try
         {
             ObservableList<Integer> observableList;
-            if(displayController.isDocteur)
-            {
-                observableList = FXCollections.observableArrayList(ps.retrieveIdDoc());
-            }
-            else
-            {
-                observableList = FXCollections.observableArrayList(ps2.retrieveIdAcc());
-            }
+
+            observableList = FXCollections.observableArrayList(ps.retrieveIdDoc());
+
             id_input.setItems(observableList);
             id_input.setValue(observableList.get(0));
 
@@ -74,7 +70,6 @@ public class addController {
 
     @FXML
     void saveAction(ActionEvent event) {
-
 
 
         int id = id_input.getSelectionModel().getSelectedItem();
@@ -91,9 +86,6 @@ public class addController {
         if(matcher1.matches() && matcher2.matches() && !(date_input.getValue().isBefore(LocalDate.now())))
         {
 
-
-            if(displayController.isDocteur)
-            {
                 planning_docService ps = new planning_docService();
                 planning_doc p = new planning_doc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
                 if(ps.checkExistence(p)==0)
@@ -106,7 +98,7 @@ public class addController {
                     alert.setContentText("planning added with success");
                     alert.showAndWait();
 
-                    displayController.refresh();
+                    displayRespController.refresh();
 
                     Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                     currentStage.close();
@@ -118,34 +110,6 @@ public class addController {
                     alert.setContentText("planning not added,time already taken");
                     alert.showAndWait();
                 }
-            }
-            else
-            {
-                planning_accService ps = new planning_accService();
-                planning_acc p = new planning_acc(id,date, Time.valueOf(h_deb+":00"),Time.valueOf(h_fin+":00"));
-                if(ps.checkExistence(p)==0)
-                {
-                    try {ps.add(p);}
-                    catch (SQLException e){ System.err.println(e.getMessage());}
-
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("SUCCESS");
-                    alert.setContentText("planning added with success");
-                    alert.showAndWait();
-
-                    displayController.refresh();
-
-                    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                    currentStage.close();
-                }
-                else
-                {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("FAIL");
-                    alert.setContentText("planning not added,time already taken");
-                    alert.showAndWait();
-                }
-            }
         }
         else
         {

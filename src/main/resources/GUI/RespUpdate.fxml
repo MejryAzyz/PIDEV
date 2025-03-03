@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="433.0" stylesheets="@../Styles/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.updateControllerResp">
+    <children>
+        <HBox layoutY="1.0" prefHeight="410.0" prefWidth="433.0" styleClass="Gradient" AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane prefHeight="410.0" prefWidth="435.0" styleClass="Gradient">
+                    <children>
+                        <DatePicker fx:id="date_input_update" layoutX="63.0" layoutY="137.0" prefHeight="35.0" prefWidth="333.0" promptText="date du jour" style="-fx-region-background: transparent;" />
+                        <TextField fx:id="hd_input_update" layoutX="63.0" layoutY="208.0" prefHeight="25.0" prefWidth="333.0" promptText="Heure Debut" style="-fx-background-color: transparent; -fx-border-color: transparent transparent white transparent;">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font></TextField>
+                        <TextField fx:id="hf_input_update" layoutX="63.0" layoutY="274.0" prefHeight="25.0" prefWidth="333.0" promptText="Heure Fin" style="-fx-background-color: transparent; -fx-border-color: transparent transparent white transparent;">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font></TextField>
+                        <Button fx:id="save_update" layoutX="63.0" layoutY="342.0" mnemonicParsing="false" onAction="#saveUpdateAction" prefHeight="16.0" prefWidth="333.0" style="-fx-border-color: white; -fx-border-width: 2; -fx-border-radius: 60; -fx-background-radius: 60; -fx-background-color: transparent;" text="SAVE" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                            <graphic>
+                                <Label prefHeight="1.0" prefWidth="19.0" text="🖫" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="20.0" />
+                                    </font>
+                                </Label>
+                            </graphic>
+                        </Button>
+                        <ChoiceBox fx:id="id_input_update" layoutX="63.0" layoutY="78.0" prefHeight="25.0" prefWidth="333.0" />
+                        <Label layoutX="39.0" layoutY="22.0" prefHeight="23.0" prefWidth="190.0" text="Modifier planning" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="77.0" prefHeight="35.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="🆔" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="143.0" prefHeight="35.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="📅" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="278.0" prefHeight="35.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="🕒" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="27.0" layoutY="213.0" prefHeight="35.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="🕒" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </AnchorPane>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
