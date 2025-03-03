@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import org.example.entities.MailSender;
 import org.example.entities.Paiement;
 import org.example.entities.Reservation;
@@ -16,8 +17,23 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReservationC {
+
+    @FXML
+    private ImageView image;
 
     @FXML
     private Label amount;
@@ -63,6 +79,8 @@ public class ReservationC {
 
     @FXML
     private RadioButton virement;
+
+    String text= "";
 
     ReservationService rs = new ReservationService();
     PaiementService ps = new PaiementService();
@@ -208,18 +226,21 @@ public class ReservationC {
         dateinfo1.setEditable(false);
         if(r.getIdClinique()!=0)
         {
-            ltype.setText("Reservation Clinic ("+r.getStatut()+")");
+            ltype.setText("Réservation Clinique ("+r.getStatut()+")");
             linfo1.setVisible(false);
             linfo2.setVisible(false);
             btnupdate.setText("");
+            text = "Type réservation : Clinique || Status "+ res.getStatut();
         } else if (r.getIdTransport()!=0) {
-            ltype.setText("Reservation Transport ("+r.getStatut()+")");
+            ltype.setText("Réservation Transport ("+r.getStatut()+")");
             linfo1.setText("Date : "+r.getDateDepart());
             linfo2.setText("Heure : "+r.getHeureDepart());
+            text = "Type réservation : Transport || Date depart : "+res.getDateDepart()+"|| Heure depart : "+res.getHeureDepart() +"  || Status "+ res.getStatut();
         } else if (r.getIdHebergement()!=0) {
-            ltype.setText("Reservation Hebergement ("+r.getStatut()+")");
+            ltype.setText("Réservation Hébergement ("+r.getStatut()+")");
             linfo1.setText("Date debut : "+r.getDateDebut());
             linfo2.setText("Date fin : "+r.getDateFin());
+            text = "Type réservation : Hébergement || Date debut : "+res.getDateDebut()+"|| Date fin : "+res.getDateFin() +"  || Status "+ res.getStatut();
         }
     }
 
@@ -308,44 +329,38 @@ public class ReservationC {
         espece.setSelected(false);
     }
 
-    public void sendConfirmationEmail() {
-        // Set up mail properties
-        String host = "smtp.google.com"; // Replace with your SMTP host
-        String from = "abdoubahouri123@gmail.com";  // Replace with your email
-        String to = "abdoubahouri123@gmail.com";     // Replace with recipient's email
-        String password = "bmrweoalpfbmygjs"; // Replace with your email password
 
-        // Set up properties for the mail session
-        Properties properties = new Properties();
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "587"); // Port for SMTP
-        properties.put("mail.smtp.auth", "true");
-        properties.put("mail.smtp.starttls.enable", "true");
+    @FXML
+    void codeqr(ActionEvent event) {
+        Image qrImage = generateQRCodeImage(text);
+        image.setImage(qrImage);
+    }
 
-        // Create a new session with authentication
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(from, password);
-            }
-        });
-
+    public static Image generateQRCodeImage(String text) {
         try {
-            // Create the email content
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Payment Confirmation");
-            message.setText("Your payment has been successfully processed. Thank you for your reservation!");
+            System.out.println("Generating QR code for text: " + text);  // Debugging
+            Map<EncodeHintType, Object> hintMap = new HashMap<>();
+            hintMap.put(EncodeHintType.MARGIN, 1);  // margin around the QR code
 
-            // Send the email
-            Transport.send(message);
-            System.out.println("Email sent successfully.");
-
-        } catch (MessagingException e) {
+            // Create a BitMatrix (2D array of bits) for the QR code
+            BitMatrix bitMatrix = new MultiFormatWriter().encode(
+                    text, BarcodeFormat.QR_CODE, 200, 200, hintMap);
+            System.out.println(text);
+            // Convert BitMatrix to an Image
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            javafx.scene.image.WritableImage writableImage = new javafx.scene.image.WritableImage(width, height);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    writableImage.getPixelWriter().setArgb(x, y, bitMatrix.get(x, y) ? javafx.scene.paint.Color.BLACK.hashCode() : Color.RED.hashCode());
+                }
+            }
+            return writableImage;
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Failed to send email.");
+            return null;  // Check if this is being returned
         }
     }
+
 
 }

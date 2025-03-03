@@ -3,6 +3,8 @@
 .sidebar {
     -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);
     -fx-padding: 15px;
+    -fx-margin-left: 200px;
+
 }
 
 /* Sidebar button container */

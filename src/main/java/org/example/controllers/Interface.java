@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -601,6 +602,22 @@ public class Interface {
             Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void tologin(MouseEvent mouseEvent) {
+        pn_signin.toFront();
+    }
+
+    public void toReservations(MouseEvent mouseEvent) {
+        pn_res.toFront();
+        gridres.getChildren().clear();
+        displayg();
+    }
+
+    public void topaiment(MouseEvent mouseEvent) {
+        pn_pai.toFront();
+        gridpai.getChildren().clear();
+        displayp();
+    }
 //ajouter button dora
     /*public void butt(int id) {
         ReservationService reservationService = new ReservationService();
@@ -610,6 +627,6 @@ public class Interface {
 
 
     }*/
-    //ajout bou
+
 
 }

@@ -12,38 +12,245 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 <AnchorPane prefHeight="529.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controllers.Dashboard">
    <children>
       <Pane fx:id="pn_home" layoutX="-1.0" layoutY="-2.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: #012869;">
-               <children>
-                  <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
-                  <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
-                  <Button layoutX="5.0" layoutY="184.0" mnemonicParsing="false" onAction="#toHome" prefHeight="26.0" prefWidth="125.0" text="Home" />
-                  <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
-               </children>
+            <AnchorPane prefHeight="560.0" prefWidth="136.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" >
+               <!-- Sidebar -->
+               <StackPane fx:id="sidebarBackground" prefWidth="230.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"  >
+                  <children>
+                     <Pane fx:id="sidebar" prefWidth="230.0" styleClass="sidebar">
+                        <!-- Logo -->
+                        <ImageView fx:id="logo" fitHeight="150.0" fitWidth="150.0" layoutX="40.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="logo.png" />
+                           </image>
+                        </ImageView>
+
+                        <!-- Toggle Button to collapse sidebar -->
+                        <ToggleButton id="toggleSidebar" layoutX="185.0" layoutY="15.0" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px;" />
+
+                        <!-- Sidebar Buttons -->
+                        <VBox layoutX="10.0" layoutY="150.0" spacing="15.0" maxHeight="Infinity" id="sidebarButtons" style="-fx-margin-left: 200px;">
+                           <HBox styleClass="sidebar-btn" spacing="10.0">
+                              <Text fx:id="iconDashboard" text="📊" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelDashboard" text="Dashboard" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                           <HBox styleClass="sidebar-btn" spacing="10.0">
+                              <Text fx:id="iconUserManagement" text="👤" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelUserManagement" text="Gestion Utilisateur" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                           <HBox styleClass="sidebar-btn" spacing="10.0">
+                              <Text fx:id="iconClinicalManagement" text="⚕️" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelClinicalManagement" text="Gestion Clinique" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                           <HBox styleClass="sidebar-btn" spacing="10.0">
+                              <Text fx:id="iconSpecialtyManagement" text="🎓" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelSpecialtyManagement" text="Gestion Spécialité" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                           <HBox styleClass="sidebar-btn" spacing="10.0">
+                              <Text fx:id="iconTransportManagement" text="🚍" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelTransportManagement" text="Gestion Transport" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                           <HBox styleClass="sidebar-btn" spacing="10.0" >
+                              <Text fx:id="iconAccommodationManagement" text="🏨" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;" >
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                           <HBox styleClass="sidebar-btn" spacing="10.0">
+                              <Text fx:id="iconReservationManagement" text="📅" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelReservationManagement" onMouseClicked="#toReservations" text="Gestion Réservation" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                           <HBox styleClass="sidebar-btn" spacing="10.0">
+                              <Text fx:id="iconPaymentManagement" text="💳" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelPaymentManagement" text="Gestion Paiement" onMouseClicked="#topaiment" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+
+                           <Region VBox.vgrow="ALWAYS" />
+
+                           <HBox styleClass="logout-btn" spacing="10.0">
+                              <Text fx:id="iconLogout" text="🚪" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                              <Label fx:id="labelLogout" onMouseClicked="#tologin" text="Logout" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                 <font>
+                                    <Font name="Arial" size="14.0" />
+                                 </font>
+                              </Label>
+                           </HBox>
+                        </VBox>
+                     </Pane>
+                  </children>
+               </StackPane>
             </AnchorPane>
-            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: #012869;" />
+            <AnchorPane layoutX="230.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" />
          </children>
       </Pane>
       <Pane fx:id="pn_res" layoutY="-1.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: #012869;">
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: WHITE;">
                <children>
-                  <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
-                  <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
-                  <Button layoutX="5.0" layoutY="184.0" mnemonicParsing="false" onAction="#toHome" prefHeight="26.0" prefWidth="125.0" text="Home" />
-                  <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
+                  <AnchorPane prefHeight="560.0" prefWidth="136.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" >
+                     <!-- Sidebar -->
+                     <StackPane fx:id="sidebarBackground" prefWidth="230.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"  >
+                        <children>
+                           <Pane fx:id="sidebar" prefWidth="230.0" styleClass="sidebar">
+                              <!-- Logo -->
+                              <ImageView fx:id="logo" fitHeight="150.0" fitWidth="150.0" layoutX="40.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="logo.png" />
+                                 </image>
+                              </ImageView>
+
+                              <!-- Toggle Button to collapse sidebar -->
+                              <ToggleButton id="toggleSidebar" layoutX="185.0" layoutY="15.0" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px;" />
+
+                              <!-- Sidebar Buttons -->
+                              <VBox layoutX="10.0" layoutY="150.0" spacing="15.0" maxHeight="Infinity" id="sidebarButtons" style="-fx-margin-left: 200px;">
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconDashboard" text="📊" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelDashboard" text="Dashboard" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconUserManagement" text="👤" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelUserManagement" text="Gestion Utilisateur" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconClinicalManagement" text="⚕️" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelClinicalManagement" text="Gestion Clinique" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconSpecialtyManagement" text="🎓" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelSpecialtyManagement" text="Gestion Spécialité" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconTransportManagement" text="🚍" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelTransportManagement" text="Gestion Transport" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0" >
+                                    <Text fx:id="iconAccommodationManagement" text="🏨" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;" >
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconReservationManagement" text="📅" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelReservationManagement" onMouseClicked="#toReservations" text="Gestion Réservation" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconPaymentManagement" text="💳" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelPaymentManagement" text="Gestion Paiement" onMouseClicked="#topaiment" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+
+                                 <Region VBox.vgrow="ALWAYS" />
+
+                                 <HBox styleClass="logout-btn" spacing="10.0">
+                                    <Text fx:id="iconLogout" text="🚪" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelLogout" onMouseClicked="#tologin" text="Logout" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                              </VBox>
+                           </Pane>
+                        </children>
+                     </StackPane>
+                  </AnchorPane>
+                  <AnchorPane layoutX="230.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: #012869;" />
-            <Label layoutX="152.0" layoutY="124.0" prefHeight="40.0" prefWidth="126.0" text="Reservation list :">
+            <AnchorPane layoutX="230.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" />
+            <Label layoutX="252.0" layoutY="124.0" prefHeight="40.0" prefWidth="126.0" text="Reservation list :">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="152.0" layoutY="176.0" prefHeight="297.0" prefWidth="684.0">
+            <ScrollPane layoutX="252.0" layoutY="176.0" prefHeight="297.0" prefWidth="684.0">
                <content>
                   <GridPane fx:id="gridres" prefHeight="66.0" prefWidth="678.0">
                     <columnConstraints>
@@ -59,21 +266,115 @@
       </Pane>
       <Pane fx:id="pn_pai" layoutY="-1.0" prefHeight="530.6" prefWidth="853.6" style="-fx-background-color: white;">
          <children>
-            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: #012869;">
+            <AnchorPane prefHeight="530.0" prefWidth="136.0" style="-fx-background-color: WHITE;">
                <children>
-                  <Button layoutX="5.0" layoutY="230.0" mnemonicParsing="false" onAction="#tores" prefHeight="26.0" prefWidth="125.0" text="Reservation" />
-                  <Button layoutX="4.0" layoutY="479.0" mnemonicParsing="false" onAction="#tosignin" prefHeight="26.0" prefWidth="126.0" text="logout" />
-                  <Button layoutX="5.0" layoutY="184.0" mnemonicParsing="false" onAction="#toHome" prefHeight="26.0" prefWidth="125.0" text="Home" />
-                  <Button layoutX="5.0" layoutY="276.0" mnemonicParsing="false" onAction="#toUpdate" prefHeight="26.0" prefWidth="125.0" text="Paiment" />
+                  <AnchorPane prefHeight="560.0" prefWidth="136.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" >
+                     <!-- Sidebar -->
+                     <StackPane fx:id="sidebarBackground" prefWidth="230.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"  >
+                        <children>
+                           <Pane fx:id="sidebar" prefWidth="230.0" styleClass="sidebar">
+                              <!-- Logo -->
+                              <ImageView fx:id="logo" fitHeight="150.0" fitWidth="150.0" layoutX="40.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="logo.png" />
+                                 </image>
+                              </ImageView>
+
+                              <!-- Toggle Button to collapse sidebar -->
+                              <ToggleButton id="toggleSidebar" layoutX="185.0" layoutY="15.0" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px;" />
+
+                              <!-- Sidebar Buttons -->
+                              <VBox layoutX="10.0" layoutY="150.0" spacing="15.0" maxHeight="Infinity" id="sidebarButtons" style="-fx-margin-left: 200px;">
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconDashboard" text="📊" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelDashboard" text="Dashboard" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconUserManagement" text="👤" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelUserManagement" text="Gestion Utilisateur" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconClinicalManagement" text="⚕️" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelClinicalManagement" text="Gestion Clinique" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconSpecialtyManagement" text="🎓" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelSpecialtyManagement" text="Gestion Spécialité" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconTransportManagement" text="🚍" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelTransportManagement" text="Gestion Transport" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0" >
+                                    <Text fx:id="iconAccommodationManagement" text="🏨" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelAccommodationManagement" text="Gestion Hébergement" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;" >
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconReservationManagement" text="📅" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelReservationManagement" onMouseClicked="#toReservations" text="Gestion Réservation" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                                 <HBox styleClass="sidebar-btn" spacing="10.0">
+                                    <Text fx:id="iconPaymentManagement" text="💳" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelPaymentManagement" text="Gestion Paiement" onMouseClicked="#topaiment" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+
+                                 <Region VBox.vgrow="ALWAYS" />
+
+                                 <HBox styleClass="logout-btn" spacing="10.0">
+                                    <Text fx:id="iconLogout" text="🚪" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
+                                    <Label fx:id="labelLogout" onMouseClicked="#tologin" text="Logout" textFill="#FFFFFF" style="-fx-padding: 0 0 0 10px;">
+                                       <font>
+                                          <Font name="Arial" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </HBox>
+                              </VBox>
+                           </Pane>
+                        </children>
+                     </StackPane>
+                  </AnchorPane>
+                  <AnchorPane layoutX="230.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="136.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: #012869;" />
-            <Label layoutX="152.0" layoutY="108.0" prefHeight="40.0" prefWidth="230.0" text="Clients purchases history :">
+            <AnchorPane layoutX="230.0" layoutY="-1.0" prefHeight="96.0" prefWidth="718.0" style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #1e3c72, #2a5298);" />
+            <Label layoutX="252.0" layoutY="108.0" prefHeight="40.0" prefWidth="230.0" text="Clients purchases history :">
                <font>
                   <Font name="Segoe UI Bold" size="15.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="152.0" layoutY="152.0" prefHeight="343.0" prefWidth="684.0">
+            <ScrollPane layoutX="252.0" layoutY="152.0" prefHeight="343.0" prefWidth="684.0">
                <content>
                   <GridPane fx:id="gridpai" prefHeight="66.0" prefWidth="678.0">
                      <columnConstraints>
@@ -92,7 +393,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="pn_signin" layoutY="-1.0" prefHeight="529.0" prefWidth="853.0" style="-fx-background-color: white;" styleClass="root" stylesheets="@style.css">
+      <Pane fx:id="pn_signin" layoutY="-1.0" prefHeight="529.0" prefWidth="853.0" style="-fx-background-color: white;" styleClass="root" stylesheets="@stylesheet.css">
          <children>
             <TextField fx:id="tf_log" layoutX="519.0" layoutY="161.0" prefHeight="40.0" prefWidth="317.0" promptText="Your email .." />
             <TextField layoutX="519.0" layoutY="225.0" prefHeight="40.0" prefWidth="317.0" promptText="Your password .." />

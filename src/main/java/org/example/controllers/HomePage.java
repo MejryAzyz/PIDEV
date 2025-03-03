@@ -15,10 +15,13 @@ public class HomePage extends Application {
         launch(args);
     }
 
+    public static Stage stg;
+
     @Override
     public void start(Stage primaryStage) {
         Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheet());
         try {
+            this.stg = primaryStage;
             Parent root = FXMLLoader.load(getClass().getResource("/Interface.fxml"));
             primaryStage.setTitle("Gestion_Reservation_Paiement");
             primaryStage.setScene(new Scene(root));
@@ -26,10 +29,6 @@ public class HomePage extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-
-
-
     }
 
 
