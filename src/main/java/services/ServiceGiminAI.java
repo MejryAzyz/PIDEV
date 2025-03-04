@@ -95,10 +95,12 @@ public class ServiceGiminAI {
                         resultSet.getInt("id_clinique"),
                         resultSet.getString("nom"),
                         resultSet.getString("adresse"),
-                        resultSet.getString("description"),
-                        resultSet.getString("telephone"),
                         resultSet.getString("email"),
+                        resultSet.getString("telephone"),
+                        resultSet.getString("description"),
                         resultSet.getDouble("prix")
+
+
                 );
                 cliniques.add(clinique);
             }

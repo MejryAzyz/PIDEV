@@ -168,6 +168,7 @@ public class CliniquesParSpecialiteController {
             VBox infoBox = new VBox(5);
             Label nomLabel = new Label(clinique.getNom());
             nomLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+              // Vérification dans la console
             Label adresseLabel = new Label("Adresse: " + clinique.getAdresse());
             Label emailLabel = new Label("Email: " + clinique.getEmail());
             Label telLabel = new Label("Téléphone: " + clinique.getTelephone());
@@ -268,10 +269,11 @@ public class CliniquesParSpecialiteController {
                             cliniqueJson.getInt("id_clinique"),
                             cliniqueJson.getString("nom"),
                             cliniqueJson.getString("adresse"),
-                            cliniqueJson.getString("description"),
-                            cliniqueJson.getString("telephone"),
                             cliniqueJson.getString("email"),
+                            cliniqueJson.getString("telephone"),
+                            cliniqueJson.getString("description"),
                             cliniqueJson.getDouble("prix")
+
                     );
 
                     Specialite spec = new Specialite();
@@ -303,7 +305,7 @@ public class CliniquesParSpecialiteController {
         for (Clinique clinique : cliniques) {
             // Create a HBox for each clinic (clinic card)
             HBox card = new HBox(15);
-            card.setStyle("-fx-background-color: #f8f8f8; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
+            card.setStyle("-fx-background-color: rgba(248,248,248,0.76); -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
             System.out.println("Photo URL: " + clinique.getPhotoUrl());
 
             // Image of the clinic

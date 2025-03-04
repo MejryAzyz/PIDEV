@@ -199,6 +199,7 @@ public class ServiceClinique implements IService<Clinique>{
             Clinique clinique = new Clinique();
             clinique.setIdClinique(rs.getInt("id_clinique"));
             clinique.setNom(rs.getString("nom"));
+            clinique.setDescription(rs.getString("description"));
             clinique.setAdresse(rs.getString("adresse"));
             clinique.setEmail(rs.getString("email"));
             clinique.setTelephone(rs.getString("telephone"));

@@ -33,6 +33,7 @@ import java.util.List;
 
 
 
+
 public class DetailCliniqueClientController {
 
     @FXML
@@ -80,11 +81,11 @@ public class DetailCliniqueClientController {
 
 
         nomLabel.setText(clinique.getNom());
-        descriptionLabel.setText("Description: " + clinique.getDescription());
-        adresseLabel.setText("Adresse: " + clinique.getAdresse());
-        emailLabel.setText("Email: " + clinique.getEmail());
-        telLabel.setText("Téléphone: " + clinique.getTelephone());
-        prixLabel.setText("Prix: " + clinique.getPrix() + " €");
+        descriptionLabel.setText(clinique.getDescription());
+        adresseLabel.setText( clinique.getAdresse());
+        emailLabel.setText( clinique.getEmail());
+        telLabel.setText( clinique.getTelephone());
+        prixLabel.setText( "Prix:  "+clinique.getPrix() + " €");
 
         // Récupération des coordonnées de la clinique
         //double[] coords = GeocodingService.getCoordinatesByNameAndAddress(clinique.getAdresse());
@@ -147,6 +148,21 @@ public class DetailCliniqueClientController {
                 PdfWriter.getInstance(document, new FileOutputStream(file));
                 document.open();
 
+                // Ajouter le logo dans le coin supérieur gauche
+                String logoPath = getClass().getResource("/logo.PNG").toExternalForm();  // Remplacez par le chemin réel de votre logo
+                try {
+                    // Charger l'image du logo
+                    com.itextpdf.text.Image logo = com.itextpdf.text.Image.getInstance(logoPath);
+                    // Ajuster la taille de l'image
+                    logo.scaleToFit(80, 80);  // Redimensionner l'image pour qu'elle soit petite
+                    // Définir la position de l'image (coin supérieur gauche)
+                    logo.setAbsolutePosition(20, PageSize.A4.getHeight() - 80);  // Ajustez la position si nécessaire
+                    // Ajouter l'image du logo dans le document
+                    document.add(logo);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 // Ajout du titre
                 Font fontTitre = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 20, BaseColor.BLACK);
                 Paragraph titre = new Paragraph(nomLabel.getText(), fontTitre);
@@ -163,27 +179,29 @@ public class DetailCliniqueClientController {
 
                 // Ajout des détails de la clinique
                 Font fontDetails = FontFactory.getFont(FontFactory.HELVETICA, 14, BaseColor.DARK_GRAY);
-                document.add(new Paragraph("Description : " + descriptionLabel.getText(), fontDetails));
-                document.add(new Paragraph("Adresse : " + adresseLabel.getText(), fontDetails));
-                document.add(new Paragraph("Email : " + emailLabel.getText(), fontDetails));
-                document.add(new Paragraph("Téléphone : " + telLabel.getText(), fontDetails));
+                document.add(new Paragraph("Description: "+ descriptionLabel.getText(), fontDetails));
+                document.add(new Paragraph( "Adresse: "+ adresseLabel.getText(), fontDetails));
+                document.add(new Paragraph( "Email: "+emailLabel.getText(), fontDetails));
+                document.add(new Paragraph("Téléphone: "+telLabel.getText(), fontDetails));
                 document.add(new Paragraph("\n"));
 
                 // Ajout de la carte (si disponible)
+                Font fontLocation = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLACK);
+                document.add(new Paragraph("Localisation: " , fontLocation));
                 if (mapView.getImage() != null) {
                     Image mapImg = mapView.getImage();
                     addImageToPDF(mapImg, document);
                 }
 
                 // Ajout du prix
-                Font fontPrix = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.GREEN);
-                document.add(new Paragraph("Prix : " + prixLabel.getText(), fontPrix));
+                Font fontPrix = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
+                document.add(new Paragraph(  prixLabel.getText(), fontPrix));
 
                 // Récupérer les docteurs affichés dans l'interface
                 List<Docteur> docteurs = getDocteursFromUI(); // Récupérer les docteurs à partir de l'UI
 
                 // Ajouter les docteurs au PDF
-                addDocteursToPDF(document, docteurs);
+                //addDocteursToPDF(document, docteurs);
 
                 document.close();
                 System.out.println("PDF généré avec succès !");

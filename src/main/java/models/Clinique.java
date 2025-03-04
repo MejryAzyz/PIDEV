@@ -44,6 +44,15 @@ public class Clinique {
 
     public Clinique() {}
 
+    /*public Clinique(int idClinique, String nom, String adresse, String email, String telephone, double prix) {
+        this.idClinique = idClinique;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.email = email;
+        this.telephone = telephone;
+        this.prix = prix;
+    }*/
+
     public int getIdClinique() {
         return idClinique;
     }
