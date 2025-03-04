@@ -83,7 +83,7 @@ public class ServiceGiminAI {
     public JSONArray rechercherCliniquesParBesoins(String question) {
         String requeteSQL = construireRequeteSQL(question);
         if (requeteSQL == null) {
-            return new JSONArray(); // Retourne une liste vide si la question n'est pas reconnue
+            return new JSONArray();
         }
 
         List<Clinique> cliniques = new ArrayList<>();
@@ -126,9 +126,8 @@ public class ServiceGiminAI {
             String ville = question.split(" ")[question.split(" ").length - 1];
             return "SELECT * FROM clinique WHERE adresse LIKE '%" + ville + "%'";
         }
-        //messageLabel.setText("Désolé, je peux vous aider uniquement avec les questions concernant le prix ou l'adresse des cliniques.");
         return null;
-          // Si la question ne correspond pas à un format connu
+
     }
 
     private JSONArray convertirListeEnJSON(List<Clinique> cliniques) {
