@@ -149,15 +149,12 @@ public class DetailCliniqueClientController {
                 document.open();
 
                 // Ajouter le logo dans le coin supérieur gauche
-                String logoPath = getClass().getResource("/logo.PNG").toExternalForm();  // Remplacez par le chemin réel de votre logo
+                String logoPath = getClass().getResource("/logo.PNG").toExternalForm();
                 try {
-                    // Charger l'image du logo
+
                     com.itextpdf.text.Image logo = com.itextpdf.text.Image.getInstance(logoPath);
-                    // Ajuster la taille de l'image
-                    logo.scaleToFit(80, 80);  // Redimensionner l'image pour qu'elle soit petite
-                    // Définir la position de l'image (coin supérieur gauche)
-                    logo.setAbsolutePosition(20, PageSize.A4.getHeight() - 80);  // Ajustez la position si nécessaire
-                    // Ajouter l'image du logo dans le document
+                    logo.scaleToFit(80, 80);
+                    logo.setAbsolutePosition(20, PageSize.A4.getHeight() - 80);
                     document.add(logo);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -193,12 +190,10 @@ public class DetailCliniqueClientController {
                     addImageToPDF(mapImg, document);
                 }
 
-                // Ajout du prix
                 Font fontPrix = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.BLUE);
                 document.add(new Paragraph(  prixLabel.getText(), fontPrix));
 
-                // Récupérer les docteurs affichés dans l'interface
-                List<Docteur> docteurs = getDocteursFromUI(); // Récupérer les docteurs à partir de l'UI
+                List<Docteur> docteurs = getDocteursFromUI();
 
                 // Ajouter les docteurs au PDF
                 //addDocteursToPDF(document, docteurs);
