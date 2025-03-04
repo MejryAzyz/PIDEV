@@ -97,13 +97,51 @@ public class GesHeb implements Initializable {
     @FXML
     void addHebergement(ActionEvent event) {
         try {
+            // Input validation for fields
+            if (nomField.getText().isEmpty() || adresseField.getText().isEmpty() || telephoneField.getText().isEmpty() ||
+                    emailField.getText().isEmpty() || capaciteField.getText().isEmpty() || tarifNuitField.getText().isEmpty()) {
+                showErrorAlert("Tous les champs sont obligatoires !");
+                return;
+            }
+
+            // Validate telephone field (should be a valid phone number)
+            // Validate the phone number (only digits, length between 8 and 15)
+            if (telephoneField.getText().isEmpty() || !telephoneField.getText().matches("\\d{8,15}")) {
+                showErrorAlert("Le numéro de téléphone doit être composé uniquement de chiffres et avoir entre 8 et 15 caractères.");
+                return;
+            }
+
+
+            // Validate email format
+            if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+                showErrorAlert("Veuillez entrer un email valide.");
+                return;
+            }
+
+            // Validate capacite and tarifNuit (should be positive numbers)
+            int capacite;
+            double tarifNuit;
+            try {
+                capacite = Integer.parseInt(capaciteField.getText());
+                tarifNuit = Double.parseDouble(tarifNuitField.getText());
+
+                if (capacite <= 0 || tarifNuit <= 0) {
+                    showErrorAlert("La capacité et le tarif doivent être des nombres positifs.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                showErrorAlert("La capacité et le tarif doivent être des nombres.");
+                return;
+            }
+
+            // Upload image
             String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
             String imageUrl = uploadResult[1];
-            // Create and add a new hebergement object using the input data
+
+            // Create and add a new Hebergement object using the input data
             Hebergement hebergement = new Hebergement(
                     nomField.getText(), adresseField.getText(), Integer.parseInt(telephoneField.getText()),
-                    emailField.getText(), Integer.parseInt(capaciteField.getText()),
-                    Double.parseDouble(tarifNuitField.getText()) , imageUrl
+                    emailField.getText(), capacite, tarifNuit, imageUrl
             );
 
             serviceHebergement.ajouter(hebergement);
@@ -115,19 +153,21 @@ public class GesHeb implements Initializable {
             alert.setTitle("Succès");
             alert.setContentText("Hébergement ajouté avec succès !");
             alert.showAndWait();
-             // L'URL de l'image uploadée
+
             // Reload data
             loadData();
 
             // Clear form after submission
             clearAddForm();
             closeSidePanel();
-        } catch (NumberFormatException e) {
-            showErrorAlert("Veuillez entrer des valeurs valides pour la capacité et le tarif.");
+
         } catch (Exception e) {
             showErrorAlert(e.getMessage());
         }
     }
+
+// Other methods remain the same...
+
 
     // Show error alert with a custom message
     private void showErrorAlert(String message) {
@@ -280,13 +320,42 @@ public class GesHeb implements Initializable {
 
     private void handleSubmitUpdate(Hebergement hebergement) {
         try {
-            // Get the new values from the input fields
-            String nom = nomField.getText();
-            String adresse = adresseField.getText();
-            String telephone = telephoneField.getText();
-            String email = emailField.getText();
-            int capacite = Integer.parseInt(capaciteField.getText());
-            double tarifNuit = Double.parseDouble(tarifNuitField.getText());
+            // Input validation for fields
+            if (nomField.getText().isEmpty() || adresseField.getText().isEmpty() || telephoneField.getText().isEmpty() ||
+                    emailField.getText().isEmpty() || capaciteField.getText().isEmpty() || tarifNuitField.getText().isEmpty()) {
+                showErrorAlert("Tous les champs sont obligatoires !");
+                return;
+            }
+
+            // Validate telephone field (should be a valid phone number)
+            // Validate the phone number (only digits, length between 8 and 15)
+            if (telephoneField.getText().isEmpty() || !telephoneField.getText().matches("\\d{8,15}")) {
+                showErrorAlert("Le numéro de téléphone doit être composé uniquement de chiffres et avoir entre 8 et 15 caractères.");
+                return;
+            }
+
+
+            // Validate email format
+            if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+                showErrorAlert("Veuillez entrer un email valide.");
+                return;
+            }
+
+            // Validate capacite and tarifNuit (should be positive numbers)
+            int capacite;
+            double tarifNuit;
+            try {
+                capacite = Integer.parseInt(capaciteField.getText());
+                tarifNuit = Double.parseDouble(tarifNuitField.getText());
+
+                if (capacite <= 0 || tarifNuit <= 0) {
+                    showErrorAlert("La capacité et le tarif doivent être des nombres positifs.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                showErrorAlert("La capacité et le tarif doivent être des nombres.");
+                return;
+            }
 
             // If a new image was uploaded, use the new image URL, otherwise retain the existing one
             String imageUrl;
@@ -300,12 +369,12 @@ public class GesHeb implements Initializable {
             }
 
             // Update the hebergement object with new values
-            hebergement.setNom(nom);
-            hebergement.setAdresse(adresse);
-            hebergement.setTelephone(Integer.parseInt(telephone));
-            hebergement.setEmail(email);
+            hebergement.setNom(nomField.getText());
+            hebergement.setAdresse(adresseField.getText());
+            hebergement.setTelephone(Integer.parseInt(telephoneField.getText()));
+            hebergement.setEmail(emailField.getText());
             hebergement.setCapacite(capacite);
-            hebergement.setTarif_nuit((int) tarifNuit);
+            hebergement.setTarif_nuit(tarifNuit);
             hebergement.setPhotoUrl(imageUrl);  // Update the image URL
 
             // Update in the service and reload data
@@ -324,12 +393,11 @@ public class GesHeb implements Initializable {
             alert.setContentText("Hébergement mis à jour avec succès !");
             alert.showAndWait();
 
-        } catch (NumberFormatException e) {
-            showErrorAlert("Veuillez entrer des valeurs valides pour la capacité et le tarif.");
         } catch (Exception e) {
             showErrorAlert(e.getMessage());
         }
     }
+
 
 
     private void clearAddForm() {

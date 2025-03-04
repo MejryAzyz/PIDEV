@@ -78,7 +78,7 @@ public class Hebergement {
         this.capacite = capacite;
     }
 
-    public void setTarif_nuit(double tarif_nuit) {
+    public void setTarif_nuit(int tarif_nuit) {
         this.tarif_nuit = tarif_nuit;
     }
 
