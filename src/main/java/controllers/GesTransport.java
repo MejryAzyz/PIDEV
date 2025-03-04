@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,11 +8,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
-import Models.Transport;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
+import Models.Transport;
 import service.ServiceTransport;
+
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -48,20 +51,33 @@ public class GesTransport implements Initializable {
     @FXML
     private Button add;
 
+    @FXML
+    private VBox sidePanel;
 
+    @FXML
+    private TextField transportTypeField;
+
+    @FXML
+    private TextField transportCapacityField;
+
+    @FXML
+    private TextField transportPriceField;
+
+    @FXML
+    private Button submitAddButton;
 
     private ObservableList<Transport> transports = FXCollections.observableArrayList();
     private ServiceTransport serviceTransport = new ServiceTransport();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Initialisation des colonnes
+        // Set up the table columns
         colId.setCellValueFactory(new PropertyValueFactory<>("id_transport"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colPrix.setCellValueFactory(new PropertyValueFactory<>("tarif"));
 
-        // Configuration de la colonne "Actions" avec des boutons modifier et supprimer
+        // Add action buttons in the table's row
         colActions.setCellFactory(col -> new TableCell<Transport, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -70,6 +86,7 @@ public class GesTransport implements Initializable {
                     setGraphic(null);
                     return;
                 }
+
                 Transport transport = getTableView().getItems().get(getIndex());
                 Button btnUpdate = new Button("🔄");
                 btnUpdate.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
@@ -79,7 +96,6 @@ public class GesTransport implements Initializable {
                 btnUpdate.setFont(Font.font("System Bold", 15));
                 btnUpdate.setOnAction(event -> handleUpdate(transport));
 
-// Create the Delete button with emoji and style
                 Button btnDelete = new Button("❌");
                 btnDelete.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
                 btnDelete.setPrefHeight(33);
@@ -88,28 +104,31 @@ public class GesTransport implements Initializable {
                 btnDelete.setFont(Font.font("System Bold", 14));
                 btnDelete.setOnAction(event -> handleDelete(transport));
 
-// Create a container for the buttons
                 HBox pane = new HBox(btnUpdate, btnDelete);
                 pane.setSpacing(10);
-
-// Set the buttons in the row's graphic
                 setGraphic(pane);
             }
         });
 
-        // Chargement initial des données
+        // Initial loading of data
         loadData();
 
-        // Recherche dynamique sur le champ de recherche
+        // Dynamic search listener
         search_input.textProperty().addListener((observable, oldValue, newValue) -> {
             filterTransportList(newValue);
         });
 
-        // Actions des boutons situés à droite
+        // Reset table when search is cleared
+        cancel_search.setOnAction(e -> {
+            search_input.clear();
+            filterTransportList("");  // Clear the search and reset to show all
+        });
+
+        // Adding new transport
         add.setOnAction(this::handleAdd);
 
-
-        cancel_search.setOnAction(e -> search_input.clear());
+        // Submitting new transport
+        submitAddButton.setOnAction(this::handleSubmitAdd);
     }
 
     private void loadData() {
@@ -123,28 +142,67 @@ public class GesTransport implements Initializable {
     }
 
     private void filterTransportList(String searchText) {
+        ObservableList<Transport> displayedTransports;
+
         if (searchText == null || searchText.isEmpty()) {
-            tabview.setItems(transports);
+            displayedTransports = FXCollections.observableArrayList(transports);
         } else {
-            ObservableList<Transport> filteredList = FXCollections.observableArrayList();
-            for (Transport t : transports) {
-                if (t.getType().toLowerCase().contains(searchText.toLowerCase()) ||
-                        String.valueOf(t.getCapacite()).contains(searchText) ||
-                        String.valueOf(t.getTarif()).contains(searchText)) {
-                    filteredList.add(t);
+            displayedTransports = FXCollections.observableArrayList();
+            for (Transport transport : transports) {
+                if (transport.getType().toLowerCase().contains(searchText.toLowerCase()) ||
+                        String.valueOf(transport.getCapacite()).contains(searchText) ||
+                        String.valueOf(transport.getTarif()).contains(searchText)) {
+                    displayedTransports.add(transport);
                 }
             }
-            tabview.setItems(filteredList);
         }
+
+        tabview.setItems(displayedTransports);
+        tabview.refresh(); // Forces re-rendering of the TableView, including the action buttons
     }
 
     private void handleAdd(ActionEvent event) {
-        // Logique d'ajout : vous pouvez ouvrir une nouvelle fenêtre ou afficher un formulaire
-        System.out.println("Ajouter transport");
+        // Slide in the side panel with transition
+        sidePanel.setVisible(true);  // Make sure the panel is visible
+        TranslateTransition slideInTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
+        slideInTransition.setToX(0); // Slide to the right
+        slideInTransition.play();
+    }
+
+    private void handleSubmitAdd(ActionEvent event) {
+        // Logic to add a new transport
+        try {
+            String type = transportTypeField.getText();
+            int capacity = Integer.parseInt(transportCapacityField.getText());
+            double price = Double.parseDouble(transportPriceField.getText());
+
+            Transport newTransport = new Transport(type, capacity, price);
+            serviceTransport.ajouter(newTransport); // Add the new transport to the database
+            transports.add(newTransport); // Add the new transport to the table view
+            loadData();  // Refresh data
+            clearAddForm();  // Clear form after submission
+            closeSidePanel(); // Close the side panel
+        } catch (Exception e) {
+            showAlert("Erreur lors de l'ajout du transport. Vérifiez les informations.");
+        }
+    }
+
+    private void clearAddForm() {
+        // Clear the fields in the side panel form
+        transportTypeField.clear();
+        transportCapacityField.clear();
+        transportPriceField.clear();
+    }
+
+    private void closeSidePanel() {
+        TranslateTransition slideOutTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
+        slideOutTransition.setToX(sidePanel.getWidth()); // Slide out the panel to the right
+        slideOutTransition.setOnFinished(event -> sidePanel.setVisible(false)); // Hide the panel after the animation
+        slideOutTransition.play();
     }
 
     private void handleUpdate(Transport transport) {
-        // Logique de modification : par exemple, ouvrir une fenêtre pour modifier le transport
+        // Logic to update transport
         System.out.println("Modifier transport: " + transport.getId_transport());
     }
 
