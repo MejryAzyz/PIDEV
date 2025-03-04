@@ -280,6 +280,7 @@ public class GesHeb implements Initializable {
 
     private void handleSubmitUpdate(Hebergement hebergement) {
         try {
+
             // Get the new values from the input fields
             String nom = nomField.getText();
             String adresse = adresseField.getText();
@@ -288,49 +289,25 @@ public class GesHeb implements Initializable {
             int capacite = Integer.parseInt(capaciteField.getText());
             double tarifNuit = Double.parseDouble(tarifNuitField.getText());
 
-            // If a new image was uploaded, use the new image URL, otherwise retain the existing one
-            String imageUrl;
-            if (selectedImageFile != null) {
-                // Upload the new image and get the URL
-                String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
-                imageUrl = uploadResult[1];
-            } else {
-                // If no new image is uploaded, keep the existing image URL
-                imageUrl = hebergement.getPhotoUrl();
-            }
-
-            // Update the hebergement object with new values
+            // Update the hebergement object
             hebergement.setNom(nom);
             hebergement.setAdresse(adresse);
             hebergement.setTelephone(Integer.parseInt(telephone));
             hebergement.setEmail(email);
             hebergement.setCapacite(capacite);
             hebergement.setTarif_nuit((int) tarifNuit);
-            hebergement.setPhotoUrl(imageUrl);  // Update the image URL
 
             // Update in the service and reload data
             serviceHebergement.modifier(hebergement);
-
-            // Reload data to reflect changes
             loadData();
-
-            // Clear the form and close the side panel
             clearAddForm();
             closeSidePanel();
-
-            // Show success alert
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setContentText("Hébergement mis à jour avec succès !");
-            alert.showAndWait();
-
         } catch (NumberFormatException e) {
             showErrorAlert("Veuillez entrer des valeurs valides pour la capacité et le tarif.");
         } catch (Exception e) {
             showErrorAlert(e.getMessage());
         }
     }
-
 
     private void clearAddForm() {
         nomField.clear();
