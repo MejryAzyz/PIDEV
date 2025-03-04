@@ -115,7 +115,57 @@ public class GesTransport implements Initializable {
     }
 
     // Close the side panel (optional, depending on your UI design)
+    @FXML
+    private void closeSidePanel(ActionEvent event) {
+        // Slide out the side panel
+        TranslateTransition slideOutTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
+        slideOutTransition.setToX(sidePanel.getWidth()); // Slide out to the right
+        slideOutTransition.setOnFinished(e -> sidePanel.setVisible(false));  // Hide the panel after sliding out
+        slideOutTransition.play();
+    }
+    private void handleSubmitUpdate(Transport transport) {
+        try {
+            // Get the new values from the input fields
+            String type = transportTypeField.getValue();
+            int capacity = Integer.parseInt(transportCapacityField.getText());
+            int price = Integer.parseInt(transportPriceField.getText());
 
+            // Update the transport object (assuming you have an update method in the service)
+            transport.setType(type);
+            transport.setCapacite(capacity);
+            transport.setTarif(price);
+
+            // Call the service to update the transport in the database
+            serviceTransport.modifier(transport);
+
+            // Close the side panel and refresh the table
+            sidePanel.setVisible(false);
+            loadData();  // Reload data to reflect the changes in the table
+
+            // Show success alert
+        } catch (NumberFormatException e) {
+            // Show error alert if the user enters invalid data
+            showErrorAlert("Veuillez entrer des valeurs valides pour la capacité et le prix.");
+        } catch (Exception e) {
+            // Handle other exceptions
+            showErrorAlert(e.getMessage());
+        }
+    }
+    private void handleUpdate(Transport transport) {
+        // Set the values in the side panel's fields based on the selected transport item
+        transportTypeField.setValue(transport.getType());
+        transportCapacityField.setText(String.valueOf(transport.getCapacite()));
+        transportPriceField.setText(String.valueOf(transport.getTarif()));
+
+        // Show the side panel (slide-in effect)
+        sidePanel.setVisible(true);
+        TranslateTransition slideInTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
+        slideInTransition.setToX(0); // Slide in from the right
+        slideInTransition.play();
+
+        // Optionally, update the button action to handle the modification
+        submitAddButton.setOnAction(event -> handleSubmitUpdate(transport));
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -253,10 +303,7 @@ public class GesTransport implements Initializable {
         slideOutTransition.play();
     }
 
-    private void handleUpdate(Transport transport) {
-        // Logic to update transport
-        System.out.println("Modifier transport: " + transport.getId_transport());
-    }
+
 
     private void handleDelete(Transport transport) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
