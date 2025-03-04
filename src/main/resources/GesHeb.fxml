@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1032.0" stylesheets="style1.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GesTransport">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1032.0" stylesheets="style1.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GesHeb">
     <children>
         <!-- Barre latérale -->
         <VBox fx:id="Vbar" prefHeight="582.0" prefWidth="202.0" spacing="8.0">
@@ -172,9 +172,12 @@
                         <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="448.0" prefWidth="757.0">
                             <columns>
                                 <TableColumn fx:id="colId" prefWidth="50" text="ID" />
-                                <TableColumn fx:id="colType" prefWidth="150" text="Type" />
+                                <TableColumn fx:id="colNom" prefWidth="150" text="Nom" />
+                                <TableColumn fx:id="colAdresse" prefWidth="150" text="Adresse" />
+                                <TableColumn fx:id="colTelephone" prefWidth="150" text="Téléphone" />
+                                <TableColumn fx:id="colEmail" prefWidth="150" text="Email" />
                                 <TableColumn fx:id="colCapacite" prefWidth="150" text="Capacité" />
-                                <TableColumn fx:id="colPrix" prefWidth="150" text="Prix" />
+                                <TableColumn fx:id="colTarifNuit" prefWidth="150" text="Tarif Nuit" />
                                 <TableColumn fx:id="colActions" prefWidth="150" text="Actions" />
                             </columns>
                         </TableView>
@@ -190,29 +193,27 @@
             </children>
         </VBox>
         <VBox fx:id="sidePanel" alignment="CENTER_LEFT" layoutY="56.8" prefHeight="523.0" prefWidth="300" spacing="15" style="-fx-background-color: #cee1ff; -fx-padding: 20; -fx-border-radius: 10; -fx-border-color: #002966;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
-            <!-- Transport Form -->
-            <Label text="Type de Transport" />
-            <!-- Dropdown (ComboBox) for transport type -->
-            <ComboBox fx:id="transportTypeField" prefWidth="250">
-                <items>
-                    <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="Voiture" />
-                        <String fx:value="Bus" />
-                        <String fx:value="Taxi" />
-                        <String fx:value="Van" />
-                        <String fx:value="VTC" />
-                    </FXCollections>
-                </items>
-            </ComboBox>
+            <!-- Hebergement Form -->
+            <Label text="Nom de l'hébergement" />
+            <TextField fx:id="hebergementNameField" prefWidth="250" promptText="Nom de l'hébergement" />
+
+            <Label text="Adresse" />
+            <TextField fx:id="hebergementAddressField" prefWidth="250" promptText="Adresse" />
+
+            <Label text="Téléphone" />
+            <TextField fx:id="hebergementPhoneField" prefWidth="250" promptText="Numéro de téléphone" />
+
+            <Label text="Email" />
+            <TextField fx:id="hebergementEmailField" prefWidth="250" promptText="Email" />
 
             <Label text="Capacité" />
-            <TextField fx:id="transportCapacityField" prefWidth="250" promptText="Ex: 50" />
+            <TextField fx:id="hebergementCapacityField" prefWidth="250" promptText="Ex: 100" />
 
-            <Label text="Prix" />
-            <TextField fx:id="transportPriceField" prefWidth="250" promptText="Ex: 2000" />
+            <Label text="Tarif Nuit" />
+            <TextField fx:id="hebergementPriceField" prefWidth="250" promptText="Ex: 100" />
 
             <!-- Submit Button -->
-            <Button fx:id="submitAddButton" onAction="#addTransport" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Ajouter" />
+            <Button fx:id="submitAddButton" onAction="#addHebergement" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Ajouter" />
 
             <!-- Close Button (optional) -->
             <Button onAction="#closeSidePanel" prefWidth="250" style="-fx-background-color: #FF6F61; -fx-text-fill: white;" text="Fermer" />
