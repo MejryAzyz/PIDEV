@@ -393,19 +393,7 @@
             </Label>
          </children>
       </Pane>
-      <Pane fx:id="pn_signin" layoutY="-1.0" prefHeight="529.0" prefWidth="853.0" style="-fx-background-color: white;" styleClass="root" stylesheets="@stylesheet.css">
-         <children>
-            <TextField fx:id="tf_log" layoutX="519.0" layoutY="161.0" prefHeight="40.0" prefWidth="317.0" promptText="Your email .." />
-            <TextField layoutX="519.0" layoutY="225.0" prefHeight="40.0" prefWidth="317.0" promptText="Your password .." />
-            <Button layoutX="626.0" layoutY="286.0" mnemonicParsing="false" onAction="#login" prefHeight="32.0" prefWidth="104.0" text="Login" />
-            <Hyperlink layoutX="599.0" layoutY="328.0" onAction="#toSignup" text="don't have account ? signup" />
-            <Label layoutX="599.0" layoutY="112.0" prefHeight="32.0" prefWidth="171.0" text="Hello and welcome back">
-               <font>
-                  <Font name="Segoe UI Bold" size="13.0" />
-               </font>
-            </Label>
-            <Label fx:id="id" layoutX="65.0" layoutY="47.0" opacity="0.0" text="Label" />
-         </children>
-      </Pane>
+
+
    </children>
 </AnchorPane>

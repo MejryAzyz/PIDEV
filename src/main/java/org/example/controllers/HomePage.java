@@ -22,7 +22,7 @@ public class HomePage extends Application {
         Application.setUserAgentStylesheet(new CupertinoLight().getUserAgentStylesheet());
         try {
             this.stg = primaryStage;
-            Parent root = FXMLLoader.load(getClass().getResource("/Interface.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Dashboard.fxml"));
             primaryStage.setTitle("Gestion_Reservation_Paiement");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();

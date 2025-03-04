@@ -196,6 +196,7 @@ public class Dashboard {
         pn_pai.toFront();
         gridpai.getChildren().clear();
         displayp();
+        revenue.setText("Total revenue : "+ps.getTotalMontant() + " DT");
     }
 
     public void tologin(MouseEvent mouseEvent) {
