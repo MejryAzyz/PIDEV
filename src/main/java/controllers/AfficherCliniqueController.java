@@ -60,14 +60,14 @@ public class AfficherCliniqueController {
     @FXML
     private TableColumn<Clinique, String> colActions;
 
-    /*@FXML
+    @FXML
     private Text totalCliniques;
 
     @FXML
     private Text cliniqueMaxPrix;
 
     @FXML
-    private Text cliniqueMinPrix;*/
+    private Text cliniqueMinPrix;
 
     @FXML
     private TextField searchBar;
@@ -166,7 +166,15 @@ public class AfficherCliniqueController {
                 btnDelete.setFont(Font.font("System Bold", 14));
                 btnDelete.setOnAction(event -> handleDeleteButton(clinique));
 
-                HBox pane = new HBox(btnUpdate, btnDelete);
+                Button btnDocteurs = new Button("⚕");
+                btnDocteurs.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
+                btnDocteurs.setPrefHeight(33);
+                btnDocteurs.setPrefWidth(36);
+                btnDocteurs.setTextFill(Color.WHITE);
+                btnDocteurs.setFont(Font.font("System Bold", 15));
+                btnDocteurs.setOnAction(event -> afficherDocteurs(clinique));
+
+                HBox pane = new HBox(btnUpdate, btnDelete, btnDocteurs);
                 pane.setSpacing(10);
                 setGraphic(pane);
             }
@@ -174,7 +182,7 @@ public class AfficherCliniqueController {
 
         table_clinique.setItems(cliniqueList);
 
-        //mettreAJourCartes();
+        mettreAJourCartes();
         // Charger les données initiales
         afficherClinique();
         // Recherche dynamique
@@ -337,24 +345,19 @@ public class AfficherCliniqueController {
     }
 
     @FXML
-    void afficherDocteurs(ActionEvent event) {
-        Clinique selectedClinique = table_clinique.getSelectionModel().getSelectedItem();
-        if (selectedClinique != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocteur.fxml"));
-                Parent root = loader.load();
+    void afficherDocteurs(Clinique clinique) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocteur.fxml"));
+            Parent root = loader.load();
 
-                AfficherDocteurController controller = loader.getController();
-                controller.setClinique(selectedClinique);
+            AfficherDocteurController controller = loader.getController();
+            controller.setClinique(clinique);
 
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException e) {
-                showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir l'interface des docteurs.");
-            }
-        } else {
-            showAlert(Alert.AlertType.WARNING, "Aucune clinique sélectionnée", "Veuillez sélectionner une clinique.");
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir l'interface des docteurs.");
         }
     }
 
@@ -411,7 +414,7 @@ public class AfficherCliniqueController {
         alert.showAndWait().ifPresent(response -> {
             if (response == buttonTypeYes) {
                 try {
-                    //mettreAJourCartes();
+                    mettreAJourCartes();
                     sc.supprimer(clinique.getIdClinique()); // Suppression en base
                     cliniqueList.remove(clinique); // Mise à jour de la TableView
                 } catch (SQLException ex) {
@@ -421,7 +424,7 @@ public class AfficherCliniqueController {
         });
     }
 
-    /*public void mettreAJourCartes() throws SQLException {
+    public void mettreAJourCartes() throws SQLException {
 
         List<Clinique> cliniques = sc.recuperer();
         totalCliniques.setText(String.valueOf(cliniques.size()));
@@ -439,7 +442,7 @@ public class AfficherCliniqueController {
         } else {
             cliniqueMinPrix.setText("Aucune clinique");
         }
-    }*/
+    }
 
     private void rechercherClinique(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {

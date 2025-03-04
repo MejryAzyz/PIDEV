@@ -192,13 +192,31 @@
     -fx-background-color: #cee1ff;
 }
 
-.card{
-    -fx-background-color: #fafafa; /*linear-gradient(from 0% 0% to 0% 100%, #cee1ff,white);*/
+.card {
+    -fx-background-color: rgba(248, 248, 248, 0.65); /*linear-gradient(from 0% 0% to 0% 100%, #cee1ff,white);*/
     -fx-background-radius: 20;
-    -fx-effect: dropshadow(gaussian, #001433, 25, 0.3, 10,10);
+    -fx-effect: dropshadow(gaussian, rgba(68, 164, 216, 0.51), 25, 0.3, 10,10);
+    -fx-alignment: center;
+    -fx-padding: 20;
 }
 
 .card:hover{
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
+}
+.card-content {
+    -fx-padding: 20;
+    -fx-alignment: center;
+}
+
+.card-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #002966;
+}
+
+.card-value {
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-fill: #002966;
 }
