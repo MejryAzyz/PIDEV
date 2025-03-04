@@ -14,12 +14,23 @@ public ServiceHebergement() {
     cnx = MyDataBase.getInstance().getCnx();
 }
     @Override
+
     public void ajouter(Hebergement hebergement) throws SQLException {
-        String sql = "insert into hebergement(nom,adresse,capacite,email,telephone,tarif_nuit)"+
-                "values('"+hebergement.getNom()+"','"+hebergement.getAdresse()+"','"+hebergement.getCapacite()+"','"+hebergement.getEmail()+"','"+hebergement.getTelephone()+"',"+hebergement.getTarif_nuit()+")";
-        Statement st = cnx.createStatement();
-        st.executeUpdate(sql);
-}
+        String sql = "INSERT INTO hebergement(nom, adresse, capacite, email, telephone, tarif_nuit, image_url) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = cnx.prepareStatement(sql)) {
+            pst.setString(1, hebergement.getNom());
+            pst.setString(2, hebergement.getAdresse());
+            pst.setInt(3, hebergement.getCapacite());
+            pst.setString(4, hebergement.getEmail());
+            pst.setInt(5, hebergement.getTelephone());
+            pst.setDouble(6, hebergement.getTarif_nuit());
+            pst.setString(7, hebergement.getPhotoUrl());
+
+            pst.executeUpdate();
+        }
+    }
+
     public int ajouterEtRetournerId(Hebergement hebergement, Connection conn) throws SQLException {
         String query = "INSERT INTO hebergement (nom, adresse, telephone, email, capacite, tarif_nuit) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -98,7 +109,6 @@ public ServiceHebergement() {
             ps.setInt(7, hebergement.getId_hebergement());
             ps.executeUpdate();
 
-            // Update or insert photo if a new photo URL is provided
             if (hebergement.getPhotoUrl() != null && !hebergement.getPhotoUrl().isEmpty()) {
                 String checkPhotoSql = "SELECT COUNT(*) FROM hebergement_photos WHERE hebergement_id = ?";
                 PreparedStatement checkPs = cnx.prepareStatement(checkPhotoSql);

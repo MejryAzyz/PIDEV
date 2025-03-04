@@ -1,5 +1,6 @@
 package controllers;
 
+import API.ImageDbUtil;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,25 +9,30 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import Models.Hebergement;
 import service.ServiceHebergement;
-
+import javafx.scene.image.Image;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class GesHeb implements Initializable {
+    @FXML
+    private ImageView imageView;
 
     @FXML
     private TableView<Hebergement> tabview;
 
     @FXML
     private TableColumn<Hebergement, Integer> colId;
-
+    private File selectedImageFile;
     @FXML
     private TableColumn<Hebergement, String> colNom;
 
@@ -87,27 +93,30 @@ public class GesHeb implements Initializable {
     private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
 
+
     @FXML
     void addHebergement(ActionEvent event) {
         try {
-            // Retrieve data from input fields
-            String nom = nomField.getText();
-            String adresse = adresseField.getText();
-            int telephone = Integer.parseInt(telephoneField.getText());
-            String email = emailField.getText();
-            int capacite = Integer.parseInt(capaciteField.getText());
-            double tarifNuit = Double.parseDouble(tarifNuitField.getText());
-
+            String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
+            String imageUrl = uploadResult[1];
+            System.out.println(imageUrl);
             // Create and add a new hebergement object using the input data
-            Hebergement newHebergement = new Hebergement(nom, adresse, telephone, email, capacite, tarifNuit);
-            serviceHebergement.ajouter(newHebergement);
+            Hebergement hebergement = new Hebergement(
+                    nomField.getText(), adresseField.getText(), Integer.parseInt(telephoneField.getText()),
+                    emailField.getText(), Integer.parseInt(capaciteField.getText()),
+                    Double.parseDouble(tarifNuitField.getText()) , imageUrl
+            );
+
+            serviceHebergement.ajouter(hebergement);
+
+            tabview.refresh();
 
             // Show success alert
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Hébergement ajouté avec succès !");
             alert.showAndWait();
-
+             // L'URL de l'image uploadée
             // Reload data
             loadData();
 
@@ -316,4 +325,30 @@ public class GesHeb implements Initializable {
             }
         });
     }
-}
+    @FXML
+    public void handleImageUpload(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sélectionner une image");
+
+        // Add the correct extension filters with an asterisk (*) before the extensions
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+
+        selectedImageFile = fileChooser.showOpenDialog(null);
+
+        if (selectedImageFile != null) {
+            try {
+                // Display the image preview
+                Image image = new Image(selectedImageFile.toURI().toString());
+                imageView.setImage(image);
+            } catch (Exception e) {
+                // Handle errors in case the image cannot be loaded
+                System.out.println("Erreur de chargement de l'image : " + e.getMessage());
+            }
+        }
+    }
+
+
+    }
+

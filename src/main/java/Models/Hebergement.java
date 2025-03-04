@@ -10,6 +10,16 @@ public class Hebergement {
     private double tarif_nuit;
     private String photoUrl;
 
+    public Hebergement(String text, String text1, int i, String text2, int i1, double v, String photoUrl) {
+        this.nom = text;
+        this.adresse = text1;
+        this.telephone = i;
+        this.email = text2;
+        this.capacite = i1;
+        this.tarif_nuit = v;
+        this.photoUrl = photoUrl;
+    }
+
     public int getId_hebergement() {
         return id_hebergement;
     }

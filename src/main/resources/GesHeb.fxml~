@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -189,10 +192,10 @@
                 </AnchorPane>
             </children>
         </VBox>
-        <VBox fx:id="sidePanel" alignment="CENTER_LEFT" layoutY="56.8" prefHeight="523.0" prefWidth="300" spacing="3.0" style="-fx-background-color: #cee1ff; -fx-padding: 20; -fx-border-radius: 10; -fx-border-color: #002966;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
+        <VBox fx:id="sidePanel" alignment="CENTER_LEFT" layoutY="56.8" prefHeight="523.0" prefWidth="300" spacing="15" style="-fx-background-color: #cee1ff; -fx-padding: 20; -fx-border-radius: 10; -fx-border-color: #002966;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
             <!-- Hebergement Form -->
             <Label text="Nom de l'hébergement" />
-            <TextField fx:id="nomField" prefWidth="250" promptText="Nom de l'hébergement" text="nns" />
+            <TextField fx:id="nomField" prefWidth="250" promptText="Nom de l'hébergement" />
 
             <Label text="Adresse" />
             <TextField fx:id="adresseField" prefWidth="250" promptText="Adresse" />
@@ -210,7 +213,7 @@
             <TextField fx:id="tarifNuitField" prefWidth="250" promptText="Ex: 100" />
             <Label text="Upload Image" />
             <Button fx:id="uploadImageButton" onAction="#handleImageUpload" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Upload Image" />
-            <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="250.0" layoutX="25.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="250.0" layoutX="25.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" />
             <!-- Submit Button -->
             <Button fx:id="submitAddButton" onAction="#addHebergement" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Ajouter" />
 

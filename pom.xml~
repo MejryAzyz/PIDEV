@@ -39,7 +39,9 @@
             <artifactId>json</artifactId>
             <version>20210307</version>
         </dependency>
-
+        dependencies {
+        implementation 'org.openjfx:javafx-controls:17.0.1'  // or the version you're using
+        }
     </dependencies>
     <repositories>
         <repository>

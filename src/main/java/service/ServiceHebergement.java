@@ -14,12 +14,23 @@ public ServiceHebergement() {
     cnx = MyDataBase.getInstance().getCnx();
 }
     @Override
+
     public void ajouter(Hebergement hebergement) throws SQLException {
-        String sql = "insert into hebergement(nom,adresse,capacite,email,telephone,tarif_nuit)"+
-                "values('"+hebergement.getNom()+"','"+hebergement.getAdresse()+"','"+hebergement.getCapacite()+"','"+hebergement.getEmail()+"','"+hebergement.getTelephone()+"',"+hebergement.getTarif_nuit()+")";
-        Statement st = cnx.createStatement();
-        st.executeUpdate(sql);
-}
+        String sql = "INSERT INTO hebergement(nom, adresse, capacite, email, telephone, tarif_nuit, image_url) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = cnx.prepareStatement(sql)) {
+            pst.setString(1, hebergement.getNom());
+            pst.setString(2, hebergement.getAdresse());
+            pst.setInt(3, hebergement.getCapacite());
+            pst.setString(4, hebergement.getEmail());
+            pst.setInt(5, hebergement.getTelephone());
+            pst.setDouble(6, hebergement.getTarif_nuit());
+            pst.setString(7, hebergement.getPhotoUrl());
+
+            pst.executeUpdate();
+        }
+    }
+
     public int ajouterEtRetournerId(Hebergement hebergement, Connection conn) throws SQLException {
         String query = "INSERT INTO hebergement (nom, adresse, telephone, email, capacite, tarif_nuit) VALUES (?, ?, ?, ?, ?, ?)";
 
@@ -139,10 +150,8 @@ public ServiceHebergement() {
 
     @Override
     public List<Hebergement> recuperer() throws SQLException {
-        String sql = "SELECT h.*, hp.photo_url " +
-                "FROM hebergement h " +
-                "LEFT JOIN hebergement_photos hp ON h.id_hebergement = hp.hebergement_id " +
-                "WHERE hp.id_photo = (SELECT MIN(id_photo) FROM hebergement_photos WHERE hebergement_id = h.id_hebergement)";
+        String sql = "SELECT id_hebergement, nom, adresse, capacite, email, telephone, tarif_nuit, image_url " +
+                "FROM hebergement";
         Statement st = cnx.createStatement();
         ResultSet rs = st.executeQuery(sql);
         List<Hebergement> hebergements = new ArrayList<>();
@@ -155,11 +164,12 @@ public ServiceHebergement() {
             hebergement.setEmail(rs.getString("email"));
             hebergement.setTelephone(rs.getInt("telephone"));
             hebergement.setTarif_nuit(rs.getInt("tarif_nuit"));
-            hebergement.setPhotoUrl(rs.getString("photo_url"));
+            hebergement.setPhotoUrl(rs.getString("image_url"));  // Using the image_url column directly
             hebergements.add(hebergement);
         }
         return hebergements;
     }
+
 
 
 }

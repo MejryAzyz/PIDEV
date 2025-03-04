@@ -19,7 +19,6 @@ import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class AjoutHebergement {
-    ServiceHebergement sh = new ServiceHebergement();
     private File selectedFile;
     @FXML
     private TextField adresseheb;
@@ -65,12 +64,10 @@ public class AjoutHebergement {
                     Double.parseDouble(tarifheb.getText())
             );
 
-            int hebergementId = sh.ajouterEtRetournerId(hebergement, conn);
 
             // 2. Insérer la photo si un fichier a été sélectionné
             if (selectedFile != null) {
                 ServicePhoto sp = new ServicePhoto();
-                sp.ajouterPhoto(new Photo(hebergementId, selectedFile.getAbsolutePath()), conn);
             }
 
             conn.commit(); // Valider toutes les opérations

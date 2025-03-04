@@ -32,34 +32,5 @@ public class ExchangeRateService {
             return rates.getDouble(targetCurrency);
         }
     }
-    public class ImageUploader {
-        private static final String API_KEY = "38589e312a02b67fcd8133b20f51e63e";
 
-        public static String uploadImage(File imageFile) throws IOException {
-            OkHttpClient client = new OkHttpClient();
-
-            // Read image as bytes
-            byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-            String base64Image = java.util.Base64.getEncoder().encodeToString(imageBytes);
-
-            // Create request body
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("key", API_KEY)
-                    .add("image", base64Image)
-                    .build();
-
-            // Send request
-            Request request = new Request.Builder()
-                    .url("https://api.imgbb.com/1/upload")
-                    .post(requestBody)
-                    .build();
-
-            Response response = client.newCall(request).execute();
-            String responseBody = response.body().string();
-
-            // Parse JSON response
-            JSONObject jsonResponse = new JSONObject(responseBody);
-            return jsonResponse.getJSONObject("data").getString("url");
-        }
-    }
 }
