@@ -30,6 +30,9 @@ public class ServiceGiminAI {
     private static final String API_KEY = System.getenv("api_gemini");
     private static final String API_URL = System.getenv("api_url");// Remplacer par l'URL exacte de l'API
 
+    /*private static final String API_KEY = "AIzaSyD3K-vYvbjmOUplKRuvKqLXuaakUfGE_Mk";
+    private static final String API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";*/
+
     Connection cnx;
     public ServiceGiminAI() {
         cnx = MyDataBase.getInstance().getCnx();

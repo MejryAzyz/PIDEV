@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane style="-fx-background-image: url('medical2.PNG'); -fx-background-size: cover; -fx-background-position: center center;" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.CliniquesParSpecialiteController"
             prefHeight="576.0" prefWidth="1134.0">
@@ -17,13 +17,34 @@
     </AnchorPane>
     <Button text="← Retour" fx:id="retourButton" onAction="#handleRetourButton" style="-fx-font-size: 16px; -fx-background-color: transparent; -fx-text-fill: white;"/>
 
-    <VBox alignment="CENTER" layoutX="61.0" layoutY="80.0" prefHeight="100.0" prefWidth="1186.0" spacing="10" style="-fx-background-color: #f0f0f0; -fx-padding: 20;">
+    <!--<VBox alignment="CENTER" layoutX="61.0" layoutY="80.0" prefHeight="100.0" prefWidth="1186.0" spacing="10" style="-fx-background-color: transparent; -fx-padding: 20;">
         <TextField fx:id="searchField" promptText="Entrez un critère de recherche avec GeminiAI.." style="-fx-font-size: 14px; -fx-padding: 10px;" />
-        <Button fx:id="searchButton" text="Rechercher" onAction="#rechercherGiminAI" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        <Button fx:id="searchButton" text="Envoyer 🔍" onAction="#rechercherGiminAI" style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: rgb(255,255,255);"/>
+    </VBox>-->
+
+    <VBox alignment="CENTER" layoutX="61.0" layoutY="80.0" prefHeight="100.0" prefWidth="1186.0" spacing="10" style="-fx-background-color: transparent; -fx-padding: 20;">
+        <!-- TextField stylisé avec un dégradé de couleurs de Google Gemini -->
+        <TextField fx:id="searchField" promptText="Entrez un critère de recherche avec GeminiAI.."
+                   style="-fx-font-size: 14px;
+                      -fx-padding: 10px;
+                      -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(255,255,255,0.82), rgba(255,255,255,0.87), rgba(248,248,248,0.75));
+                      -fx-text-fill: white;
+                      -fx-border-radius: 30px;
+                      -fx-border-color: transparent;
+                      -fx-focus-color: #4285F4;
+                      -fx-faint-focus-color: transparent;" />
+        <!-- Button stylisé avec dégradé similaire -->
+        <Button fx:id="searchButton" text="GeminiAI 🔍" onAction="#rechercherGiminAI"
+                style="-fx-font-size: 14px;
+                   -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #4285F4, rgba(156,39,176,0.36), rgba(255,64,129,0.6));
+                   -fx-text-fill: white;
+                   -fx-border-radius: 30px;
+                   -fx-border-color: transparent;" />
     </VBox>
 
+
     <Region prefHeight="20"/>
-    <VBox alignment="CENTER" layoutX="61.0" layoutY="154.0" prefHeight="40.0" prefWidth="1186.0" spacing="15" style="-fx-background-color: #f0f0f0; -fx-padding: 20;">
+    <VBox alignment="CENTER" layoutX="61.0" layoutY="154.0" prefHeight="40.0" prefWidth="1186.0" spacing="15" style="-fx-background-color: transparent; -fx-padding: 20;">
         <!--<HBox spacing="10.0" style="-fx-padding: 0 0 0 300px;">
             <TextField  promptText="Entrez vos besoins" style="-fx-background-radius: 30px; -fx-padding: 10px 20px; -fx-border-radius: 30px;  -fx-font-size: 14px;-fx-min-width: 500px; " />
             <Button fx:id="rechercherGiminAI"  text="🔍" style="-fx-background-color: #2a5298; -fx-text-fill: white; -fx-background-radius: 30px; -fx-font-size: 14px; -fx-padding: 10px 15px;" />

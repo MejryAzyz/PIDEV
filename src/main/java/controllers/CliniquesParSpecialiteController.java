@@ -155,7 +155,7 @@ public class CliniquesParSpecialiteController {
         for (Clinique clinique : cliniques) {
             // Create a HBox for each clinic (clinic card)
             HBox card = new HBox(15);
-            card.setStyle("-fx-background-color: #f8f8f8; -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
+            card.setStyle("-fx-background-color: rgba(248,248,248,0.73); -fx-padding: 10; -fx-border-radius: 10; -fx-background-radius: 10; -fx-alignment: center-left;");
             System.out.println("Photo URL: " + clinique.getPhotoUrl());
 
             // Image of the clinic
@@ -280,8 +280,10 @@ public class CliniquesParSpecialiteController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
+        }else {
+            // Afficher un message si le champ de recherche est vide
+            System.out.println("Le champ de recherche est vide.");
+    }}
 
     private void afficherCliniqueDansUI(List<Clinique> cliniques, Specialite spec) {
         /*Label cliniqueLabel = new Label(clinique.getNom() + " - Prix: " + clinique.getPrix() + " €");
@@ -344,6 +346,7 @@ public class CliniquesParSpecialiteController {
         cliniqueContainer.requestLayout();
 
     }
+
 
 
 }
