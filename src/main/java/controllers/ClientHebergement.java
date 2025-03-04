@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -41,38 +43,32 @@ public class ClientHebergement {
 
     private HBox createHebergementCard(Hebergement hebergement) {
         HBox card = new HBox(15);
-        card.setStyle("-fx-padding: 15px; -fx-border-color: #ddd; -fx-border-radius: 10px; -fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);");
-        card.setMinWidth(800);
-        card.setMaxWidth(Double.MAX_VALUE);
+        card.getStyleClass().add("card");
 
         ImageView imageView = new ImageView();
-        imageView.setFitHeight(120);
-        imageView.setFitWidth(180);
-        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(150);
+        imageView.setFitWidth(220);
+        imageView.setPreserveRatio(false);
 
-        // Use the photo URL from Hebergement object
         String photoUrl = hebergement.getPhotoUrl();
         if (photoUrl != null && !photoUrl.isEmpty()) {
-            imageView.setImage(new Image(photoUrl)); // Load the image from the URL
+            imageView.setImage(new Image(photoUrl));
         } else {
-            // If no photo URL, you can set a default image or leave it blank
             imageView.setImage(new Image("/logo.png"));
         }
 
         VBox details = new VBox(8);
-        details.setStyle("-fx-padding: 10px; -fx-background-color: #ffffff; -fx-border-radius: 5px;");
-
         Label nomLabel = new Label(hebergement.getNom() != null ? hebergement.getNom() : "Nom inconnu");
-        nomLabel.setStyle("-fx-font-size: 20px; -fx-text-fill: #2c3e50; -fx-font-weight: bold;");
+        nomLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
 
-        Label adresseLabel = new Label(hebergement.getAdresse() != null ? "📍 " + hebergement.getAdresse() : "Adresse inconnue");
-        adresseLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #7f8c8d;");
+        Label adresseLabel = new Label(hebergement.getAdresse() != null ? "\uD83D\uDCCD " + hebergement.getAdresse() : "Adresse inconnue");
+        adresseLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #2c3e50;");
 
-        Label tarifLabel = new Label("💰 " + hebergement.getTarif_nuit() + " € / nuit");
-        tarifLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #27ae60; -fx-font-weight: bold;");
+        Label tarifLabel = new Label("\uD83D\uDCB0 " + hebergement.getTarif_nuit() + " € / nuit");
+        tarifLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #2c3e50; -fx-font-weight: bold;");
 
         Button viewMoreBtn = new Button("Voir plus");
-        viewMoreBtn.setStyle("-fx-background-color: #2980b9; -fx-text-fill: white; -fx-padding: 8px 15px; -fx-background-radius: 5px; -fx-font-size: 14px;");
+        viewMoreBtn.getStyleClass().add("view-more");
         viewMoreBtn.setOnAction(e -> afficherDetailsHebergement(hebergement));
 
         details.getChildren().addAll(nomLabel, adresseLabel, tarifLabel, viewMoreBtn);
@@ -80,7 +76,6 @@ public class ClientHebergement {
 
         return card;
     }
-
 
     private void afficherDetailsHebergement(Hebergement hebergement) {
         try {
@@ -98,24 +93,15 @@ public class ClientHebergement {
         } catch (IOException e) {
             e.printStackTrace();
         }
-}
+    }
 
-    public void navT(ActionEvent actionEvent) {
+    public void navigateTo(String fxmlPath, ActionEvent event) {
         try {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ClientTransport.fxml"));
-            Parent root = loader.load();
-
-            System.out.println("FXML chargé avec succès.");
-
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
             stage.show();
-
-            System.out.println("Navigation réussie !");
         } catch (IOException e) {
-            System.out.println("Erreur lors du chargement du FXML : " + e.getMessage());
             e.printStackTrace();
         }
     }

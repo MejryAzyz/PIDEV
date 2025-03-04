@@ -241,4 +241,92 @@
     -fx-background-image: url("supprimer.png"); /* Optional: Change icon on hover */
 }
 
+/* Style général */
+.root {
+    -fx-background-color: #f4f4f4;
+}
+
+/* Navbar */
+.navbar {
+    -fx-background-color: #0ba84a;
+    -fx-padding: 10px 20px;
+    -fx-alignment: center-left;
+    -fx-spacing: 30px;
+}
+
+.logo {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 5px 15px;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 5px;
+}
+
+.logout-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 5px 15px;
+    -fx-border-radius: 5px;
+}
+
+.logout-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Titre */
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10px 0;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Conteneur des hébergements */
+.container {
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+}
+
+/* Carte Hébergement */
+.card {
+    -fx-padding: 15px;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 10px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+}
+
+.card:hover {
+    -fx-background-color: #ecf0f1;
+}
+
+/* Bouton Voir Plus */
+.view-more {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 5px;
+}
+
+.view-more:hover {
+    -fx-background-color: #1f669c;
+}
 

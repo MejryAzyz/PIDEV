@@ -1,0 +1,77 @@
+.root {
+    -fx-background-color: #f4f4f4;
+    -fx-pref-width: 1920px;
+    -fx-pref-height: 1080px;
+}
+
+/* Navbar */
+.navbar {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 15px;
+    -fx-pref-width: 100%;
+}
+
+.logo {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-padding: 8px 20px;
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-border-radius: 5px;
+}
+
+/* Contenu principal */
+.title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10px 0;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.container {
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+    -fx-pref-width: 80%;
+    -fx-max-width: 1200px;
+    -fx-alignment: center;
+}
+
+/* Carte Hébergement */
+.card {
+    -fx-padding: 20px;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 10px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
+}
+
+.card:hover {
+    -fx-background-color: #ecf0f1;
+}
+
+.view-more {
+    -fx-background-color: #2980b9;
+    -fx-text-fill: white;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px;
+}
+
+.view-more:hover {
+    -fx-background-color: #1f669c;
+}

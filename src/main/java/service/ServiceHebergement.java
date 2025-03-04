@@ -98,7 +98,6 @@ public ServiceHebergement() {
             ps.setInt(7, hebergement.getId_hebergement());
             ps.executeUpdate();
 
-            // Update or insert photo if a new photo URL is provided
             if (hebergement.getPhotoUrl() != null && !hebergement.getPhotoUrl().isEmpty()) {
                 String checkPhotoSql = "SELECT COUNT(*) FROM hebergement_photos WHERE hebergement_id = ?";
                 PreparedStatement checkPs = cnx.prepareStatement(checkPhotoSql);
@@ -156,7 +155,7 @@ public ServiceHebergement() {
             hebergement.setEmail(rs.getString("email"));
             hebergement.setTelephone(rs.getInt("telephone"));
             hebergement.setTarif_nuit(rs.getInt("tarif_nuit"));
-            hebergement.setPhotoUrl(rs.getString("photo_url")); // Set the photo URL
+            hebergement.setPhotoUrl(rs.getString("photo_url"));
             hebergements.add(hebergement);
         }
         return hebergements;

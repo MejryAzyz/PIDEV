@@ -82,17 +82,57 @@ public ServiceHebergement() {
     }
     @Override
     public void modifier(Hebergement hebergement) throws SQLException {
-        String sql = "UPDATE hebergement SET nom = ?, telephone = ?, capacite = ?, adresse = ?, email = ?, tarif_nuit = ? WHERE id_hebergement = ?";
-        PreparedStatement ps = cnx.prepareStatement(sql);
-        ps.setString(1, hebergement.getNom());
-        ps.setInt(2, hebergement.getTelephone());
-        ps.setInt(3, hebergement.getCapacite());
-        ps.setString(4, hebergement.getAdresse());
-        ps.setString(5, hebergement.getEmail());
-        ps.setDouble(6, hebergement.getTarif_nuit());
-        ps.setInt(7, hebergement.getId_hebergement());
-        ps.executeUpdate();
-        System.out.println("Hébergement modifié avec succès !");
+        Connection cnx = MyDataBase.getInstance().getCnx(); // Ensure you have a valid connection
+        cnx.setAutoCommit(false); // Start transaction
+
+        try {
+            // Update the main hebergement details
+            String sql = "UPDATE hebergement SET nom = ?, telephone = ?, capacite = ?, adresse = ?, email = ?, tarif_nuit = ? WHERE id_hebergement = ?";
+            PreparedStatement ps = cnx.prepareStatement(sql);
+            ps.setString(1, hebergement.getNom());
+            ps.setInt(2, hebergement.getTelephone());
+            ps.setInt(3, hebergement.getCapacite());
+            ps.setString(4, hebergement.getAdresse());
+            ps.setString(5, hebergement.getEmail());
+            ps.setDouble(6, hebergement.getTarif_nuit());
+            ps.setInt(7, hebergement.getId_hebergement());
+            ps.executeUpdate();
+
+            // Update or insert photo if a new photo URL is provided
+            if (hebergement.getPhotoUrl() != null && !hebergement.getPhotoUrl().isEmpty()) {
+                String checkPhotoSql = "SELECT COUNT(*) FROM hebergement_photos WHERE hebergement_id = ?";
+                PreparedStatement checkPs = cnx.prepareStatement(checkPhotoSql);
+                checkPs.setInt(1, hebergement.getId_hebergement());
+                ResultSet rs = checkPs.executeQuery();
+                rs.next();
+                int count = rs.getInt(1);
+
+                if (count > 0) {
+                    // Update existing photo record
+                    String updatePhotoSql = "UPDATE hebergement_photos SET photo_url = ?, uploaded_at = NOW() WHERE hebergement_id = ?";
+                    PreparedStatement updatePs = cnx.prepareStatement(updatePhotoSql);
+                    updatePs.setString(1, hebergement.getPhotoUrl());
+                    updatePs.setInt(2, hebergement.getId_hebergement());
+                    updatePs.executeUpdate();
+                } else {
+                    // Insert new photo record
+                    String insertPhotoSql = "INSERT INTO hebergement_photos (hebergement_id, photo_url, uploaded_at) VALUES (?, ?, NOW())";
+                    PreparedStatement insertPs = cnx.prepareStatement(insertPhotoSql);
+                    insertPs.setInt(1, hebergement.getId_hebergement());
+                    insertPs.setString(2, hebergement.getPhotoUrl());
+                    insertPs.executeUpdate();
+                }
+            }
+
+            cnx.commit(); // Commit transaction if everything is successful
+            System.out.println("Hébergement modifié avec succès !");
+        } catch (SQLException e) {
+            cnx.rollback(); // Rollback transaction if an error occurs
+            e.printStackTrace();
+            throw new SQLException("Erreur lors de la mise à jour de l'hébergement", e);
+        } finally {
+            cnx.setAutoCommit(true); // Reset auto-commit
+        }
     }
 
 
@@ -116,7 +156,7 @@ public ServiceHebergement() {
             hebergement.setEmail(rs.getString("email"));
             hebergement.setTelephone(rs.getInt("telephone"));
             hebergement.setTarif_nuit(rs.getInt("tarif_nuit"));
-            hebergement.setPhotoUrl(rs.getString("photo_url")); // Set the photo URL
+            hebergement.setPhotoUrl(rs.getString("photo_url"));
             hebergements.add(hebergement);
         }
         return hebergements;
