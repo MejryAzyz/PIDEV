@@ -41,36 +41,11 @@ public class ServiceGiminAI {
     @FXML
     private Label messageLabel;
 
-    /*public JSONArray rechercherCliniquesParSpecialite(double budgetMax, String specialite) throws IOException {
-        // Construction de l'URL avec les paramètres
-        String url = String.format("%s?specialite=%s&budgetMax=%f", API_URL, specialite, budgetMax);
-
-        // Création de la requête
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet request = new HttpGet(url);
-        request.setHeader("Authorization", "Bearer " + API_KEY);
-
-        // Exécution de la requête
-        try (CloseableHttpResponse response = client.execute(request)) {
-            HttpEntity entity = response.getEntity();
-            String responseBody = EntityUtils.toString(entity);
-            JSONObject jsonResponse = new JSONObject(responseBody);
-            return jsonResponse.getJSONArray("cliniques");
-        } finally {
-            client.close();
-        }
-    }*/
-
     public JSONArray rechercherCliniquesParPrix(double budget) throws IOException {
-        // Créez l'URL selon le budget
         String url = String.format("%s?prixMax=%f", API_URL, budget);
-
-        // Créez et envoyez la requête
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet request = new HttpGet(url);
         request.setHeader("Authorization", "Bearer " + API_KEY);
-
-        // Exécution de la requête
         try (CloseableHttpResponse response = client.execute(request)) {
             HttpEntity entity = response.getEntity();
             String responseBody = EntityUtils.toString(entity);
