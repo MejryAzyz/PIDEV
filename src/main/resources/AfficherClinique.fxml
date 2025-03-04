@@ -415,7 +415,7 @@
 
 
 
-                  <Button fx:id="add" layoutX="30.0" layoutY="14.0" mnemonicParsing="false"  prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE" onAction="#ouvrirAjoutClinique">
+                  <Button fx:id="add" layoutX="15.0" layoutY="134.0" mnemonicParsing="false"  prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE" onAction="#ouvrirAjoutClinique">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
