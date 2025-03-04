@@ -108,12 +108,7 @@
     -fx-background-color: transparent;
 }
 
-.date-picker .text-field{
-    -fx-background-color: transparent;
-    -fx-font-size: 14;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
+
 
 .date-picker .arrow-button {
     -fx-background-color: transparent;
@@ -132,9 +127,6 @@
     -fx-background-color: white;
 }
 
-.text-field{
-    -fx-text-fill: white;
-}
 
 .choice-box .label{
     -fx-text-fill: white;

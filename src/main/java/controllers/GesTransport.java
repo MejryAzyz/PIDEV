@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import Models.Transport;
 import service.ServiceTransport;
@@ -20,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class GesTransport implements Initializable {
+
 
     @FXML
     private TableView<Transport> tabview;
@@ -55,7 +57,7 @@ public class GesTransport implements Initializable {
     private VBox sidePanel;
 
     @FXML
-    private TextField transportTypeField;
+    private ComboBox<String> transportTypeField;
 
     @FXML
     private TextField transportCapacityField;
@@ -69,14 +71,63 @@ public class GesTransport implements Initializable {
     private ObservableList<Transport> transports = FXCollections.observableArrayList();
     private ServiceTransport serviceTransport = new ServiceTransport();
 
+    @FXML
+    void addTransport(ActionEvent event) {
+        try {
+            // Retrieve selected transport type from ComboBox
+            String type = transportTypeField.getValue();
+            if (type == null || type.isEmpty()) {
+                // Show error if no transport type is selected
+                showErrorAlert("Veuillez sélectionner un type de transport.");
+                return;
+            }
+
+            // Get capacity and price from text fields and parse them to integers
+            int capacite = Integer.parseInt(transportCapacityField.getText());
+            int prix = Integer.parseInt(transportPriceField.getText());
+
+            // Create and add a new transport object using the input data
+            serviceTransport.ajouter(new Transport(type, capacite, prix));
+
+            // Show success alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Succès");
+            alert.setContentText("Transport ajouté avec succès !");
+            alert.showAndWait();
+
+
+
+        } catch (NumberFormatException e) {
+            // Show warning alert if input is not valid (e.g., invalid number format)
+            showErrorAlert("Veuillez entrer des valeurs valides pour la capacité et le prix.");
+        } catch (Exception e) {
+            // Show generic error alert if any other exception occurs
+            showErrorAlert(e.getMessage());
+        }
+    }
+
+    // Show error alert with a custom message
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    // Close the side panel (optional, depending on your UI design)
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        transportTypeField.getItems().clear();
+        transportTypeField.getItems().addAll("Voiture", "Bus", "Taxi", "Van", "VTC");
+
         // Set up the table columns
         colId.setCellValueFactory(new PropertyValueFactory<>("id_transport"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colPrix.setCellValueFactory(new PropertyValueFactory<>("tarif"));
-
+        sidePanel.setVisible(false);
         // Add action buttons in the table's row
         colActions.setCellFactory(col -> new TableCell<Transport, String>() {
             @Override
@@ -172,7 +223,7 @@ public class GesTransport implements Initializable {
     private void handleSubmitAdd(ActionEvent event) {
         // Logic to add a new transport
         try {
-            String type = transportTypeField.getText();
+            String type = transportTypeField.getValue();
             int capacity = Integer.parseInt(transportCapacityField.getText());
             double price = Double.parseDouble(transportPriceField.getText());
 
@@ -189,11 +240,12 @@ public class GesTransport implements Initializable {
 
     private void clearAddForm() {
         // Clear the fields in the side panel form
-        transportTypeField.clear();
+        transportTypeField.setValue(null);;
         transportCapacityField.clear();
         transportPriceField.clear();
     }
 
+    @FXML
     private void closeSidePanel() {
         TranslateTransition slideOutTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
         slideOutTransition.setToX(sidePanel.getWidth()); // Slide out the panel to the right

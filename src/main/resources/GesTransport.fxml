@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -180,9 +183,38 @@
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Button>
+
                     </children>
                 </AnchorPane>
             </children>
+        </VBox>
+        <VBox fx:id="sidePanel" alignment="CENTER_LEFT" layoutY="56.8" prefHeight="523.0" prefWidth="300" spacing="15" style="-fx-background-color: #cee1ff; -fx-padding: 20; -fx-border-radius: 10; -fx-border-color: #002966;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
+            <!-- Transport Form -->
+            <Label text="Type de Transport" />
+            <!-- Dropdown (ComboBox) for transport type -->
+            <ComboBox fx:id="transportTypeField" prefWidth="250">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Voiture" />
+                        <String fx:value="Bus" />
+                        <String fx:value="Taxi" />
+                        <String fx:value="Van" />
+                        <String fx:value="VTC" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+
+            <Label text="Capacité" />
+            <TextField fx:id="transportCapacityField" prefWidth="250" promptText="Ex: 50" />
+
+            <Label text="Prix" />
+            <TextField fx:id="transportPriceField" prefWidth="250" promptText="Ex: 2000" />
+
+            <!-- Submit Button -->
+            <Button fx:id="submitAddButton" onAction="#addTransport" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Ajouter" />
+
+            <!-- Close Button (optional) -->
+            <Button onAction="#closeSidePanel" prefWidth="250" style="-fx-background-color: #FF6F61; -fx-text-fill: white;" text="Fermer" />
         </VBox>
     </children>
 </AnchorPane>
