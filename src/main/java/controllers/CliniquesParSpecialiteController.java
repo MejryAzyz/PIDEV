@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -213,7 +214,8 @@ public class CliniquesParSpecialiteController {
     @FXML
     private void handleRetourButton() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherSpecialiteClient.fxml"));
-        AnchorPane root = loader.load();
+        //AnchorPane root = loader.load();
+        ScrollPane root = loader.load();
 
         // Obtenir la scène actuelle
         Stage stage = (Stage) retourButton.getScene().getWindow();

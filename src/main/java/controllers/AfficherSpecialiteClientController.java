@@ -181,13 +181,13 @@ public class AfficherSpecialiteClientController {
 
     private StackPane createSpecialiteCard(Specialite spec) {
         StackPane card = new StackPane();
-        card.setPrefSize(220, 140);
+        card.setPrefSize(200, 150);
 
         // Ajouter l'image de fond
         /*String imagePath = "/image.PNG"; // Remplacez par le chemin de votre image
         ImageView backgroundImage = new ImageView(new Image(getClass().getResource(imagePath).toExternalForm()));*/
 
-        Rectangle rect = new Rectangle(220, 140);
+        Rectangle rect = new Rectangle(300, 150);
         rect.setArcWidth(20);
         rect.setArcHeight(20);
         rect.setFill(createGradient());  // Dégradé
