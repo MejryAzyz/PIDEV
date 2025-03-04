@@ -11,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import models.Clinique;
@@ -58,14 +60,14 @@ public class AfficherCliniqueController {
     @FXML
     private TableColumn<Clinique, String> colActions;
 
-    @FXML
+    /*@FXML
     private Text totalCliniques;
 
     @FXML
     private Text cliniqueMaxPrix;
 
     @FXML
-    private Text cliniqueMinPrix;
+    private Text cliniqueMinPrix;*/
 
     @FXML
     private TextField searchBar;
@@ -114,7 +116,7 @@ public class AfficherCliniqueController {
         col_prix.setCellValueFactory(new PropertyValueFactory<Clinique, Double>("prix"));
 // Set the cellFactory for the "Actions" column with styled buttons
         colActions.setCellFactory(param -> new TableCell<Clinique, String>() {
-            @Override
+            /*@Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
@@ -137,11 +139,42 @@ public class AfficherCliniqueController {
                     setGraphic(buttonsBox);
                 }
             }
+        });*/
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    return;
+                }
+
+                Clinique clinique = getTableView().getItems().get(getIndex());
+                Button btnUpdate = new Button("🔄");
+                btnUpdate.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
+                btnUpdate.setPrefHeight(33);
+                btnUpdate.setPrefWidth(36);
+                btnUpdate.setTextFill(Color.WHITE);
+                btnUpdate.setFont(Font.font("System Bold", 15));
+                btnUpdate.setOnAction(event -> openModifierClinique(clinique));
+
+                Button btnDelete = new Button("❌");
+                btnDelete.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
+                btnDelete.setPrefHeight(33);
+                btnDelete.setPrefWidth(36);
+                btnDelete.setTextFill(Color.WHITE);
+                btnDelete.setFont(Font.font("System Bold", 14));
+                btnDelete.setOnAction(event -> handleDeleteButton(clinique));
+
+                HBox pane = new HBox(btnUpdate, btnDelete);
+                pane.setSpacing(10);
+                setGraphic(pane);
+            }
         });
 
         table_clinique.setItems(cliniqueList);
 
-        mettreAJourCartes();
+        //mettreAJourCartes();
         // Charger les données initiales
         afficherClinique();
         // Recherche dynamique
@@ -211,7 +244,7 @@ public class AfficherCliniqueController {
             stage.setOnHiding(events -> {
                 try {
                     afficherClinique();
-                    mettreAJourCartes();// Rafraîchir les spécialités
+                    //mettreAJourCartes();// Rafraîchir les spécialités
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -378,7 +411,7 @@ public class AfficherCliniqueController {
         alert.showAndWait().ifPresent(response -> {
             if (response == buttonTypeYes) {
                 try {
-                    mettreAJourCartes();
+                    //mettreAJourCartes();
                     sc.supprimer(clinique.getIdClinique()); // Suppression en base
                     cliniqueList.remove(clinique); // Mise à jour de la TableView
                 } catch (SQLException ex) {
@@ -388,7 +421,7 @@ public class AfficherCliniqueController {
         });
     }
 
-    public void mettreAJourCartes() throws SQLException {
+    /*public void mettreAJourCartes() throws SQLException {
 
         List<Clinique> cliniques = sc.recuperer();
         totalCliniques.setText(String.valueOf(cliniques.size()));
@@ -406,7 +439,7 @@ public class AfficherCliniqueController {
         } else {
             cliniqueMinPrix.setText("Aucune clinique");
         }
-    }
+    }*/
 
     private void rechercherClinique(String keyword) {
         if (keyword == null || keyword.trim().isEmpty()) {

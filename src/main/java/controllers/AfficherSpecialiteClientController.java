@@ -225,11 +225,7 @@ public class AfficherSpecialiteClientController {
         }
     }
 
-    /*@FXML
-    private void retourSpecialites(MouseEvent event) {
-        // Logique pour revenir à la liste des spécialités
-        specialiteContainer.setVisible(true); // Réafficher les spécialités
-    }*/
+
 
 
 }
