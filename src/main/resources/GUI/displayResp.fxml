@@ -95,6 +95,11 @@
                            </font></Label>
                      </children>
                   </AnchorPane>
+                  <Button id="add" fx:id="export" layoutX="33.0" layoutY="553.0" mnemonicParsing="false" onAction="#export" prefHeight="33.0" prefWidth="154.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="Exporter PDF  📄" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
          </children>

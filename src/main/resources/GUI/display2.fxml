@@ -179,7 +179,7 @@
                </children></AnchorPane>
             <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #cee1ff;">
                <children>
-                  <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="448.0" prefWidth="757.0">
+                  <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="413.0" prefWidth="757.0">
                      <columns>
 
                      </columns>
@@ -208,6 +208,11 @@
                   <Button fx:id="docteur" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" onAction="#showDocteur" text="docteur">
                      <font>
                         <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button id="add" fx:id="export" layoutX="619.0" layoutY="478.0" mnemonicParsing="false" onAction="#export" prefHeight="33.0" prefWidth="154.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="Exporter PDF  📄" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
                </children>

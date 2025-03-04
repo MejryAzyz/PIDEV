@@ -18,6 +18,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import services.PDFexport_API;
+import services.fileChooser;
 import services.planning_accService;
 import services.planning_docService;
 
@@ -476,6 +478,11 @@ public class displayController {
         {
             showAcc(new ActionEvent());
         }
+    }
+
+    @FXML
+    private void export(){
+        fileChooser.chooseSaveLocationAndExport(tabview);
     }
 
 }
