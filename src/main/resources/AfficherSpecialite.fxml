@@ -18,23 +18,23 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane prefHeight="478.0" prefWidth="891.0" stylesheets="stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherSpecialiteController">
+<!--<AnchorPane prefHeight="478.0" prefWidth="891.0" stylesheets="stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherSpecialiteController">
    <children>
-   <!-- Sidebar -->
+
    <StackPane fx:id="sidebarBackground" prefWidth="230.0" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0">
       <children>
          <Pane fx:id="sidebar" prefWidth="230.0" styleClass="sidebar">
-            <!-- Logo -->
+
             <ImageView fx:id="logo" fitHeight="150.0" fitWidth="150.0" layoutX="40.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="logo.PNG" />
                </image>
             </ImageView>
 
-            <!-- Toggle Button to collapse sidebar -->
+
             <ToggleButton id="toggleSidebar" layoutX="185.0" layoutY="15.0" text="≡" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 20px;" fx:id="toggleSidebarBtn"  />
 
-            <!-- Sidebar Buttons -->
+
             <VBox layoutY="150.0" spacing="15.0" maxHeight="Infinity" alignment="TOP_CENTER" id="sidebarButtons">
                <HBox styleClass="sidebar-btn" spacing="10.0">
                   <Text fx:id="iconDashboard" text="📊" style="-fx-fill: #FFFFFF; -fx-font-size: 16px;" />
@@ -143,8 +143,203 @@
          </columns>
       </TableView>
       </VBox>
-      <!--<Button layoutX="237.0" layoutY="445.0" mnemonicParsing="false" onAction="#ajouterSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #27ae60;" text="➕ Ajouter" textFill="WHITE" />-->
-      <!--<Button layoutX="414.0" layoutY="445.0" mnemonicParsing="false" onAction="#modifierSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />-->
-      <!--<Button layoutX="595.0" layoutY="445.0" mnemonicParsing="false" onAction="#supprimerSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />-->
+      <Button layoutX="237.0" layoutY="445.0" mnemonicParsing="false" onAction="#ajouterSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #27ae60;" text="➕ Ajouter" textFill="WHITE" />
+      <Button layoutX="414.0" layoutY="445.0" mnemonicParsing="false" onAction="#modifierSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
+      <Button layoutX="595.0" layoutY="445.0" mnemonicParsing="false" onAction="#supprimerSpecialite" prefHeight="26.0" prefWidth="114.0" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />
+   </children>
+</AnchorPane>-->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1232.0" stylesheets="style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherSpecialiteController">
+   <children>
+      <VBox fx:id="Vbar" prefHeight="582.0" prefWidth="202.0" spacing="8.0" style=";">
+         <children>
+            <AnchorPane prefHeight="184.0" prefWidth="202.0">
+               <children>
+                  <ImageView fitHeight="126.0" fitWidth="154.0" layoutX="24.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="logo2.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <Label prefHeight="30.0" prefWidth="200.0" styleClass="hover-element" text="Gestion utilisateurs" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label text="👤  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" styleClass="hover-element" text="Gestion reservations" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="📅  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" styleClass="hover-element" text="Gestion hebergement" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="🏨" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" styleClass="hover-element" text="Gestion transport" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="🚗  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" styleClass="hover-element" text="Gestion planning" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="📋  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="45.0" prefWidth="182.0" styleClass="hover-element" text="Gestion accompagnement" textFill="WHITE" wrapText="true" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="35.0" prefWidth="31.0" text="👬" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="200.0" styleClass="hover-element" text="Gestion cliniques" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" />
+               </VBox.margin>
+               <graphic>
+                  <Label prefHeight="30.0" prefWidth="31.0" text="🏥  " textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </graphic>
+            </Label>
+         </children>
+      </VBox>
+      <VBox layoutX="201.0" layoutY="1.0" prefHeight="581.0" prefWidth="832.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane fx:id="Hbar" prefHeight="59.0" prefWidth="832.0" style=";">
+               <children>
+                  <TextField fx:id="searchBar" layoutX="12.0" layoutY="17.0" prefHeight="31.0" prefWidth="286.0" promptText="   search by ID, year(YYYY-mm-dd) or time(HH:mm)" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="searchButton" layoutX="327.0" layoutY="17.0" mnemonicParsing="false"  prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Button>
+                  <ImageView fitHeight="33.0" fitWidth="28.0" layoutX="767.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="avatar.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="cancel_search" layoutX="297.0" layoutY="17.0" mnemonicParsing="false"  prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff transparent #e6f0ff transparent; -fx-border-width: 2;" text="❌" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+
+            <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #cee1ff;">
+
+               <children>
+                     <!--<VBox spacing="20.0" style="-fx-padding: 20px 0 0 0;">-->
+                     <TableView fx:id="table_specialite" layoutX="25.0" layoutY="54.0" prefHeight="700.0" prefWidth="1000.0">
+                        <columns>
+                           <TableColumn fx:id="idSpecCol" prefWidth="150.0" text="ID Spécialité" />
+                           <TableColumn fx:id="nomSpecCol" prefWidth="500.0" text="Nom" />
+                           <TableColumn fx:id="colActions" prefWidth="170" text="Actions">
+                              <cellValueFactory>
+                                 <PropertyValueFactory property="actions" />
+                              </cellValueFactory>
+                           </TableColumn>
+                        </columns>
+                     </TableView>
+                  <Button fx:id="add" layoutX="15.0" layoutY="20.0" mnemonicParsing="false"  prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE" onAction="#ajouterSpecialite">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

@@ -13,6 +13,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -54,23 +56,30 @@ public class AfficherSpecialiteController {
                 super.updateItem(item, empty);
                 if (empty) {
                     setGraphic(null);
-                } else {
-                    // Create buttons for actions
-                    Specialite specialite = getTableView().getItems().get(getIndex());
-                    Button modifyButton = new Button();
-                    modifyButton.getStyleClass().add("button-action");  // Apply custom style
-                    modifyButton.setOnAction(e -> openModifierSpecialite(specialite));
-
-                    Button deleteButton = new Button();
-                    deleteButton.getStyleClass().add("button-delete");  // Apply custom style
-                    deleteButton.setOnAction(e -> handleDeleteButton(getTableRow().getItem()));
-
-
-                    // Layout the buttons in an HBox
-                    HBox buttonsBox = new HBox(10, modifyButton, deleteButton);
-                    buttonsBox.setSpacing(10); // Space between buttons
-                    setGraphic(buttonsBox);
+                    return;
                 }
+
+                Specialite specialite = getTableView().getItems().get(getIndex());
+                Button btnUpdate = new Button("🔄");
+                btnUpdate.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
+                btnUpdate.setPrefHeight(33);
+                btnUpdate.setPrefWidth(36);
+                btnUpdate.setTextFill(Color.WHITE);
+                btnUpdate.setFont(Font.font("System Bold", 15));
+                btnUpdate.setOnAction(event -> openModifierSpecialite(specialite));
+
+                Button btnDelete = new Button("❌");
+                btnDelete.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
+                btnDelete.setPrefHeight(33);
+                btnDelete.setPrefWidth(36);
+                btnDelete.setTextFill(Color.WHITE);
+                btnDelete.setFont(Font.font("System Bold", 14));
+                btnDelete.setOnAction(event -> handleDeleteButton(specialite));
+
+
+                HBox pane = new HBox(btnUpdate, btnDelete);
+                pane.setSpacing(10);
+                setGraphic(pane);
             }
         });
 
