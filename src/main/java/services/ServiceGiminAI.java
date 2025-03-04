@@ -75,7 +75,6 @@ public class ServiceGiminAI {
                         resultSet.getString("description"),
                         resultSet.getDouble("prix")
 
-
                 );
                 cliniques.add(clinique);
             }

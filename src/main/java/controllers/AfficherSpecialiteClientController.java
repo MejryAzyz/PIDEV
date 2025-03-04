@@ -196,7 +196,6 @@ public class AfficherSpecialiteClientController {
         Label label = new Label(spec.getNom());
         label.setStyle("-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Arial Rounded MT Bold';");
         label.setAlignment(javafx.geometry.Pos.CENTER);
-
         card.getChildren().addAll(rect, label);
 
 

@@ -127,10 +127,8 @@ public class AfficherDocteurController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierDocteur.fxml"));
                 Parent root = loader.load();
-
                 ModifierDocteurController controller = loader.getController();
                 controller.setDocteur(selectedDocteur, this);
-
                 Stage stage = new Stage();
                 stage.setTitle("Modifier Docteur");
                 stage.setScene(new Scene(root));
