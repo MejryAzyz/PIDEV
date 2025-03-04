@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<?import java.lang.String?>
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddAccompagnateur">
+    <stylesheets>
+        <URL value="@Style.css" />
+    </stylesheets>
+
+    <!-- En-tête -->
+    <AnchorPane prefHeight="80.0" prefWidth="700.0" styleClass="header">
+        <children>
+            <ImageView fitHeight="42.0" fitWidth="69.0" layoutX="32.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icon1.png" />
+                </image>
+            </ImageView>
+            <Label layoutX="110.0" layoutY="34.0" text="Accompagnez pour Guérir – Rejoignez Notre Équipe !" styleClass="header-label" />
+        </children>
+    </AnchorPane>
+
+    <!-- Formulaire -->
+    <GridPane layoutX="50.0" layoutY="100.0" hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints prefWidth="150.0" />
+            <ColumnConstraints prefWidth="350.0" />
+        </columnConstraints>
+
+        <Label text="Nom d'utilisateur :" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+        <TextField fx:id="usernameField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+        <Label text="Mot de passe :" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <PasswordField fx:id="passwordField" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+        <Label text="Confirmer le mot de passe :" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <PasswordField fx:id="confirmPasswordField" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+        <Label text="Nom :" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <TextField fx:id="nomField" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+        <Label text="Email :" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+        <TextField fx:id="emailField" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+        <Label text="Expérience :" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+        <TextArea fx:id="experienceField" GridPane.rowIndex="5" GridPane.columnIndex="1" prefHeight="80.0" />
+
+        <Label text="Langues et niveaux :" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+        <VBox GridPane.rowIndex="6" GridPane.columnIndex="1" spacing="5">
+            <HBox spacing="10">
+                <CheckBox fx:id="francaisCheck" text="Français" />
+                <ComboBox fx:id="francaisLevel" prefWidth="130.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Débutant" />
+                            <String fx:value="Intermédiaire" />
+                            <String fx:value="Avancé" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+            <HBox spacing="10">
+                <CheckBox fx:id="anglaisCheck" text="Anglais" />
+                <ComboBox fx:id="anglaisLevel" prefWidth="130.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Débutant" />
+                            <String fx:value="Intermédiaire" />
+                            <String fx:value="Avancé" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+            <HBox spacing="10">
+                <CheckBox fx:id="espagnolCheck" text="Espagnol" />
+                <ComboBox fx:id="espagnolLevel" prefWidth="130.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Débutant" />
+                            <String fx:value="Intermédiaire" />
+                            <String fx:value="Avancé" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </HBox>
+        </VBox>
+
+        <Label text="Motivation :" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+        <TextArea fx:id="motivationField" GridPane.rowIndex="7" GridPane.columnIndex="1" prefHeight="100.0" />
+
+        <Label text="CV (PDF) :" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+        <Button fx:id="cvUploadButton" GridPane.rowIndex="8" GridPane.columnIndex="1" onAction="#uploadCv" text="Choisir un fichier" />
+
+        <Label text="Photo de profil :" GridPane.rowIndex="9" GridPane.columnIndex="0" />
+        <HBox GridPane.rowIndex="9" GridPane.columnIndex="1" spacing="10">
+            <Button fx:id="photoUploadButton" onAction="#uploadPhoto" text="Choisir une photo" />
+            <ImageView fx:id="photoPreview" fitHeight="100.0" fitWidth="100.0" />
+        </HBox>
+    </GridPane>
+
+    <!-- Bouton de soumission -->
+    <Button fx:id="postulerButton" layoutX="557.0" layoutY="650.0" onAction="#postuler" styleClass="submit-button" text="Postuler" />
+</AnchorPane>

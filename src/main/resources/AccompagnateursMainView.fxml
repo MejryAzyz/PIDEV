@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="Controllers.AccompagnateursMainView"
+            prefHeight="600.0" prefWidth="800.0">
+
+    <children>
+        <VBox spacing="10.0" prefWidth="800" prefHeight="600">
+            <Label text="Liste des Accompagnateurs"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 10px;" />
+
+            <ScrollPane fitToWidth="true">
+                <content>
+                    <FlowPane fx:id="flowPane" hgap="20" vgap="20"
+                              style="-fx-padding: 20px;"
+                              prefWidth="750" prefHeight="550">
+                    </FlowPane>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </children>
+</AnchorPane>

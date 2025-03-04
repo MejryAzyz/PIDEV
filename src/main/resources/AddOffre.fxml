@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AddOffre">
+   <children>
+      <!-- Header -->
+      <AnchorPane prefHeight="80.0" prefWidth="700.0" style="-fx-background-color: #66bfbf;">
+         <children>
+            <ImageView fitHeight="42.0" fitWidth="69.0" layoutX="32.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon2.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="107.0" layoutY="32.0" text="Ouvrir une nouvelle opportunité!">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+
+      <!-- Formulaire -->
+      <VBox layoutX="50.0" layoutY="100.0" spacing="15.0">
+         <children>
+            <Label text="Titre de l'offre:" />
+            <TextField fx:id="titreField" prefWidth="600.0" />
+
+            <Label text="Description:" />
+            <TextArea fx:id="descriptionField" prefHeight="100.0" prefWidth="600.0" />
+
+            <Label text="Type de poste:" />
+            <ComboBox fx:id="typePosteField" prefWidth="600.0">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Accompagnateur médical - Général" />
+                     <String fx:value="Accompagnateur médical - Chirurgical" />
+                     <String fx:value="Accompagnateur médical - Thérapeutique" />
+                     <String fx:value="Accompagnateur médical - Spécialisé" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+
+            <Label text="Date de publication:" />
+            <DatePicker fx:id="datePublicationField" disable="true" prefWidth="600.0" promptText="Sélection automatique" />
+
+            <Label text="URL de l'image:" />
+            <TextField fx:id="imageUrlField" prefWidth="600.0" onKeyReleased="#updateImagePreview"/>
+
+            <ImageView fx:id="imagePreview" fitHeight="150.0" fitWidth="200.0" preserveRatio="true" style="-fx-border-color: gray;" />
+
+            <Button fx:id="addButton" layoutX="250.0" layoutY="550.0" onAction="#addoffer" prefWidth="200.0" style="-fx-background-color: #28a745; -fx-text-fill: white;" text="Ajouter l'offre" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
