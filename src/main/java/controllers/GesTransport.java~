@@ -143,55 +143,30 @@ public class GesTransport implements Initializable {
         try {
             // Get the new values from the input fields
             String type = transportTypeField.getValue();
-            if (type == null || type.isEmpty()) {
-                showErrorAlert("Veuillez sélectionner un type de transport.");
-                return;
-            }
+            int capacity = Integer.parseInt(transportCapacityField.getText());
+            int price = Integer.parseInt(transportPriceField.getText());
 
-            // Check if capacity and price fields are empty
-            if (transportCapacityField.getText().isEmpty()) {
-                showErrorAlert("Veuillez entrer une capacité.");
-                return;
-            }
-            if (transportPriceField.getText().isEmpty()) {
-                showErrorAlert("Veuillez entrer un prix.");
-                return;
-            }
-
-            // Validate capacity and price as numbers
-            int capacity = 0;
-            double price = 0;
-            try {
-                capacity = Integer.parseInt(transportCapacityField.getText());
-                price = Double.parseDouble(transportPriceField.getText());
-            } catch (NumberFormatException e) {
-                showErrorAlert("Veuillez entrer des valeurs valides pour la capacité et le prix.");
-                return;
-            }
-
-            // Update the transport object
+            // Update the transport object (assuming you have an update method in the service)
             transport.setType(type);
             transport.setCapacite(capacity);
             transport.setTarif(price);
 
-            // Update the transport in the service and refresh the table
+            // Call the service to update the transport in the database
             serviceTransport.modifier(transport);
+
+            // Close the side panel and refresh the table
+            sidePanel.setVisible(false);
             loadData();  // Reload data to reflect the changes in the table
 
-            // Close the side panel
-            closeSidePanel(null);
-
             // Show success alert
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Succès");
-            alert.setContentText("Transport modifié avec succès !");
-            alert.showAndWait();
-
+        } catch (NumberFormatException e) {
+            // Show error alert if the user enters invalid data
+            showErrorAlert("Veuillez entrer des valeurs valides pour la capacité et le prix.");
         } catch (Exception e) {
-            showErrorAlert("Erreur lors de la mise à jour du transport. " + e.getMessage());
+            // Handle other exceptions
+            showErrorAlert(e.getMessage());
         }
     }
-
     private void handleUpdate(Transport transport) {
         // Set the values in the side panel's fields based on the selected transport item
         transportTypeField.setValue(transport.getType());
