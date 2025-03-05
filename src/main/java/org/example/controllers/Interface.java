@@ -122,7 +122,7 @@ public class Interface {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Champs manquants");
             alert.setHeaderText(null);
-            alert.setContentText("Veuillez remplir tous les champs et entrer une date valide ");
+            alert.setContentText("Veuillez remplir tous les champs et entrer une date valide !");
             alert.showAndWait();
             return;
         }
