@@ -26,10 +26,7 @@ import services.ServicePhoto;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CliniquesParSpecialiteController {
@@ -49,6 +46,8 @@ public class CliniquesParSpecialiteController {
     private ServiceGiminAI serviceGiminAI;
     @FXML
     private Pane specialiteContainer;
+
+    private List<Clinique> cliniquesAffichees = new ArrayList<>();  // Liste pour garder les cliniques affichées
 
 
 
@@ -255,17 +254,17 @@ public class CliniquesParSpecialiteController {
     @FXML
     public void rechercherGiminAI() {
         String recherche = searchField.getText();  // Récupérer la question de l'utilisateur
-
         if (recherche != null && !recherche.trim().isEmpty()) {
             try {
-                JSONArray cliniquesArray = serviceGiminAI.rechercherCliniquesParBesoins(recherche);
 
+                JSONArray cliniquesArray = serviceGiminAI.rechercherCliniquesParBesoins(recherche);
                 cliniqueContainer.getChildren().clear();  // Vider la liste actuelle
+
+                List<Clinique> listeCliniques = new ArrayList<>();
 
                 for (int i = 0; i < cliniquesArray.length(); i++) {
                     JSONObject cliniqueJson = cliniquesArray.getJSONObject(i);
-
-                    Clinique clinique = new Clinique(
+                     Clinique clinique = new Clinique(
                             cliniqueJson.getInt("id_clinique"),
                             cliniqueJson.getString("nom"),
                             cliniqueJson.getString("adresse"),
@@ -276,9 +275,14 @@ public class CliniquesParSpecialiteController {
 
                     );
 
-                    Specialite spec = new Specialite();
-                    afficherCliniqueDansUI(Arrays.asList(clinique), spec);
+                    listeCliniques.add(clinique);
+                    /*Specialite spec = new Specialite();
+                    afficherCliniqueDansUI(Arrays.asList(clinique), spec);*/
+
                 }
+                Specialite spec = new Specialite();
+                afficherCliniqueDansUI(listeCliniques, spec);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
