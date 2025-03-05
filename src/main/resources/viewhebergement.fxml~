@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.Viewhebergement"
+            prefHeight="750.0" prefWidth="900.0"
+            stylesheets="@style2.css">
+
+    <ScrollPane fitToWidth="true" pannable="true" prefHeight="750.0" prefWidth="900.0" styleClass="scroll-pane">
+        <content>
+            <VBox spacing="30" alignment="TOP_CENTER" prefWidth="880.0" styleClass="main-container">
+                <!-- Header Section -->
+                <VBox spacing="20" alignment="CENTER" styleClass="header-section">
+                    <Label fx:id="titreLabel" text="Détails de l'Hébergement" styleClass="label-title" />
+                    <ImageView fx:id="imageView" fitHeight="400.0" fitWidth="700.0" styleClass="image-view" preserveRatio="true">
+                        <effect>
+                            <javafx.scene.effect.DropShadow radius="15" spread="0.15" color="rgba(0,0,0,0.3)" />
+                        </effect>
+                    </ImageView>
+                </VBox>
+
+                <!-- Details Section -->
+                <VBox spacing="20" alignment="CENTER_LEFT" styleClass="details-container">
+                    <Label fx:id="nomLabel" text="Nom : Hôtel XYZ" styleClass="label-info-title" />
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="📍" styleClass="label-icon" />
+                        <Label fx:id="adresseLabel" text="Adresse : 123 Rue des Voyages, Paris, France" styleClass="label-info" />
+                    </HBox>
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="💶" styleClass="label-icon" />
+                        <Label fx:id="tarifLabel" text="Tarif par nuit : 120€" styleClass="label-price" />
+                    </HBox>
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Label text="✅" styleClass="label-icon" />
+                        <Label fx:id="availabilityLabel" text="Disponibilité : Disponible" styleClass="label-available" />
+                    </HBox>
+                </VBox>
+
+                <!-- Description Section -->
+                <VBox spacing="15" styleClass="description-container">
+                    <Label text="Description" styleClass="label-section-title" />
+                    <Label fx:id="descriptionLabel"
+                           text="Cet hôtel offre un séjour luxueux avec des chambres modernes, des équipements de haute qualité, et une vue imprenable sur la ville. Il propose des services personnalisés et une expérience inoubliable pour les voyageurs."
+                           wrapText="true" styleClass="label-description" />
+                </VBox>
+
+                <!-- Features Section -->
+                <VBox spacing="15" styleClass="features-container">
+                    <Label text="Équipements" styleClass="label-section-title" />
+                    <GridPane hgap="15" vgap="10" alignment="CENTER">
+                        <Label text="📶 Wi-Fi" styleClass="label-feature" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <Label text="🏊 Piscine" styleClass="label-feature" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="🍽 Restaurant" styleClass="label-feature" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <Label text="🚗 Parking Gratuit" styleClass="label-feature" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </GridPane>
+                </VBox>
+
+                <!-- Buttons Section -->
+                <HBox spacing="25" alignment="CENTER" styleClass="button-container">
+                    <Button fx:id="retourButton" text="Retour" styleClass="button-secondary" onAction="#retour" />
+                    <Button fx:id="bookButton" text="Réserver Maintenant" styleClass="button-primary" />
+                </HBox>
+
+            </VBox>
+        </content>
+    </ScrollPane>
+
+</AnchorPane>

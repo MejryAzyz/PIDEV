@@ -178,6 +178,7 @@
                                 <TableColumn fx:id="colActions" prefWidth="100" text="Actions" />
                             </columns>
                         </TableView>
+                        <!-- Bouton d'action "ajouter" reste ici -->
                         <Button fx:id="add" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="15.0" />
