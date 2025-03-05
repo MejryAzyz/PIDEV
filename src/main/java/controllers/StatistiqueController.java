@@ -2,14 +2,20 @@ package controllers;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.Clinique;
 import services.ServiceClinique;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -22,6 +28,10 @@ public class StatistiqueController {
 
     @FXML
     private NumberAxis yAxis;
+
+    @FXML
+    private Button retourButton;
+
 
     private final ServiceClinique sc = new ServiceClinique();
 
@@ -61,6 +71,24 @@ public class StatistiqueController {
                 });
             }
 
+        }
+    }
+
+    @FXML
+    private void retourAction() {
+        try {
+            // Charger la scène précédente (par exemple, la vue principale)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherClinique.fxml"));
+            Parent root = loader.load();
+
+            // Obtenez la scène actuelle (celle des statistiques)
+            Stage stage = (Stage) retourButton.getScene().getWindow();
+
+            // Définir la scène précédente
+            stage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

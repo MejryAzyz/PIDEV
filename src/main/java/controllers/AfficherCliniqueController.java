@@ -76,6 +76,9 @@ public class AfficherCliniqueController {
     private Button searchButton;
 
     @FXML
+    private Button voirStatistiques;
+
+    @FXML
     private TableView<Clinique> cliniqueTable;
 
     @FXML
@@ -464,6 +467,24 @@ public class AfficherCliniqueController {
                 .collect(Collectors.toList());
 
         table_clinique.setItems(FXCollections.observableArrayList(filteredList));
+    }
+
+    @FXML
+    private void ouvrirStatistiques() {
+        try {
+            // Charger le fichier FXML pour la vue des statistiques
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Statistique.fxml"));
+            Parent root = loader.load();
+
+            // Obtenez la scène actuelle
+            Stage stage = (Stage) voirStatistiques.getScene().getWindow();
+
+            // Définir la nouvelle scène
+            stage.setScene(new Scene(root));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

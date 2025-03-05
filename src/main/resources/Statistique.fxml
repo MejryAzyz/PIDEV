@@ -10,6 +10,7 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import java.net.URL?>
+<?import javafx.scene.text.Font?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.StatistiqueController"
@@ -17,6 +18,7 @@
     <stylesheets>
         <URL value="@/styles.css" />
     </stylesheets>
+
     <children>
         <!-- Graphique en barres -->
         <BarChart fx:id="barChart" styleClass="custom-chart" prefHeight="600.0" prefWidth="800.0">
@@ -28,5 +30,13 @@
             </yAxis>
         </BarChart>
     </children>
+    <Button fx:id="retourButton" layoutX="15.0" layoutY="15.0" mnemonicParsing="false"
+            prefHeight="33.0" prefWidth="100.0" style="-fx-background-color: rgba(0,41,102,0.16);
+        -fx-background-radius: 60; -fx-border-radius: 60;" text="Retour"
+            textAlignment="CENTER" textFill="#414147" onAction="#retourAction">
+        <font>
+            <Font name="System Bold" size="15.0" />
+        </font>
+    </Button>
 
 </AnchorPane>

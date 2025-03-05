@@ -420,6 +420,14 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Button>
+                  <Button fx:id="voirStatistiques" layoutX="70.0" layoutY="134.0" mnemonicParsing="false"
+                          prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #4CAF50;
+        -fx-background-radius: 60; -fx-border-radius: 60;" text="Voir Statistiques"
+                          textAlignment="CENTER" textFill="WHITE" onAction="#ouvrirStatistiques">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Button>
 
                </children>
             </AnchorPane>
