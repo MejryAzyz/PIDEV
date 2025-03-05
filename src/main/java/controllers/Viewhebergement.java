@@ -1,6 +1,9 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -132,7 +135,23 @@ public class Viewhebergement {
 
     @FXML
     private void retour() {
-        Stage stage = (Stage) retourButton.getScene().getWindow();
-        stage.close();
+        try {
+            // Load the previous scene (replace "previous.fxml" with your actual FXML file)
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ClientHebergement.fxml"));
+            Parent root = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) retourButton.getScene().getWindow();
+
+            // Set the previous scene
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            // Show the updated stage
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }

@@ -34,7 +34,7 @@ public class ClientHebergement {
     private String userCurrency = "EUR"; // Default currency
     private double exchangeRate = 1.0; // Default exchange rate (EUR to EUR)
     private static final String GEO_API_URL = "http://ip-api.com/json/";
-    private static final DecimalFormat df = new DecimalFormat("#.##");
+    private static final DecimalFormat df = new DecimalFormat("#");
 
     @FXML
     private void initialize() throws SQLException {
