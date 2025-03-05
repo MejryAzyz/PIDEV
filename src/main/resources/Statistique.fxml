@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.StatistiqueController"
+            prefHeight="600.0" prefWidth="800.0">
+    <stylesheets>
+        <URL value="@/styles.css" />
+    </stylesheets>
+    <children>
+        <!-- Graphique en barres -->
+        <BarChart fx:id="barChart" styleClass="custom-chart" prefHeight="600.0" prefWidth="800.0">
+            <xAxis>
+                <CategoryAxis fx:id="xAxis" label="Cliniques" />
+            </xAxis>
+            <yAxis>
+                <NumberAxis fx:id="yAxis" label="Prix (€)" />
+            </yAxis>
+        </BarChart>
+    </children>
+
+</AnchorPane>

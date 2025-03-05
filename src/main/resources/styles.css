@@ -1,0 +1,48 @@
+/* Style pour les barres du graphique */
+.chart-bar {
+    -fx-bar-fill: rgb(85, 128, 202); /* Vert */
+}
+
+/* Style pour les barres au survol (hover) */
+.chart-bar:hover {
+    -fx-bar-fill: rgba(30, 27, 126, 0.79);
+}
+
+/* Style pour les axes (labels) */
+.axis-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+    -fx-font-weight: bold;
+}
+
+/* Style pour le titre du graphique */
+.chart-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: #2c3e50;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+}
+
+/* Style pour le fond du graphique */
+.chart-plot-background {
+    -fx-background-color: #ecf0f1; /* Fond clair */
+}
+
+/* Style pour les barres du graphique avec ombre */
+.chart-bar {
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.4) , 5, 0.0 , 2 , 2 ); /* Ombre */
+}
+
+/* Style de la légende du graphique */
+.chart-legend {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d; /* Couleur du texte de la légende */
+}
+
+/* Style du graphique complet */
+.custom-chart {
+    -fx-background-color: #f9fafb; /* Couleur de fond du graphique */
+    -fx-border-color: #bdc3c7; /* Bordure gris clair */
+    -fx-border-width: 2px; /* Largeur de la bordure */
+    -fx-padding: 10px; /* Espacement autour du graphique */
+}
