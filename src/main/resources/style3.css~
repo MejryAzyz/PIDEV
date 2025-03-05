@@ -1,0 +1,52 @@
+/* Main Root */
+.root {
+    -fx-background-color: #f5f6fa;
+    -fx-font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.modern-search-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 20px;
+    -fx-padding: 8px;
+}
+
+.filter-button {
+    -fx-background-color: #0ba84a;
+    -fx-text-fill: white;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 20px;
+    -fx-font-size: 14px;
+}
+
+/* Transport Title */
+.modern-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+/* Scroll Pane */
+.modern-scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.card-grid {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-padding: 20px;
+}
+
+/* Sidebar Button */
+.filter-button:hover {
+    -fx-background-color: #00d68f;
+}
+.map-view {
+    -fx-max-width: 1000; /* Example override */
+}
