@@ -252,7 +252,7 @@ public class AfficherCliniqueController {
             stage.setOnHiding(events -> {
                 try {
                     afficherClinique();
-                    //mettreAJourCartes();// Rafraîchir les spécialités
+                    mettreAJourCartes();// Rafraîchir les spécialités
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

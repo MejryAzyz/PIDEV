@@ -197,7 +197,7 @@
 </AnchorPane> -->
 
 <?import javafx.geometry.Insets?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1232.0" stylesheets="style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherCliniqueController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1280.0" stylesheets="style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherCliniqueController">
    <children>
       <VBox fx:id="Vbar" prefHeight="582.0" prefWidth="202.0" spacing="8.0" style=";">
          <children>
@@ -394,7 +394,7 @@
 
 
                     <!--<VBox spacing="20.0" style="-fx-padding: 20px 0 0 0;">-->
-                   <TableView fx:id="table_clinique" layoutX="16.0" layoutY="54.0" prefHeight="448.0" prefWidth="1800.0">
+                   <TableView fx:id="table_clinique" layoutX="16.0" layoutY="54.0" prefHeight="448.0" prefWidth="1100.0">
                      <columns>
                         <TableColumn fx:id="col_id" prefWidth="63.199951171875" text="ID" />
                         <TableColumn fx:id="col_nom" prefWidth="200" text="Nom" />
