@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="600.0" prefWidth="700.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientHebergement">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientHebergement">
 
-    <!-- Navigation Bar -->
+    <!-- Modern Navigation Bar -->
+    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1100.0" styleClass="nav-bar">
+        <padding>
+            <Insets top="10" right="20" bottom="10" left="20"/>
+        </padding>
+        <TextField fx:id="searchBar" promptText="Search accommodations..." styleClass="modern-search-bar" prefWidth="400.0"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Filter" styleClass="filter-button"/>
+    </HBox>
 
+    <!-- Main Content -->
+    <VBox alignment="TOP_CENTER" layoutY="70.0" spacing="20" prefWidth="1100.0" maxHeight="Infinity">
+        <Label text="Available Accommodations" styleClass="modern-title"/>
 
-    <!-- Contenu Principal -->
-    <VBox alignment="TOP_CENTER" layoutY="50.0" spacing="20" prefWidth="900.0">
-        <Label text="Hébergements Disponibles" styleClass="title"/>
-
-        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
-            <VBox fx:id="hebergementContainer" spacing="15" styleClass="container"/>
+        <!-- Grid for Cards (Allow dynamic height) -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" styleClass="modern-scroll-pane" prefWidth="1100.0" maxHeight="Infinity">
+            <GridPane fx:id="hebergementContainer" hgap="20" vgap="20" styleClass="card-grid">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+            </GridPane>
         </ScrollPane>
     </VBox>
-
 </AnchorPane>

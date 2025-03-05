@@ -1,77 +1,104 @@
-.root {
-    -fx-background-color: #f4f4f4;
-    -fx-pref-width: 1920px;
-    -fx-pref-height: 1080px;
+/* Navigation Bar */
+.nav-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-width: 0 0 1 0;
 }
 
-/* Navbar */
-.navbar {
-    -fx-background-color: #2c3e50;
-    -fx-padding: 15px;
-    -fx-pref-width: 100%;
+.modern-search-bar {
+    -fx-background-color: #f5f5f5;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8 15 8 15;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #888888;
 }
 
-.logo {
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
+.filter-button {
+    -fx-background-color: #4a90e2;
     -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20 8 20;
 }
 
-.nav-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-size: 18px;
-    -fx-padding: 8px 20px;
+.filter-button:hover {
+    -fx-background-color: #357abd;
 }
 
-.nav-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.2);
-    -fx-border-radius: 5px;
-}
-
-/* Contenu principal */
-.title {
+/* Title */
+.modern-title {
     -fx-font-size: 28px;
     -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
+/* ScrollPane */
+
+
+
+/* Card Styling */
+
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
     -fx-text-fill: #2c3e50;
-    -fx-padding: 10px 0;
 }
 
-.scroll-pane {
-    -fx-background: transparent;
-    -fx-border-color: transparent;
+.card-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
 }
 
-.container {
-    -fx-background-color: white;
-    -fx-border-radius: 10px;
-    -fx-padding: 20px;
-    -fx-pref-width: 80%;
-    -fx-max-width: 1200px;
-    -fx-alignment: center;
-}
-
-/* Carte Hébergement */
-.card {
-    -fx-padding: 20px;
-    -fx-border-color: #ddd;
-    -fx-border-radius: 10px;
-    -fx-background-color: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
-}
-
-.card:hover {
-    -fx-background-color: #ecf0f1;
-}
-
-.view-more {
-    -fx-background-color: #2980b9;
-    -fx-text-fill: white;
-    -fx-padding: 10px 20px;
-    -fx-border-radius: 5px;
+.card-price {
     -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e74c3c;
 }
 
-.view-more:hover {
-    -fx-background-color: #1f669c;
+.modern-button {
+    -fx-background-color: #4a90e2;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-background-radius: 20;
+    -fx-padding: 8 20 8 20;
+}
+
+.modern-button:hover {
+    -fx-background-color: #357abd;
+}
+/* Existing styles remain the same, add this: */
+.card-address {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
+    -fx-padding: 5 0 0 0;
+}
+
+/* Ensure modern-card has enough height and spacing */
+
+/* ScrollPane */
+.modern-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-pref-height: 600px; /* Keep or remove this to allow dynamic height */
+    -fx-max-height: Infinity; /* Allow unlimited height */
+}
+
+/* GridPane */
+.card-grid {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 20;
+    -fx-max-height: Infinity; /* Allow unlimited height */
+}
+
+/* Card */
+.modern-card {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);
+    -fx-alignment: center-left;
+    -fx-pref-width: 300px; /* Keep width but allow dynamic height */
+    -fx-max-height: Infinity; /* Allow card to grow vertically */
 }

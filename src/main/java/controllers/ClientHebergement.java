@@ -1,21 +1,19 @@
 package controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import Models.Hebergement;
 import javafx.stage.Stage;
+import Models.Hebergement;
 import service.ServiceHebergement;
 
 import java.io.IOException;
@@ -25,9 +23,10 @@ import java.util.List;
 public class ClientHebergement {
 
     @FXML
-    private VBox hebergementContainer;
+    private GridPane hebergementContainer;
 
-    public void initialize() throws SQLException {
+    @FXML
+    private void initialize() throws SQLException {
         afficherHebergements();
     }
 
@@ -35,44 +34,72 @@ public class ClientHebergement {
         ServiceHebergement serviceHebergement = new ServiceHebergement();
         List<Hebergement> hebergements = serviceHebergement.recuperer();
 
+        int column = 0;
+        int row = 0;
         for (Hebergement h : hebergements) {
             HBox card = createHebergementCard(h);
-            hebergementContainer.getChildren().add(card);
+            hebergementContainer.add(card, column, row);
+            column++;
+            if (column > 2) { // 3 cards per row
+                column = 0;
+                row++;
+            }
         }
     }
 
     private HBox createHebergementCard(Hebergement hebergement) {
-        HBox card = new HBox(15);
-        card.getStyleClass().add("card");
+        HBox card = new HBox(10);
+        card.getStyleClass().add("modern-card");
 
+        // Vertical box for the entire card content (image + details)
+        VBox cardContent = new VBox(10);
+        cardContent.setAlignment(Pos.CENTER_LEFT);
+        // Remove or increase prefWidth/prefHeight to allow dynamic sizing
+        cardContent.setPrefWidth(300); // Keep width but allow dynamic height
+        // cardContent.setPrefHeight(450); // Remove or increase this if needed
+
+        // Image
         ImageView imageView = new ImageView();
-        imageView.setFitHeight(150);
-        imageView.setFitWidth(220);
+        imageView.setFitHeight(180);
+        imageView.setFitWidth(300);
         imageView.setPreserveRatio(false);
 
         String photoUrl = hebergement.getPhotoUrl();
-        if (photoUrl != null && !photoUrl.isEmpty()) {
-            imageView.setImage(new Image(photoUrl));
-        } else {
-            imageView.setImage(new Image("/logo.png"));
+        try {
+            imageView.setImage(new Image(photoUrl != null && !photoUrl.isEmpty() ? photoUrl : getClass().getResource("/default-image.jpg").toExternalForm()));
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.err.println("Failed to load image: " + e.getMessage());
+            imageView.setImage(null); // Use a placeholder or no image
         }
 
-        VBox details = new VBox(8);
-        Label nomLabel = new Label(hebergement.getNom() != null ? hebergement.getNom() : "Nom inconnu");
-        nomLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+        // Address/Description under the image
+        Label addressLabel = new Label(hebergement.getAdresse() != null ? "📍 " + hebergement.getAdresse() : "Address unknown");
+        addressLabel.getStyleClass().add("card-address");
 
-        Label adresseLabel = new Label(hebergement.getAdresse() != null ? "\uD83D\uDCCD " + hebergement.getAdresse() : "Adresse inconnue");
-        adresseLabel.setStyle("-fx-font-size: 16px; -fx-text-fill: #2c3e50;");
+        // Card Details (name, price, button)
+        VBox details = new VBox(10);
+        details.setPrefWidth(200);
+        Label nameLabel = new Label(hebergement.getNom() != null ? hebergement.getNom() : "Unknown Name");
+        nameLabel.getStyleClass().add("card-title");
 
-        Label tarifLabel = new Label("\uD83D\uDCB0 " + hebergement.getTarif_nuit() + " € / nuit");
-        tarifLabel.setStyle("-fx-font-size: 18px; -fx-text-fill: #2c3e50; -fx-font-weight: bold;");
+        Label priceLabel = new Label("💰 " + hebergement.getTarif_nuit() + " € / night");
+        priceLabel.getStyleClass().add("card-price");
 
-        Button viewMoreBtn = new Button("Voir plus");
-        viewMoreBtn.getStyleClass().add("view-more");
+        Button viewMoreBtn = new Button("View Details");
+        viewMoreBtn.getStyleClass().add("modern-button");
         viewMoreBtn.setOnAction(e -> afficherDetailsHebergement(hebergement));
 
-        details.getChildren().addAll(nomLabel, adresseLabel, tarifLabel, viewMoreBtn);
-        card.getChildren().addAll(imageView, details);
+        details.getChildren().addAll(nameLabel, priceLabel, viewMoreBtn);
+        cardContent.getChildren().addAll(imageView, addressLabel, details);
+        card.getChildren().add(cardContent);
+
+        // Ensure card can grow vertically
+        card.setMaxHeight(Double.MAX_VALUE);
+        cardContent.setMaxHeight(Double.MAX_VALUE);
+
+        // Hover Effect
+        card.setOnMouseEntered(e -> card.setStyle("-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0.5, 0, 0);"));
+        card.setOnMouseExited(e -> card.setStyle(""));
 
         return card;
     }
@@ -87,19 +114,7 @@ public class ClientHebergement {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Détails de l'Hébergement");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void navigateTo(String fxmlPath, ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setTitle("Accommodation Details");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,0 +1,112 @@
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-max-height: Infinity; /* Allow dynamic height */
+    -fx-max-width: 100%; /* Allow full width */
+}
+
+/* Main Container */
+.main-container {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 20px;
+    -fx-max-width: 100%; /* Allow full width of ScrollPane */
+    -fx-max-height: Infinity; /* Allow dynamic height */
+}
+
+/* Title */
+.title-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 10px 0;
+}
+
+/* Content Section (Image and Description) */
+.content-section {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);
+    -fx-max-width: 95%; /* Allow slight margin on sides */
+    -fx-alignment: center;
+    -fx-max-height: Infinity; /* Allow dynamic height */
+}
+
+/* Image */
+.card-image {
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5);
+    -fx-max-width: 60%; /* Relative to content-section width */
+    -fx-max-height: 400px; /* Maintain max height but allow scaling */
+}
+
+/* Description Box */
+.description-box {
+    -fx-pref-width: 300px; /* Minimum width, can grow */
+    -fx-max-width: 40%; /* Relative to content-section width */
+    -fx-min-width: 250px; /* Ensure minimum readability */
+    -fx-max-height: Infinity; /* Allow dynamic height */
+}
+
+/* Description Text */
+.description-text {
+    -fx-font-size: 16px;
+    -fx-font-family: 'Arial';
+    -fx-text-fill: #7f8c8d;
+    -fx-wrap-text: true;
+    -fx-padding: 0 10px 0 0;
+    -fx-max-width: 100%; /* Allow full width of description-box */
+}
+
+/* Book Button */
+.book-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 25px;
+    -fx-alignment: center;
+}
+
+.book-button:hover {
+    -fx-background-color: #219653;
+}
+
+/* Details Box */
+.details-box {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 5);
+    -fx-max-width: 90%; /* Allow slight margin on sides */
+    -fx-min-width: 700px; /* Minimum width for readability */
+    -fx-max-height: Infinity; /* Allow dynamic height */
+}
+
+/* Detail Title */
+.detail-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+/* Detail Text */
+.detail-text {
+    -fx-font-size: 18px;
+    -fx-text-fill: #34495e;
+    -fx-padding: 5px 0;
+}
+
+/* Return Button */
+.return-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px 25px;
+    -fx-alignment: center;
+}
+
+.return-button:hover {
+    -fx-background-color: #c0392b;
+}
