@@ -1,6 +1,11 @@
 package controllers;
 
 import API.ImageDbUtil;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.layout.borders.SolidBorder;
+import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.UnitValue;
+import com.itextpdf.layout.properties.VerticalAlignment;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,15 +24,29 @@ import Models.Hebergement;
 import service.ServiceHebergement;
 import javafx.scene.image.Image;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+import com.itextpdf.kernel.colors.DeviceRgb;
+import com.itextpdf.kernel.events.Event;
+import com.itextpdf.kernel.events.IEventHandler;
+import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
-import com.itextpdf.layout.element.Cell;
+
 
 public class GesHeb implements Initializable {
 
@@ -120,26 +139,22 @@ public class GesHeb implements Initializable {
     @FXML
     void addHebergement(ActionEvent event) {
         try {
-            // Input validation
             if (nomField.getText().isEmpty() || adresseField.getText().isEmpty() || telephoneField.getText().isEmpty() ||
                     emailField.getText().isEmpty() || capaciteField.getText().isEmpty() || tarifNuitField.getText().isEmpty()) {
                 showErrorAlert("Tous les champs sont obligatoires !");
                 return;
             }
 
-            // Validate phone number (digits only, 8-15 characters)
             if (!telephoneField.getText().matches("\\d{8,15}")) {
                 showErrorAlert("Le numéro de téléphone doit être composé de 8 à 15 chiffres.");
                 return;
             }
 
-            // Validate email format
             if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
                 showErrorAlert("Veuillez entrer un email valide.");
                 return;
             }
 
-            // Validate capacite and tarifNuit
             int capacite;
             double tarifNuit;
             try {
@@ -154,25 +169,21 @@ public class GesHeb implements Initializable {
                 return;
             }
 
-            // Handle image upload
             String imageUrl = "";
             if (selectedImageFile != null) {
                 String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
                 imageUrl = uploadResult[1];
             }
 
-            // Create and add new Hebergement
             Hebergement hebergement = new Hebergement(nomField.getText(), adresseField.getText(),
                     Integer.parseInt(telephoneField.getText()), emailField.getText(), capacite, tarifNuit, imageUrl);
             serviceHebergement.ajouter(hebergement);
 
-            // Show success alert
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Hébergement ajouté avec succès !");
             alert.showAndWait();
 
-            // Refresh data and reset form
             loadData();
             clearAddForm();
             closeSidePanel(null);
@@ -208,36 +219,149 @@ public class GesHeb implements Initializable {
 
         if (file != null) {
             try {
+                // Initialize PDF document
                 PdfWriter writer = new PdfWriter(file);
                 PdfDocument pdf = new PdfDocument(writer);
                 Document document = new Document(pdf);
 
-                document.add(new Paragraph("Liste des Hébergements"));
-                Table table = new Table(7);
-                table.addCell(new Cell().add(new Paragraph("ID")));
-                table.addCell(new Cell().add(new Paragraph("Nom")));
-                table.addCell(new Cell().add(new Paragraph("Adresse")));
-                table.addCell(new Cell().add(new Paragraph("Téléphone")));
-                table.addCell(new Cell().add(new Paragraph("Email")));
-                table.addCell(new Cell().add(new Paragraph("Capacité")));
-                table.addCell(new Cell().add(new Paragraph("Tarif Nuit")));
+                // Add header with logo and date
+                Table headerTable = new Table(UnitValue.createPercentArray(new float[]{20, 60, 20}));
+                headerTable.setWidth(UnitValue.createPercentValue(100));
 
-                for (Hebergement h : hebergements) {
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getId_hebergement()))));
-                    table.addCell(new Cell().add(new Paragraph(h.getNom())));
-                    table.addCell(new Cell().add(new Paragraph(h.getAdresse())));
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getTelephone()))));
-                    table.addCell(new Cell().add(new Paragraph(h.getEmail())));
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getCapacite()))));
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getTarif_nuit()))));
+                // Logo (assuming you have a logo file in your resources)
+                try {
+                    Image logo = new Image(getClass().getResource("/logo.png").toString());
+                    com.itextpdf.layout.element.Image pdfLogo =
+                            new com.itextpdf.layout.element.Image(ImageDataFactory.create(logo.getUrl()))
+                                    .setWidth(150)
+                                    .setHeight(150);
+                    headerTable.addCell(new Cell()
+                            .add(pdfLogo)
+                            .setVerticalAlignment(VerticalAlignment.MIDDLE));
+                } catch (Exception e) {
+                    headerTable.addCell(new Cell()
+                            .add(new Paragraph("Logo")));
+
+                }
+
+                // Title
+                headerTable.addCell(new Cell()
+                        .add(new Paragraph("Liste des Hébergements")
+                                .setFontSize(20)
+                                .setBold()
+                                .setFontColor(new DeviceRgb(0, 41, 102)))
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE));
+
+                // Date
+                headerTable.addCell(new Cell()
+                        .add(new Paragraph("Date: " + LocalDate.now().format(
+                                DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                                .setFontSize(10))
+                        .setTextAlignment(TextAlignment.RIGHT)
+                        .setVerticalAlignment(VerticalAlignment.MIDDLE));
+
+                document.add(headerTable);
+                document.add(new Paragraph(" ").setMarginBottom(10));
+
+                // Statistics Section
+                Table statsTable = new Table(UnitValue.createPercentArray(new float[]{33, 33, 33}));
+                statsTable.setWidth(UnitValue.createPercentValue(100));
+                statsTable.setMarginBottom(20);
+
+                statsTable.addCell(createStatCell("Total Hébergements",
+                        String.valueOf(serviceHebergement.getNombreTotalHebergements())));
+                statsTable.addCell(createStatCell("Tarif Moyen/Nuit",
+                        String.format("%.2f", serviceHebergement.getTarifMoyenParNuit())));
+                statsTable.addCell(createStatCell("Capacité Totale",
+                        String.valueOf(serviceHebergement.getCapaciteTotale())));
+
+                document.add(statsTable);
+
+                // Main Table
+                float[] columnWidths = {40, 90, 90, 70, 90, 60, 70};
+                Table table = new Table(columnWidths);
+                table.setWidth(UnitValue.createPercentValue(100));
+                table.setBorder(new SolidBorder(new DeviceRgb(0, 41, 102), 1));
+
+                // Add table headers with modern styling
+                String[] headers = {"ID", "Nom", "Adresse", "Téléphone", "Email", "Capacité", "Tarif/Nuit"};
+                PdfFont headerFont = PdfFontFactory.createFont(StandardFonts.HELVETICA_BOLD);
+                for (String header : headers) {
+                    Cell headerCell = new Cell()
+                            .add(new Paragraph(header)
+                                    .setFont(headerFont)
+                                    .setFontSize(11))
+                            .setBackgroundColor(new DeviceRgb(0, 41, 102))
+                            .setFontColor(DeviceRgb.WHITE)
+                            .setTextAlignment(TextAlignment.CENTER)
+                            .setPadding(8)
+                            .setBorder(new SolidBorder(new DeviceRgb(255, 255, 255), 0.5f));
+                    table.addHeaderCell(headerCell);
+                }
+
+                // Add data rows with modern styling
+                PdfFont bodyFont = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+                boolean alternate = true;
+                for (Hebergement hebergement : hebergements) {
+                    table.addCell(createModernCell(String.valueOf(hebergement.getId_hebergement()), alternate, bodyFont));
+                    table.addCell(createModernCell(hebergement.getNom(), alternate, bodyFont));
+                    table.addCell(createModernCell(hebergement.getAdresse(), alternate, bodyFont));
+                    table.addCell(createModernCell(String.valueOf(hebergement.getTelephone()), alternate, bodyFont));
+                    table.addCell(createModernCell(hebergement.getEmail(), alternate, bodyFont));
+                    table.addCell(createModernCell(String.valueOf(hebergement.getCapacite()), alternate, bodyFont));
+                    table.addCell(createModernCell(String.format("%.2f TND", hebergement.getTarif_nuit()), alternate, bodyFont));
+                    alternate = !alternate;
                 }
 
                 document.add(table);
+
+                // Add footer with page number and additional info
+                pdf.addEventHandler(PdfDocumentEvent.END_PAGE, new IEventHandler() {
+                    @Override
+                    public void handleEvent(Event event) {
+                        PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
+                        PdfPage page = docEvent.getPage();
+                        PdfCanvas canvas = new PdfCanvas(page);
+                        int pageNumber = pdf.getPageNumber(page);
+                        Rectangle pageSize = page.getPageSize();
+
+                        try {
+                            PdfFont footerFont = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+                            canvas.beginText()
+                                    .setFontAndSize(footerFont, 9)
+                                    .setColor(DeviceRgb.BLACK, true);
+
+                            // Left footer
+                            canvas.moveText(36, 20)
+                                    .showText("Généré par: Elyes Msehli")
+                                    .endText();
+
+                            // Center page number
+                            canvas.beginText()
+                                    .moveText(pageSize.getWidth() / 2 - 20, 20)
+                                    .showText("Page " + pageNumber + " / " + pdf.getNumberOfPages())
+                                    .endText();
+
+                            // Right footer
+                            canvas.beginText()
+                                    .moveText(pageSize.getWidth() - 150, 20)
+                                    .showText("Contact: support@medtravel.com")
+                                    .endText();
+
+                            canvas.stroke();
+                            canvas.release();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+
                 document.close();
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Succès");
-                alert.setContentText("Le PDF a été téléchargé avec succès !");
+                alert.setContentText("Le PDF a été généré avec succès !");
                 alert.showAndWait();
 
             } catch (Exception e) {
@@ -246,11 +370,54 @@ public class GesHeb implements Initializable {
         }
     }
 
+    // Helper method for statistic cells
+    private Cell createStatCell(String title, String value) {
+        return new Cell()
+                .add(new Paragraph(title)
+                        .setFontSize(10)
+                        .setFontColor(DeviceRgb.BLACK))
+                .add(new Paragraph(value)
+                        .setFontSize(14)
+                        .setBold()
+                        .setFontColor(new DeviceRgb(0, 41, 102)))
+                .setTextAlignment(TextAlignment.CENTER)
+                .setPadding(5)
+                .setBorder(new SolidBorder(new DeviceRgb(230, 230, 230), 1));
+    }
+
+    // Helper method for modern table cells
+    private Cell createModernCell(String content, boolean alternate, PdfFont font) {
+        Cell cell = new Cell()
+                .add(new Paragraph(content)
+                        .setFont(font)
+                        .setFontSize(10))
+                .setPadding(6)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setBorder(new SolidBorder(new DeviceRgb(230, 230, 230), 0.5f));
+
+        if (alternate) {
+            cell.setBackgroundColor(new DeviceRgb(245, 248, 255));
+        } else {
+            cell.setBackgroundColor(DeviceRgb.WHITE);
+        }
+        return cell;
+    }
+    // Helper method to create styled table cells
+    private Cell createCell(String content, boolean alternate) {
+        Cell cell = new Cell()
+                .add(new Paragraph(content))
+                .setPadding(5)
+                .setTextAlignment(TextAlignment.CENTER);
+        if (alternate) {
+            cell.setBackgroundColor(new DeviceRgb(235, 245, 255));
+        }
+        return cell;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sidePanel.setVisible(false);
 
-        // Set up table columns
         colId.setCellValueFactory(new PropertyValueFactory<>("id_hebergement"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
@@ -291,19 +458,15 @@ public class GesHeb implements Initializable {
             }
         });
 
-        // Load initial data
         loadData();
 
-        // Search listener
         search_input.textProperty().addListener((observable, oldValue, newValue) -> filterHebergementList(newValue));
 
-        // Reset search
         cancel_search.setOnAction(e -> {
             search_input.clear();
             filterHebergementList("");
         });
 
-        // Add button action
         add.setOnAction(this::handleAdd);
     }
 
@@ -312,7 +475,6 @@ public class GesHeb implements Initializable {
             hebergements.setAll(serviceHebergement.recuperer());
             tabview.setItems(hebergements);
 
-            // Update statistics
             int totalHebergements = serviceHebergement.getNombreTotalHebergements();
             double avgTarif = serviceHebergement.getTarifMoyenParNuit();
             int totalCapacity = serviceHebergement.getCapaciteTotale();
@@ -379,26 +541,22 @@ public class GesHeb implements Initializable {
 
     private void handleSubmitUpdate(Hebergement hebergement) {
         try {
-            // Input validation
             if (nomField.getText().isEmpty() || adresseField.getText().isEmpty() || telephoneField.getText().isEmpty() ||
                     emailField.getText().isEmpty() || capaciteField.getText().isEmpty() || tarifNuitField.getText().isEmpty()) {
                 showErrorAlert("Tous les champs sont obligatoires !");
                 return;
             }
 
-            // Validate phone number
             if (!telephoneField.getText().matches("\\d{8,15}")) {
                 showErrorAlert("Le numéro de téléphone doit être composé de 8 à 15 chiffres.");
                 return;
             }
 
-            // Validate email
             if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
                 showErrorAlert("Veuillez entrer un email valide.");
                 return;
             }
 
-            // Validate capacite and tarifNuit
             int capacite;
             double tarifNuit;
             try {
@@ -413,14 +571,12 @@ public class GesHeb implements Initializable {
                 return;
             }
 
-            // Handle image upload
             String imageUrl = hebergement.getPhotoUrl();
             if (selectedImageFile != null) {
                 String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
                 imageUrl = uploadResult[1];
             }
 
-            // Update hebergement
             hebergement.setNom(nomField.getText());
             hebergement.setAdresse(adresseField.getText());
             hebergement.setTelephone(Integer.parseInt(telephoneField.getText()));
