@@ -313,7 +313,7 @@ public class CliniquesParSpecialiteController {
             System.out.println("Photo URL: " + clinique.getPhotoUrl());
 
             // Image of the clinic
-            String imageUrl = clinique.getPhotoUrl() != null ? clinique.getPhotoUrl() : "clinique2.png";  // Fallback if no photo
+            String imageUrl = clinique.getPhotoUrl() != null ? clinique.getPhotoUrl() : "clinique.png";  // Fallback if no photo
             ImageView imageView = new ImageView(new Image(imageUrl));
             imageView.setFitHeight(100);
             imageView.setFitWidth(100);

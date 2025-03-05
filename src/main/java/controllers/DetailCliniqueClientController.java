@@ -76,7 +76,7 @@ public class DetailCliniqueClientController {
 
     public void afficherDetails(Clinique clinique, int specialiteId) throws SQLException {
 
-        String imageUrl = clinique.getPhotoUrl() != null ? clinique.getPhotoUrl() : "clinique2.png";  // Fallback if no photo
+        String imageUrl = clinique.getPhotoUrl() != null ? clinique.getPhotoUrl() : "clinique.png";  // Fallback if no photo
         cliniqueImageView.setImage(new Image(imageUrl));
 
 
