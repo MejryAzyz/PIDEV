@@ -4,50 +4,34 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientTransport">
+<AnchorPane prefHeight="800.0" prefWidth="1100.0" styleClass="root" stylesheets="style3.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ClientTransport">
 
-    <VBox alignment="TOP_CENTER" layoutX="223.0" layoutY="57.0" prefHeight="526.0" prefWidth="658.0" spacing="20">
+    <!-- Modern Navigation Bar -->
+    <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="1100.0" styleClass="nav-bar">
+        <padding>
+            <Insets bottom="10" left="20" right="20" top="10" />
+        </padding>
+        <TextField fx:id="searchBar" prefWidth="400.0" promptText="Search transport..." styleClass="modern-search-bar" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button styleClass="filter-button" text="Filter" />
+    </HBox>
 
-        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Transports Disponibles" />
+    <!-- Main Content -->
+    <VBox alignment="TOP_CENTER" layoutY="70.0" maxHeight="Infinity" prefWidth="1100.0" spacing="20">
+        <Label styleClass="modern-title" text="Available Transports" />
 
-        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-border-color: transparent;">
-            <VBox fx:id="transportContainer" spacing="15" style="-fx-background-color: #ffffff; -fx-border-radius: 10px; -fx-padding: 20px;">
-                <!-- Les cartes de transport seront ajoutées ici dynamiquement par le contrôleur -->
+        <!-- Scrollable transport container -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" maxHeight="Infinity" prefWidth="1100.0" styleClass="modern-scroll-pane" vbarPolicy="AS_NEEDED">
+            <VBox fx:id="transportContainer" spacing="15" styleClass="card-grid">
+                <!-- Transport cards will be added dynamically here -->
             </VBox>
         </ScrollPane>
     </VBox>
-   <VBox prefHeight="600.0" prefWidth="170.0" style="-fx-background-color: #0ba84a;">
-      <children>
-         <VBox prefHeight="114.0" prefWidth="202.0" />
-         <VBox prefHeight="158.0" prefWidth="110.0">
-            <children>
-               <Line endX="100.0" startX="-100.0" stroke="WHITE" />
-               <Button mnemonicParsing="false" onAction="#navH" prefHeight="38.0" prefWidth="172.0" style="-fx-background-color: #0ba84a;" text="Liste Hebergement" textFill="WHITE">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-                  <VBox.margin>
-                     <Insets left="15.0" />
-                  </VBox.margin>
-               </Button>
-               <Line endX="100.0" startX="-100.0" stroke="WHITE" />
-               <Button mnemonicParsing="false" prefHeight="38.0" prefWidth="172.0" style="-fx-background-color: #0ba84a;" text="Liste Transport" textFill="WHITE">
-                  <font>
-                     <Font size="16.0" />
-                  </font>
-                  <padding>
-                     <Insets left="20.0" />
-                  </padding>
-               </Button>
-               <Line endX="100.0" startX="-100.0" stroke="WHITE" />
-            </children>
-         </VBox>
-      </children>
-   </VBox>
 
 </AnchorPane>

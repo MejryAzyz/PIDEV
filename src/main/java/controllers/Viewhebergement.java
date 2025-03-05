@@ -12,7 +12,7 @@ import Models.Hebergement;
 
 import java.io.IOException;
 
-public class Viewhebergement {
+public class Viewhebergement  {
 
     @FXML
     private Label titreLabel, nomLabel, adresseLabel, tarifLabel;

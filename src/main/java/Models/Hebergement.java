@@ -9,7 +9,14 @@ public class Hebergement {
     private int capacite;
     private double tarif_nuit;
     private String photoUrl;
+    private double latitude;
+    private double longitude;
+    // ... other fields and getters/setters ...
 
+    public double getLatitude() { return latitude; }
+    public double getLongitude() { return longitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
     public Hebergement(String text, String text1, int i, String text2, int i1, double v, String photoUrl) {
         this.nom = text;
         this.adresse = text1;
