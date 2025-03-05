@@ -1,6 +1,6 @@
 /* Style pour les barres du graphique */
 .chart-bar {
-    -fx-bar-fill: rgb(85, 128, 202); /* Vert */
+    -fx-bar-fill: rgb(74, 167, 228); /* Vert */
 }
 
 /* Style pour les barres au survol (hover) */
