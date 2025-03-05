@@ -11,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import Models.Transport;
 import service.ServiceTransport;
@@ -21,7 +20,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class GesTransport implements Initializable {
-
 
     @FXML
     private TableView<Transport> tabview;
@@ -68,6 +66,16 @@ public class GesTransport implements Initializable {
     @FXML
     private Button submitAddButton;
 
+    // Statistics Labels
+    @FXML
+    private Label totalTransportsLabel;
+
+    @FXML
+    private Label avgPriceLabel;
+
+    @FXML
+    private Label totalCapacityLabel;
+
     private ObservableList<Transport> transports = FXCollections.observableArrayList();
     private ServiceTransport serviceTransport = new ServiceTransport();
 
@@ -77,7 +85,6 @@ public class GesTransport implements Initializable {
             // Retrieve selected transport type from ComboBox
             String type = transportTypeField.getValue();
             if (type == null || type.isEmpty()) {
-                // Show error if no transport type is selected
                 showErrorAlert("Veuillez sélectionner un type de transport.");
                 return;
             }
@@ -112,15 +119,15 @@ public class GesTransport implements Initializable {
             alert.setContentText("Transport ajouté avec succès !");
             alert.showAndWait();
 
-            // Clear the fields after adding
+            // Clear the fields and refresh data
             clearAddForm();
+            loadData();
+            closeSidePanel(null);
 
         } catch (Exception e) {
-            // Show generic error alert if any other exception occurs
             showErrorAlert(e.getMessage());
         }
     }
-
 
     // Show error alert with a custom message
     private void showErrorAlert(String message) {
@@ -130,7 +137,6 @@ public class GesTransport implements Initializable {
         alert.showAndWait();
     }
 
-    // Close the side panel (optional, depending on your UI design)
     @FXML
     private void closeSidePanel(ActionEvent event) {
         // Slide out the side panel
@@ -139,6 +145,7 @@ public class GesTransport implements Initializable {
         slideOutTransition.setOnFinished(e -> sidePanel.setVisible(false));  // Hide the panel after sliding out
         slideOutTransition.play();
     }
+
     private void handleSubmitUpdate(Transport transport) {
         try {
             // Get the new values from the input fields
@@ -176,7 +183,7 @@ public class GesTransport implements Initializable {
 
             // Update the transport in the service and refresh the table
             serviceTransport.modifier(transport);
-            loadData();  // Reload data to reflect the changes in the table
+            loadData();  // Reload data to reflect the changes
 
             // Close the side panel
             closeSidePanel(null);
@@ -204,7 +211,7 @@ public class GesTransport implements Initializable {
         slideInTransition.setToX(0); // Slide in from the right
         slideInTransition.play();
 
-        // Optionally, update the button action to handle the modification
+        // Update the button action to handle modification
         submitAddButton.setOnAction(event -> handleSubmitUpdate(transport));
     }
 
@@ -219,6 +226,7 @@ public class GesTransport implements Initializable {
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colPrix.setCellValueFactory(new PropertyValueFactory<>("tarif"));
         sidePanel.setVisible(false);
+
         // Add action buttons in the table's row
         colActions.setCellFactory(col -> new TableCell<Transport, String>() {
             @Override
@@ -270,13 +278,23 @@ public class GesTransport implements Initializable {
         add.setOnAction(this::handleAdd);
 
         // Submitting new transport
-        submitAddButton.setOnAction(this::handleSubmitAdd);
+        submitAddButton.setOnAction(this::addTransport);
     }
 
     private void loadData() {
         try {
             transports.setAll(serviceTransport.recuperer());
             tabview.setItems(transports);
+
+            // Update statistics
+            int totalTransports = serviceTransport.getNombreTotalTransport();
+            double avgPrice = serviceTransport.getTarifMoyenTransport();
+            int totalCapacity = serviceTransport.getTotalCapacity();
+
+            totalTransportsLabel.setText("Nombre de Transports: " + totalTransports);
+            avgPriceLabel.setText("Prix Moyen: " + String.format("%.2f", avgPrice));
+            totalCapacityLabel.setText("Somme de Capacité: " + totalCapacity);
+
         } catch (SQLException ex) {
             ex.printStackTrace();
             showAlert("Erreur lors du chargement des données.");
@@ -300,51 +318,26 @@ public class GesTransport implements Initializable {
         }
 
         tabview.setItems(displayedTransports);
-        tabview.refresh(); // Forces re-rendering of the TableView, including the action buttons
+        tabview.refresh(); // Forces re-rendering of the TableView
     }
 
     private void handleAdd(ActionEvent event) {
         // Slide in the side panel with transition
-        sidePanel.setVisible(true);  // Make sure the panel is visible
+        sidePanel.setVisible(true);
         TranslateTransition slideInTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
         slideInTransition.setToX(0); // Slide to the right
         slideInTransition.play();
-    }
 
-    private void handleSubmitAdd(ActionEvent event) {
-        // Logic to add a new transport
-        try {
-            String type = transportTypeField.getValue();
-            int capacity = Integer.parseInt(transportCapacityField.getText());
-            double price = Double.parseDouble(transportPriceField.getText());
-
-            Transport newTransport = new Transport(type, capacity, price);
-            serviceTransport.ajouter(newTransport); // Add the new transport to the database
-            transports.add(newTransport); // Add the new transport to the table view
-            loadData();  // Refresh data
-            clearAddForm();  // Clear form after submission
-            closeSidePanel(); // Close the side panel
-        } catch (Exception e) {
-            showAlert("Erreur lors de l'ajout du transport. Vérifiez les informations.");
-        }
+        // Reset the submit button to add functionality (in case it was set to update)
+        submitAddButton.setOnAction(this::addTransport);
     }
 
     private void clearAddForm() {
         // Clear the fields in the side panel form
-        transportTypeField.setValue(null);;
+        transportTypeField.setValue(null);
         transportCapacityField.clear();
         transportPriceField.clear();
     }
-
-    @FXML
-    private void closeSidePanel() {
-        TranslateTransition slideOutTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
-        slideOutTransition.setToX(sidePanel.getWidth()); // Slide out the panel to the right
-        slideOutTransition.setOnFinished(event -> sidePanel.setVisible(false)); // Hide the panel after the animation
-        slideOutTransition.play();
-    }
-
-
 
     private void handleDelete(Transport transport) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -357,7 +350,7 @@ public class GesTransport implements Initializable {
                 try {
                     serviceTransport.supprimer(transport.getId_transport());
                     transports.remove(transport);
-                    tabview.refresh();
+                    loadData(); // Refresh data and statistics
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     showAlert("Erreur lors de la suppression du transport.");

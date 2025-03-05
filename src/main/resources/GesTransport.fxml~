@@ -12,13 +12,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1032.0" stylesheets="style1.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GesTransport">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1032.0" stylesheets="style1.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GesTransport">
     <children>
-        <!-- Barre latérale (Sidebar) -->
+        <!-- Barre latérale -->
         <VBox fx:id="Vbar" prefHeight="582.0" prefWidth="202.0" spacing="8.0">
             <children>
                 <AnchorPane prefHeight="184.0" prefWidth="202.0">
@@ -138,19 +137,18 @@
                 </Label>
             </children>
         </VBox>
-
         <!-- Zone principale -->
         <VBox layoutX="201.0" layoutY="1.0" prefHeight="581.0" prefWidth="832.0" AnchorPane.topAnchor="0.0">
             <children>
                 <!-- Barre de recherche -->
                 <AnchorPane fx:id="Hbar" prefHeight="59.0" prefWidth="832.0">
                     <children>
-                        <TextField fx:id="search_input" layoutX="12.0" layoutY="17.0" prefHeight="31.0" prefWidth="286.0" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent #e6f0ff #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
+                        <TextField fx:id="search_input" layoutX="12.0" layoutY="17.0" prefHeight="31.0" prefWidth="286.0" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </TextField>
-                        <Button fx:id="search_button" layoutX="327.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff #e6f0ff #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
+                        <Button fx:id="search_button" layoutX="327.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -171,32 +169,7 @@
                 <!-- Zone du tableau -->
                 <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #cee1ff;">
                     <children>
-                        <!-- Statistics Cards -->
-                        <HBox layoutX="16.0" layoutY="14.0" prefHeight="50.0" prefWidth="757.0" spacing="20">
-                            <children>
-                                <!-- Card 1: Number of Transports -->
-                                <VBox alignment="CENTER" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
-                                    <children>
-                                        <Label fx:id="totalTransportsLabel" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Nombre de Transports: 0" />
-                                    </children>
-                                </VBox>
-                                <!-- Card 2: Average Price -->
-                                <VBox alignment="CENTER" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
-                                    <children>
-                                        <Label fx:id="avgPriceLabel" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Prix Moyen: 0.0" />
-                                    </children>
-                                </VBox>
-                                <!-- Card 3: Total Capacity -->
-                                <VBox alignment="CENTER" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
-                                    <children>
-                                        <Label fx:id="totalCapacityLabel" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Somme de Capacité: 0" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-
-                        <!-- TableView -->
-                        <TableView fx:id="tabview" layoutX="16.0" layoutY="100.0" prefHeight="422.0" prefWidth="757.0">
+                        <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="448.0" prefWidth="757.0">
                             <columns>
                                 <TableColumn fx:id="colId" prefWidth="50" text="ID" />
                                 <TableColumn fx:id="colType" prefWidth="150" text="Type" />
@@ -205,19 +178,17 @@
                                 <TableColumn fx:id="colActions" prefWidth="150" text="Actions" />
                             </columns>
                         </TableView>
-
-                        <!-- Bouton d'action "ajouter" -->
-                        <Button fx:id="add" layoutX="35.0" layoutY="71.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
+                        <!-- Bouton d'action "ajouter" reste ici -->
+                        <Button fx:id="add" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Button>
+
                     </children>
                 </AnchorPane>
             </children>
         </VBox>
-
-        <!-- Side Panel -->
         <VBox fx:id="sidePanel" alignment="CENTER_LEFT" layoutY="56.8" prefHeight="523.0" prefWidth="300" spacing="15" style="-fx-background-color: #cee1ff; -fx-padding: 20; -fx-border-radius: 10; -fx-border-color: #002966;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
             <!-- Transport Form -->
             <Label text="Type de Transport" />
@@ -243,7 +214,7 @@
             <!-- Submit Button -->
             <Button fx:id="submitAddButton" onAction="#addTransport" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Ajouter" />
 
-            <!-- Close Button -->
+            <!-- Close Button (optional) -->
             <Button onAction="#closeSidePanel" prefWidth="250" style="-fx-background-color: #FF6F61; -fx-text-fill: white;" text="Fermer" />
         </VBox>
     </children>
