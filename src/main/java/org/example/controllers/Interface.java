@@ -219,7 +219,7 @@ public class Interface {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Format invalide");
             alert.setHeaderText(null);
-            alert.setContentText("Le champ hébergement doit être un nombre !");
+            alert.setContentText("Le champ hébergement doit être un nombre ");
             alert.showAndWait();
             return;
         }
