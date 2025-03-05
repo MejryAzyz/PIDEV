@@ -421,7 +421,7 @@
                      </font>
                   </Button>
                   <Button fx:id="voirStatistiques" layoutX="70.0" layoutY="134.0" mnemonicParsing="false"
-                          prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #4CAF50;
+                          prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: rgba(149,147,147,0.58);
         -fx-background-radius: 60; -fx-border-radius: 60;" text="Voir Statistiques"
                           textAlignment="CENTER" textFill="WHITE" onAction="#ouvrirStatistiques">
                      <font>
