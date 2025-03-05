@@ -184,6 +184,12 @@
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Button>
+                        <Button fx:id="downloadPdfButton" layoutX="98.0" layoutY="14.0" mnemonicParsing="false" onAction="#handlePdfDownload" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="↓" textAlignment="CENTER" textFill="WHITE">
+                            <font>
+                                <Font name="System Bold" size="15.0" />
+                            </font>
+                        </Button>
+
 
                     </children>
                 </AnchorPane>
