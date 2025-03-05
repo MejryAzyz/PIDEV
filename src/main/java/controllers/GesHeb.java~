@@ -196,6 +196,7 @@ public class GesHeb implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set up the table columns
+        sidePanel.setVisible(false);
         colId.setCellValueFactory(new PropertyValueFactory<>("id_hebergement"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));

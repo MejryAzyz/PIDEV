@@ -9,6 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -140,12 +141,12 @@
                 <!-- Barre de recherche -->
                 <AnchorPane fx:id="Hbar" prefHeight="59.0" prefWidth="832.0">
                     <children>
-                        <TextField fx:id="search_input" layoutX="12.0" layoutY="17.0" prefHeight="31.0" prefWidth="286.0" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent  #e6f0ff  #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
+                        <TextField fx:id="search_input" layoutX="12.0" layoutY="17.0" prefHeight="31.0" prefWidth="286.0" style="-fx-font-size: 11; -fx-background-color: transparent; -fx-border-color: #e6f0ff transparent #e6f0ff #e6f0ff; -fx-border-radius: 13 0 0 13; -fx-background-radius: 13 0 0 13; -fx-border-width: 2;">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>
                         </TextField>
-                        <Button fx:id="search_button" layoutX="327.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff  #e6f0ff  #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
+                        <Button fx:id="search_button" layoutX="327.0" layoutY="17.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="36.0" style="-fx-background-color: transparent; -fx-border-color: #e6f0ff #e6f0ff #e6f0ff transparent; -fx-border-radius: 0 13 13 0; -fx-background-radius: 0 13 13 0; -fx-border-width: 2;" text="🔍" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -166,7 +167,31 @@
                 <!-- Zone du tableau -->
                 <AnchorPane prefHeight="523.0" prefWidth="832.0" style="-fx-background-color: #cee1ff;">
                     <children>
-                        <TableView fx:id="tabview" layoutX="16.0" layoutY="53.0" prefHeight="448.0" prefWidth="757.0">
+                        <!-- Statistics Cards -->
+                        <HBox layoutX="16.0" layoutY="14.0" prefHeight="50.0" prefWidth="757.0" spacing="20">
+                            <children>
+                                <!-- Card 1: Number of Hebergements -->
+                                <VBox alignment="CENTER" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                                    <children>
+                                        <Label fx:id="totalHebergementsLabel" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Nombre d'Hébergements: 0" />
+                                    </children>
+                                </VBox>
+                                <!-- Card 2: Average Nightly Rate -->
+                                <VBox alignment="CENTER" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                                    <children>
+                                        <Label fx:id="avgTarifLabel" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Tarif Moyen Nuit: 0.0" />
+                                    </children>
+                                </VBox>
+                                <!-- Card 3: Total Capacity -->
+                                <VBox alignment="CENTER" prefHeight="50.0" prefWidth="230.0" style="-fx-background-color: #ffffff; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;">
+                                    <children>
+                                        <Label fx:id="totalCapacityLabel" style="-fx-font-weight: bold; -fx-font-size: 14;" text="Capacité Totale: 0" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <TableView fx:id="tabview" layoutX="16.0" layoutY="106.0" prefHeight="422.0" prefWidth="757.0">
                             <columns>
                                 <TableColumn fx:id="colId" prefWidth="50" text="ID" />
                                 <TableColumn fx:id="colNom" prefWidth="100" text="Nom" />
@@ -178,18 +203,16 @@
                                 <TableColumn fx:id="colActions" prefWidth="100" text="Actions" />
                             </columns>
                         </TableView>
-                        <Button fx:id="add" layoutX="48.0" layoutY="14.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="add" layoutX="47.0" layoutY="69.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Button>
-                        <Button fx:id="downloadPdfButton" layoutX="98.0" layoutY="14.0" mnemonicParsing="false" onAction="#handlePdfDownload" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="↓" textAlignment="CENTER" textFill="WHITE">
+                        <Button fx:id="downloadPdfButton" layoutX="91.0" layoutY="69.0" mnemonicParsing="false" onAction="#handlePdfDownload" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="↓" textAlignment="CENTER" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="15.0" />
                             </font>
                         </Button>
-
-
                     </children>
                 </AnchorPane>
             </children>
@@ -197,29 +220,23 @@
         <VBox fx:id="sidePanel" alignment="CENTER_LEFT" layoutY="56.8" prefHeight="523.0" prefWidth="300" spacing="3.0" style="-fx-background-color: #cee1ff; -fx-padding: 20; -fx-border-radius: 10; -fx-border-color: #002966;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="57.0">
             <!-- Hebergement Form -->
             <Label text="Nom de l'hébergement" />
-            <TextField fx:id="nomField" prefWidth="250" promptText="Nom de l'hébergement" text="nns" />
-
+            <TextField fx:id="nomField" prefWidth="250" promptText="Nom de l'hébergement" />
             <Label text="Adresse" />
             <TextField fx:id="adresseField" prefWidth="250" promptText="Adresse" />
-
             <Label text="Téléphone" />
             <TextField fx:id="telephoneField" prefWidth="250" promptText="Numéro de téléphone" />
-
             <Label text="Email" />
             <TextField fx:id="emailField" prefWidth="250" promptText="Email" />
-
             <Label text="Capacité" />
             <TextField fx:id="capaciteField" prefWidth="250" promptText="Ex: 100" />
-
             <Label text="Tarif Nuit" />
             <TextField fx:id="tarifNuitField" prefWidth="250" promptText="Ex: 100" />
             <Label text="Upload Image" />
             <Button fx:id="uploadImageButton" onAction="#handleImageUpload" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Upload Image" />
-            <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="250.0" layoutX="25.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" />
             <!-- Submit Button -->
             <Button fx:id="submitAddButton" onAction="#addHebergement" prefWidth="250" style="-fx-background-color: #002066; -fx-text-fill: white;" text="Ajouter" />
-
-            <!-- Close Button (optional) -->
+            <!-- Close Button -->
             <Button onAction="#closeSidePanel" prefWidth="250" style="-fx-background-color: #FF6F61; -fx-text-fill: white;" text="Fermer" />
         </VBox>
     </children>

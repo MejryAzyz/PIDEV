@@ -28,9 +28,9 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.element.Cell;
-import javafx.stage.FileChooser;
 
 public class GesHeb implements Initializable {
+
     @FXML
     private ImageView imageView;
 
@@ -39,7 +39,7 @@ public class GesHeb implements Initializable {
 
     @FXML
     private TableColumn<Hebergement, Integer> colId;
-    private File selectedImageFile;
+
     @FXML
     private TableColumn<Hebergement, String> colNom;
 
@@ -47,7 +47,7 @@ public class GesHeb implements Initializable {
     private TableColumn<Hebergement, String> colAdresse;
 
     @FXML
-    private TableColumn<Hebergement, String> colTelephone;
+    private TableColumn<Hebergement, Integer> colTelephone;
 
     @FXML
     private TableColumn<Hebergement, String> colEmail;
@@ -74,6 +74,9 @@ public class GesHeb implements Initializable {
     private Button add;
 
     @FXML
+    private Button downloadPdfButton;
+
+    @FXML
     private VBox sidePanel;
 
     @FXML
@@ -97,27 +100,38 @@ public class GesHeb implements Initializable {
     @FXML
     private Button submitAddButton;
 
+    @FXML
+    private Button uploadImageButton;
+
+    // Statistics Labels
+    @FXML
+    private Label totalHebergementsLabel;
+
+    @FXML
+    private Label avgTarifLabel;
+
+    @FXML
+    private Label totalCapacityLabel;
+
     private ObservableList<Hebergement> hebergements = FXCollections.observableArrayList();
     private ServiceHebergement serviceHebergement = new ServiceHebergement();
-
+    private File selectedImageFile;
 
     @FXML
     void addHebergement(ActionEvent event) {
         try {
-            // Input validation for fields
+            // Input validation
             if (nomField.getText().isEmpty() || adresseField.getText().isEmpty() || telephoneField.getText().isEmpty() ||
                     emailField.getText().isEmpty() || capaciteField.getText().isEmpty() || tarifNuitField.getText().isEmpty()) {
                 showErrorAlert("Tous les champs sont obligatoires !");
                 return;
             }
 
-            // Validate telephone field (should be a valid phone number)
-            // Validate the phone number (only digits, length between 8 and 15)
-            if (telephoneField.getText().isEmpty() || !telephoneField.getText().matches("\\d{8,15}")) {
-                showErrorAlert("Le numéro de téléphone doit être composé uniquement de chiffres et avoir entre 8 et 15 caractères.");
+            // Validate phone number (digits only, 8-15 characters)
+            if (!telephoneField.getText().matches("\\d{8,15}")) {
+                showErrorAlert("Le numéro de téléphone doit être composé de 8 à 15 chiffres.");
                 return;
             }
-
 
             // Validate email format
             if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
@@ -125,15 +139,14 @@ public class GesHeb implements Initializable {
                 return;
             }
 
-            // Validate capacite and tarifNuit (should be positive numbers)
+            // Validate capacite and tarifNuit
             int capacite;
             double tarifNuit;
             try {
                 capacite = Integer.parseInt(capaciteField.getText());
                 tarifNuit = Double.parseDouble(tarifNuitField.getText());
-
                 if (capacite <= 0 || tarifNuit <= 0) {
-                    showErrorAlert("La capacité et le tarif doivent être des nombres positifs.");
+                    showErrorAlert("La capacité et le tarif doivent être positifs.");
                     return;
                 }
             } catch (NumberFormatException e) {
@@ -141,19 +154,17 @@ public class GesHeb implements Initializable {
                 return;
             }
 
-            // Upload image
-            String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
-            String imageUrl = uploadResult[1];
+            // Handle image upload
+            String imageUrl = "";
+            if (selectedImageFile != null) {
+                String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
+                imageUrl = uploadResult[1];
+            }
 
-            // Create and add a new Hebergement object using the input data
-            Hebergement hebergement = new Hebergement(
-                    nomField.getText(), adresseField.getText(), Integer.parseInt(telephoneField.getText()),
-                    emailField.getText(), capacite, tarifNuit, imageUrl
-            );
-
+            // Create and add new Hebergement
+            Hebergement hebergement = new Hebergement(nomField.getText(), adresseField.getText(),
+                    Integer.parseInt(telephoneField.getText()), emailField.getText(), capacite, tarifNuit, imageUrl);
             serviceHebergement.ajouter(hebergement);
-
-            tabview.refresh();
 
             // Show success alert
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -161,42 +172,85 @@ public class GesHeb implements Initializable {
             alert.setContentText("Hébergement ajouté avec succès !");
             alert.showAndWait();
 
-            // Reload data
+            // Refresh data and reset form
             loadData();
-
-            // Clear form after submission
             clearAddForm();
-            closeSidePanel();
+            closeSidePanel(null);
 
         } catch (Exception e) {
-            showErrorAlert(e.getMessage());
+            showErrorAlert("Erreur lors de l'ajout : " + e.getMessage());
         }
     }
 
-// Other methods remain the same...
+    @FXML
+    private void handleImageUpload(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Sélectionner une image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif"));
+        selectedImageFile = fileChooser.showOpenDialog(null);
 
-
-    // Show error alert with a custom message
-    private void showErrorAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur");
-        alert.setContentText(message);
-        alert.showAndWait();
+        if (selectedImageFile != null) {
+            try {
+                Image image = new Image(selectedImageFile.toURI().toString());
+                imageView.setImage(image);
+            } catch (Exception e) {
+                showErrorAlert("Erreur de chargement de l'image : " + e.getMessage());
+            }
+        }
     }
 
-    // Close the side panel
     @FXML
-    private void closeSidePanel() {
-        TranslateTransition slideOutTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
-        slideOutTransition.setToX(sidePanel.getWidth());
-        slideOutTransition.setOnFinished(e -> sidePanel.setVisible(false));
-        slideOutTransition.play();
+    private void handlePdfDownload(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File file = fileChooser.showSaveDialog(null);
+
+        if (file != null) {
+            try {
+                PdfWriter writer = new PdfWriter(file);
+                PdfDocument pdf = new PdfDocument(writer);
+                Document document = new Document(pdf);
+
+                document.add(new Paragraph("Liste des Hébergements"));
+                Table table = new Table(7);
+                table.addCell(new Cell().add(new Paragraph("ID")));
+                table.addCell(new Cell().add(new Paragraph("Nom")));
+                table.addCell(new Cell().add(new Paragraph("Adresse")));
+                table.addCell(new Cell().add(new Paragraph("Téléphone")));
+                table.addCell(new Cell().add(new Paragraph("Email")));
+                table.addCell(new Cell().add(new Paragraph("Capacité")));
+                table.addCell(new Cell().add(new Paragraph("Tarif Nuit")));
+
+                for (Hebergement h : hebergements) {
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getId_hebergement()))));
+                    table.addCell(new Cell().add(new Paragraph(h.getNom())));
+                    table.addCell(new Cell().add(new Paragraph(h.getAdresse())));
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getTelephone()))));
+                    table.addCell(new Cell().add(new Paragraph(h.getEmail())));
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getCapacite()))));
+                    table.addCell(new Cell().add(new Paragraph(String.valueOf(h.getTarif_nuit()))));
+                }
+
+                document.add(table);
+                document.close();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Succès");
+                alert.setContentText("Le PDF a été téléchargé avec succès !");
+                alert.showAndWait();
+
+            } catch (Exception e) {
+                showErrorAlert("Erreur lors de la génération du PDF : " + e.getMessage());
+            }
+        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set up the table columns
         sidePanel.setVisible(false);
+
+        // Set up table columns
         colId.setCellValueFactory(new PropertyValueFactory<>("id_hebergement"));
         colNom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         colAdresse.setCellValueFactory(new PropertyValueFactory<>("adresse"));
@@ -204,6 +258,7 @@ public class GesHeb implements Initializable {
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colCapacite.setCellValueFactory(new PropertyValueFactory<>("capacite"));
         colTarifNuit.setCellValueFactory(new PropertyValueFactory<>("tarif_nuit"));
+
         colActions.setCellFactory(col -> new TableCell<Hebergement, String>() {
             @Override
             protected void updateItem(String item, boolean empty) {
@@ -236,21 +291,19 @@ public class GesHeb implements Initializable {
             }
         });
 
-        // Initial loading of data
+        // Load initial data
         loadData();
 
-        // Dynamic search listener
-        search_input.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterHebergementList(newValue);
-        });
+        // Search listener
+        search_input.textProperty().addListener((observable, oldValue, newValue) -> filterHebergementList(newValue));
 
-        // Reset table when search is cleared
+        // Reset search
         cancel_search.setOnAction(e -> {
             search_input.clear();
-            filterHebergementList("");  // Clear the search and reset to show all
+            filterHebergementList("");
         });
 
-        // Adding new hebergement
+        // Add button action
         add.setOnAction(this::handleAdd);
     }
 
@@ -258,6 +311,16 @@ public class GesHeb implements Initializable {
         try {
             hebergements.setAll(serviceHebergement.recuperer());
             tabview.setItems(hebergements);
+
+            // Update statistics
+            int totalHebergements = serviceHebergement.getNombreTotalHebergements();
+            double avgTarif = serviceHebergement.getTarifMoyenParNuit();
+            int totalCapacity = serviceHebergement.getCapaciteTotale();
+
+            totalHebergementsLabel.setText("Nombre d'Hébergements: " + totalHebergements);
+            avgTarifLabel.setText("Tarif Moyen Nuit: " + String.format("%.2f", avgTarif));
+            totalCapacityLabel.setText("Capacité Totale: " + totalCapacity);
+
         } catch (SQLException ex) {
             ex.printStackTrace();
             showErrorAlert("Erreur lors du chargement des données.");
@@ -266,98 +329,83 @@ public class GesHeb implements Initializable {
 
     private void filterHebergementList(String searchText) {
         ObservableList<Hebergement> displayedHebergements;
-
         if (searchText == null || searchText.isEmpty()) {
             displayedHebergements = FXCollections.observableArrayList(hebergements);
         } else {
             displayedHebergements = FXCollections.observableArrayList();
-            for (Hebergement hebergement : hebergements) {
-                if (hebergement.getNom().toLowerCase().contains(searchText.toLowerCase()) ||
-                        hebergement.getAdresse().toLowerCase().contains(searchText.toLowerCase()) ||
-                        String.valueOf(hebergement.getTelephone()).contains(searchText) ||
-                        hebergement.getEmail().toLowerCase().contains(searchText.toLowerCase()) ||
-                        String.valueOf(hebergement.getCapacite()).contains(searchText) ||
-                        String.valueOf(hebergement.getTarif_nuit()).contains(searchText)) {
-                    displayedHebergements.add(hebergement);
+            for (Hebergement h : hebergements) {
+                if (h.getNom().toLowerCase().contains(searchText.toLowerCase()) ||
+                        h.getAdresse().toLowerCase().contains(searchText.toLowerCase()) ||
+                        String.valueOf(h.getTelephone()).contains(searchText) ||
+                        h.getEmail().toLowerCase().contains(searchText.toLowerCase()) ||
+                        String.valueOf(h.getCapacite()).contains(searchText) ||
+                        String.valueOf(h.getTarif_nuit()).contains(searchText)) {
+                    displayedHebergements.add(h);
                 }
             }
         }
-
         tabview.setItems(displayedHebergements);
         tabview.refresh();
     }
 
     private void handleAdd(ActionEvent event) {
-        // Slide in the side panel with transition
         sidePanel.setVisible(true);
-        TranslateTransition slideInTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
-        slideInTransition.setToX(0);
-        slideInTransition.play();
+        TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), sidePanel);
+        slideIn.setToX(0);
+        slideIn.play();
+        submitAddButton.setOnAction(this::addHebergement);
     }
 
     private void handleUpdate(Hebergement hebergement) {
-        // Set the values in the side panel's fields based on the selected hebergement
         nomField.setText(hebergement.getNom());
         adresseField.setText(hebergement.getAdresse());
         telephoneField.setText(String.valueOf(hebergement.getTelephone()));
         emailField.setText(hebergement.getEmail());
         capaciteField.setText(String.valueOf(hebergement.getCapacite()));
         tarifNuitField.setText(String.valueOf(hebergement.getTarif_nuit()));
-
-        // Load the image for the selected hebergement (if any)
         if (hebergement.getPhotoUrl() != null && !hebergement.getPhotoUrl().isEmpty()) {
-            try {
-                Image image = new Image(hebergement.getPhotoUrl());  // Assuming getImageUrl() returns a valid image URL
-                imageView.setImage(image);
-            } catch (Exception e) {
-                // Handle errors if the image cannot be loaded
-                System.out.println("Erreur de chargement de l'image : " + e.getMessage());
-            }
+            imageView.setImage(new Image(hebergement.getPhotoUrl()));
+        } else {
+            imageView.setImage(null);
         }
 
-        // Show the side panel with a slide-in effect
         sidePanel.setVisible(true);
-        TranslateTransition slideInTransition = new TranslateTransition(Duration.seconds(0.5), sidePanel);
-        slideInTransition.setToX(0);
-        slideInTransition.play();
+        TranslateTransition slideIn = new TranslateTransition(Duration.seconds(0.5), sidePanel);
+        slideIn.setToX(0);
+        slideIn.play();
 
-        // Update button action to handle modification
         submitAddButton.setOnAction(event -> handleSubmitUpdate(hebergement));
     }
 
-
     private void handleSubmitUpdate(Hebergement hebergement) {
         try {
-            // Input validation for fields
+            // Input validation
             if (nomField.getText().isEmpty() || adresseField.getText().isEmpty() || telephoneField.getText().isEmpty() ||
                     emailField.getText().isEmpty() || capaciteField.getText().isEmpty() || tarifNuitField.getText().isEmpty()) {
                 showErrorAlert("Tous les champs sont obligatoires !");
                 return;
             }
 
-            // Validate telephone field (should be a valid phone number)
-            // Validate the phone number (only digits, length between 8 and 15)
-            if (telephoneField.getText().isEmpty() || !telephoneField.getText().matches("\\d{8,15}")) {
-                showErrorAlert("Le numéro de téléphone doit être composé uniquement de chiffres et avoir entre 8 et 15 caractères.");
+            // Validate phone number
+            if (!telephoneField.getText().matches("\\d{8,15}")) {
+                showErrorAlert("Le numéro de téléphone doit être composé de 8 à 15 chiffres.");
                 return;
             }
 
-
-            // Validate email format
+            // Validate email
             if (!emailField.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
                 showErrorAlert("Veuillez entrer un email valide.");
                 return;
             }
 
-            // Validate capacite and tarifNuit (should be positive numbers)
+            // Validate capacite and tarifNuit
             int capacite;
             double tarifNuit;
             try {
                 capacite = Integer.parseInt(capaciteField.getText());
                 tarifNuit = Double.parseDouble(tarifNuitField.getText());
-
                 if (capacite <= 0 || tarifNuit <= 0) {
-                    showErrorAlert("La capacité et le tarif doivent être des nombres positifs.");
+                    showErrorAlert("La capacité et le tarif doivent être positifs.");
                     return;
                 }
             } catch (NumberFormatException e) {
@@ -365,56 +413,35 @@ public class GesHeb implements Initializable {
                 return;
             }
 
-            // If a new image was uploaded, use the new image URL, otherwise retain the existing one
-            String imageUrl;
+            // Handle image upload
+            String imageUrl = hebergement.getPhotoUrl();
             if (selectedImageFile != null) {
-                // Upload the new image and get the URL
                 String[] uploadResult = ImageDbUtil.uploadFile(selectedImageFile.getAbsolutePath());
                 imageUrl = uploadResult[1];
-            } else {
-                // If no new image is uploaded, keep the existing image URL
-                imageUrl = hebergement.getPhotoUrl();
             }
 
-            // Update the hebergement object with new values
+            // Update hebergement
             hebergement.setNom(nomField.getText());
             hebergement.setAdresse(adresseField.getText());
             hebergement.setTelephone(Integer.parseInt(telephoneField.getText()));
             hebergement.setEmail(emailField.getText());
             hebergement.setCapacite(capacite);
             hebergement.setTarif_nuit(tarifNuit);
-            hebergement.setPhotoUrl(imageUrl);  // Update the image URL
+            hebergement.setPhotoUrl(imageUrl);
 
-            // Update in the service and reload data
             serviceHebergement.modifier(hebergement);
-
-            // Reload data to reflect changes
             loadData();
-
-            // Clear the form and close the side panel
             clearAddForm();
-            closeSidePanel();
+            closeSidePanel(null);
 
-            // Show success alert
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Succès");
             alert.setContentText("Hébergement mis à jour avec succès !");
             alert.showAndWait();
 
         } catch (Exception e) {
-            showErrorAlert(e.getMessage());
+            showErrorAlert("Erreur lors de la mise à jour : " + e.getMessage());
         }
-    }
-
-
-
-    private void clearAddForm() {
-        nomField.clear();
-        adresseField.clear();
-        telephoneField.clear();
-        emailField.clear();
-        capaciteField.clear();
-        tarifNuitField.clear();
     }
 
     private void handleDelete(Hebergement hebergement) {
@@ -427,96 +454,37 @@ public class GesHeb implements Initializable {
             if (response == ButtonType.OK) {
                 try {
                     serviceHebergement.supprimer(hebergement.getId_hebergement());
-                    hebergements.remove(hebergement);
-                    tabview.refresh();
+                    loadData();
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
-                    showErrorAlert("Erreur lors de la suppression de l'hébergement.");
+                    showErrorAlert("Erreur lors de la suppression : " + ex.getMessage());
                 }
             }
         });
     }
+
     @FXML
-    private void handlePdfDownload(ActionEvent event) {
-        // Use a file chooser to select the location where the PDF will be saved
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-        File file = fileChooser.showSaveDialog(null);
-
-        if (file != null) {
-            try {
-                // Create a PdfWriter instance to write to the file
-                PdfWriter writer = new PdfWriter(file);
-                PdfDocument pdf = new PdfDocument(writer);
-                Document document = new Document(pdf);
-
-                // Add title
-                document.add(new Paragraph("Liste des Hébergements"));
-
-                // Create a table with the same columns as the table in your UI
-                Table table = new Table(7);  // Adjust the number of columns as needed
-                table.addCell(new Cell().add(new Paragraph("ID")));
-                table.addCell(new Cell().add(new Paragraph("Nom")));
-                table.addCell(new Cell().add(new Paragraph("Adresse")));
-                table.addCell(new Cell().add(new Paragraph("Téléphone")));
-                table.addCell(new Cell().add(new Paragraph("Email")));
-                table.addCell(new Cell().add(new Paragraph("Capacité")));
-                table.addCell(new Cell().add(new Paragraph("Tarif Nuit")));
-
-                // Add data for each hebergement
-                for (Hebergement hebergement : hebergements) {
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(hebergement.getId_hebergement()))));
-                    table.addCell(new Cell().add(new Paragraph(hebergement.getNom())));
-                    table.addCell(new Cell().add(new Paragraph(hebergement.getAdresse())));
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(hebergement.getTelephone()))));
-                    table.addCell(new Cell().add(new Paragraph(hebergement.getEmail())));
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(hebergement.getCapacite()))));
-                    table.addCell(new Cell().add(new Paragraph(String.valueOf(hebergement.getTarif_nuit()))));
-                }
-
-                // Add the table to the document
-                document.add(table);
-                document.close();
-
-                // Show success message
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Succès");
-                alert.setContentText("Le PDF a été téléchargé avec succès !");
-                alert.showAndWait();
-
-            } catch (Exception e) {
-                // Handle error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur");
-                alert.setContentText("Erreur lors de la génération du PDF : " + e.getMessage());
-                alert.showAndWait();
-            }
-        }
-    }
-    @FXML
-    public void handleImageUpload(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Sélectionner une image");
-
-        // Add the correct extension filters with an asterisk (*) before the extensions
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
-        );
-
-        selectedImageFile = fileChooser.showOpenDialog(null);
-
-        if (selectedImageFile != null) {
-            try {
-                // Display the image preview
-                Image image = new Image(selectedImageFile.toURI().toString());
-                imageView.setImage(image);
-            } catch (Exception e) {
-                // Handle errors in case the image cannot be loaded
-                System.out.println("Erreur de chargement de l'image : " + e.getMessage());
-            }
-        }
+    private void closeSidePanel(ActionEvent event) {
+        TranslateTransition slideOut = new TranslateTransition(Duration.seconds(0.5), sidePanel);
+        slideOut.setToX(sidePanel.getWidth());
+        slideOut.setOnFinished(e -> sidePanel.setVisible(false));
+        slideOut.play();
     }
 
-
+    private void clearAddForm() {
+        nomField.clear();
+        adresseField.clear();
+        telephoneField.clear();
+        emailField.clear();
+        capaciteField.clear();
+        tarifNuitField.clear();
+        imageView.setImage(null);
+        selectedImageFile = null;
     }
 
+    private void showErrorAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}
