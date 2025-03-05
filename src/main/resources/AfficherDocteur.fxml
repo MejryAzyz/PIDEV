@@ -34,7 +34,7 @@
             </TableColumn>
         </columns>
       </TableView>
-       <Button fx:id="add" layoutX="888.0" layoutY="95.0" mnemonicParsing="false" onAction="#ajouterDocteur" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="WHITE">
+       <Button fx:id="add" layoutX="888.0" layoutY="95.0" mnemonicParsing="false" onAction="#ajouterDocteur" prefHeight="33.0" prefWidth="36.0" style="-fx-background-color: rgb(166,164,164); -fx-background-radius: 60; -fx-border-radius: 60;" text="➕" textAlignment="CENTER" textFill="#1e1b7e">
            <font>
                <Font name="System Bold" size="15.0" />
            </font>
