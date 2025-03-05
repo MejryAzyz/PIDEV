@@ -10,6 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import models.Clinique;
 import models.Docteur;
@@ -44,6 +47,8 @@ public class AfficherDocteurController {
 
     @FXML
     private TableColumn<Docteur, String> telDocCol;
+    @FXML
+    private TableColumn<Docteur, String> colActions;
 
     private final ServiceDocteur serviceDocteur = new ServiceDocteur();
     private final ServiceSpecialite serviceSpecialite = new ServiceSpecialite();
@@ -70,6 +75,39 @@ public class AfficherDocteurController {
                 return new javafx.beans.property.SimpleStringProperty("N/A");
             }
         });
+        colActions.setCellFactory(param -> new TableCell<Docteur, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    return;
+                }
+
+                Docteur docteur = getTableView().getItems().get(getIndex());
+                Button btnUpdate = new Button("🔄");
+                btnUpdate.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
+                btnUpdate.setPrefHeight(33);
+                btnUpdate.setPrefWidth(36);
+                btnUpdate.setTextFill(Color.WHITE);
+                btnUpdate.setFont(Font.font("System Bold", 15));
+                btnUpdate.setOnAction(event -> openModifierDocteur(docteur));
+
+                Button btnDelete = new Button("❌");
+                btnDelete.setStyle("-fx-background-color: #002966; -fx-background-radius: 60; -fx-border-radius: 60;");
+                btnDelete.setPrefHeight(33);
+                btnDelete.setPrefWidth(36);
+                btnDelete.setTextFill(Color.WHITE);
+                btnDelete.setFont(Font.font("System Bold", 14));
+                btnDelete.setOnAction(event -> handleDeleteButton(docteur));
+
+                HBox pane = new HBox(btnUpdate, btnDelete);
+                pane.setSpacing(10);
+                setGraphic(pane);
+            }
+        });
+        table_docteur.setItems(docteurList);
+        loadDocteurs();
     }
 
     private void loadDocteurs() {
@@ -177,6 +215,46 @@ public class AfficherDocteurController {
             alert.setContentText("Veuillez sélectionner un docteur à supprimer.");
             alert.showAndWait();
         }
+    }
+
+    private void handleDeleteButton(Docteur docteur) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Suppression du docteur");
+        alert.setContentText("Voulez-vous vraiment supprimer le docteur " + docteur.getNom() + " " + docteur.getPrenom() + " ?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                serviceDocteur.supprimer(docteur.getId_docteur());
+                table_docteur.getItems().remove(docteur);
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Succès");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Docteur supprimé avec succès !");
+                successAlert.showAndWait();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void openModifierDocteur(Docteur docteur) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierDocteur.fxml"));
+            Parent root = loader.load();
+
+            ModifierDocteurController controller = loader.getController();
+            controller.setDocteur(docteur,this);
+
+            Stage stage = new Stage();
+            stage.setTitle("Modifier Docteur");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

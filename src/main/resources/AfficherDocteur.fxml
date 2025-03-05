@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane prefHeight="477.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AfficherDocteurController">
    <children>
       <AnchorPane layoutX="-3.0" prefHeight="95.0" prefWidth="738.0" style="-fx-background-color: #1e3c72;">
@@ -27,10 +28,15 @@
             <TableColumn fx:id="emailDocCol" minWidth="4.0" prefWidth="117.60003662109375" text="Email" />
             <TableColumn fx:id="telDocCol" prefWidth="129.60000610351562" text="Telephone" />
             <TableColumn fx:id="specDocCol" prefWidth="190.39996337890625" text="Spécialité" />
+            <TableColumn fx:id="colActions" prefWidth="170" text="Actions">
+                <cellValueFactory>
+                    <PropertyValueFactory property="actions" />
+                </cellValueFactory>
+            </TableColumn>
         </columns>
       </TableView>
-      <Button layoutX="134.0" layoutY="418.0" mnemonicParsing="false" onAction="#ajouterDocteur" style="-fx-background-color: #27ae60;" text="➕ Ajouter" textFill="WHITE" />
+      <!--<Button layoutX="134.0" layoutY="418.0" mnemonicParsing="false" onAction="#ajouterDocteur" style="-fx-background-color: rgba(30,27,126,0.79);" text="➕ Ajouter" textFill="WHITE" />
       <Button layoutX="331.0" layoutY="418.0" mnemonicParsing="false" onAction="#modifierDocteur" style="-fx-background-color: #2980b9;" text="✏ Modifier" textFill="WHITE" />
-      <Button layoutX="529.0" layoutY="418.0" mnemonicParsing="false" onAction="#supprimerDocteur" style="-fx-background-color: #e74c3c;" text="🗑 Supprimer" textFill="WHITE" />
+      <Button layoutX="529.0" layoutY="418.0" mnemonicParsing="false" onAction="#supprimerDocteur" style="-fx-background-color: rgba(65,65,71,0.38);" text="🗑 Supprimer" textFill="WHITE" />-->
    </children>
 </AnchorPane>
